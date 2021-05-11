@@ -1,4 +1,5 @@
 import tensorflow as tf
+
 physical_devices = tf.config.experimental.list_physical_devices('GPU')
 assert len(physical_devices) > 0, "Not enough GPU hardware devices available"
 config = tf.config.experimental.set_memory_growth(physical_devices[0], True)
@@ -40,6 +41,8 @@ def load(image_file):
 
 
 inp, re = load(PATH + 'train/00041.jpg.png')
+
+
 # casting to int for matplotlib to show the image
 # plt.figure()
 # plt.imshow(inp / 255.0)
@@ -278,6 +281,8 @@ def Discriminator():
 discriminator = Discriminator()
 tf.keras.utils.plot_model(discriminator, show_shapes=True, dpi=64)
 disc_out = discriminator([inp[tf.newaxis, ...], gen_output], training=False)
+
+
 # plt.imshow(disc_out[0, ..., -1], vmin=-20, vmax=20, cmap='RdBu_r')
 # plt.colorbar()
 
@@ -302,22 +307,23 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  discriminator=discriminator)
 
 
-def generate_images(model, test_input, tar, epoch = 0):
+def generate_images(model, test_input, tar, epoch=0):
     prediction = model(test_input, training=True)
 
-    if (epoch + 1) % 15 == 0:
-        plt.figure(figsize=(15, 15))
+    # if (epoch + 1) % 15 == 0:
+    plt.figure(figsize=(15, 15))
 
-        display_list = [test_input[0], tar[0], prediction[0]]
-        title = ['Input Image', 'Ground Truth', 'Predicted Image']
+    display_list = [test_input[0], tar[0], prediction[0]]
+    title = ['Input Image', 'Ground Truth', 'Predicted Image']
 
-        for i in range(3):
-            plt.subplot(1, 3, i + 1)
-            plt.title(title[i])
-            # getting the pixel values between [0, 1] to plot it.
-            plt.imshow(display_list[i] * 0.5 + 0.5)
-            plt.axis('off')
-        plt.show()
+    for i in range(3):
+        plt.subplot(1, 3, i + 1)
+        plt.title(title[i])
+        # getting the pixel values between [0, 1] to plot it.
+        plt.imshow(display_list[i] * 0.5 + 0.5)
+        plt.axis('off')
+    # plt.show()
+    plt.savefig('images/result/example' + str(epoch) + '.jpg')
 
 
 for example_input, example_target in test_dataset.take(1):
