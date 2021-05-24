@@ -4,4 +4,4 @@ venv/
 mobile_net_model/
 xception_model/
 logs/
-
+training_checkpoints/

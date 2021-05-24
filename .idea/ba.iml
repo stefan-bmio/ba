@@ -3,6 +3,10 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/HED/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/NST/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/PIX2PIX/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/PIX2PIX/training_checkpoints" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (ba)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

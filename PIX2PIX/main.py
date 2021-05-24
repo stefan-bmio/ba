@@ -40,7 +40,7 @@ def load(image_file):
     return input_image, real_image
 
 
-inp, re = load(PATH + 'train/00041.jpg.png')
+inp, re = load(PATH + 'train/kleinwagen0.png')
 
 
 # casting to int for matplotlib to show the image
@@ -147,7 +147,6 @@ def downsample(filters, size, apply_batchnorm=True):
 
 down_model = downsample(3, 4)
 down_result = down_model(tf.expand_dims(inp, 0))
-print(down_result.shape)
 
 
 def upsample(filters, size, apply_dropout=False):
@@ -172,7 +171,6 @@ def upsample(filters, size, apply_dropout=False):
 
 up_model = upsample(3, 4)
 up_result = up_model(down_result)
-print(up_result.shape)
 
 
 def Generator():
@@ -215,10 +213,6 @@ def Generator():
         skips.append(x)
 
     skips = reversed(skips[:-1])
-
-    print('a')
-    print(up_stack)
-    print(skips)
 
     # Upsampling and establishing the skip connections
     for up, skip in zip(up_stack, skips):
@@ -310,25 +304,25 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 def generate_images(model, test_input, tar, epoch=0):
     prediction = model(test_input, training=True)
 
-    # if (epoch + 1) % 15 == 0:
-    plt.figure(figsize=(15, 15))
+    if epoch > 450:
+        plt.figure(figsize=(15, 15))
 
-    display_list = [test_input[0], tar[0], prediction[0]]
-    title = ['Input Image', 'Ground Truth', 'Predicted Image']
+        display_list = [test_input[0], tar[0], prediction[0]]
+        title = ['Input Image', 'Ground Truth', 'Predicted Image']
 
-    for i in range(3):
-        plt.subplot(1, 3, i + 1)
-        plt.title(title[i])
-        # getting the pixel values between [0, 1] to plot it.
-        plt.imshow(display_list[i] * 0.5 + 0.5)
-        plt.axis('off')
-    # plt.show()
-    plt.savefig('images/result/example' + str(epoch) + '.jpg')
+        for i in range(3):
+            plt.subplot(1, 3, i + 1)
+            plt.title(title[i])
+            # getting the pixel values between [0, 1] to plot it.
+            plt.imshow(display_list[i] * 0.5 + 0.5)
+            plt.axis('off')
+        # plt.show()
+        plt.savefig('images/result/example' + str(epoch) + '.jpg')
 
 
 for example_input, example_target in test_dataset.take(1):
     generate_images(generator, example_input, example_target)
-EPOCHS = 150
+EPOCHS = 500
 import datetime
 
 log_dir = "logs/"
@@ -396,5 +390,7 @@ fit(train_dataset, EPOCHS, test_dataset)
 # restoring the latest checkpoint in checkpoint_dir
 checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 # Run the trained model on a few examples from the test dataset
+count = EPOCHS + 1000
 for inp, tar in test_dataset.take(5):
-    generate_images(generator, inp, tar)
+    count += 1
+    generate_images(generator, inp, tar, count)
