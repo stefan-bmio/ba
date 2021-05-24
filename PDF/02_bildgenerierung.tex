@@ -1,0 +1,62 @@
+\chapter{Entwicklungsumgebung}
+\label{ch:latex}
+
+\section{Ubuntu Linux}
+\label{sec:ubuntu}
+
+\section{Python}
+\label{sec:python}
+
+\section{Tensorflow}
+\label{sec:tensorflow}
+
+\section{CUDA}
+\label{sec:cuda}
+
+\chapter{Neuronale Netze}
+\label{ch:neuralnets}
+
+\section{Logistische Regression}
+\label{sec:logreg}
+
+\section{Deep Neural Networks}
+\label{sec:dnn}
+
+\section{Convolutional Neural Networks}
+\label{sec:cnn}
+Viele Computer-Vision-Aufgaben können durch ein Convolutional Neural Network (CNN) mit hoher Genauigkeit erfüllt werden. Eine Konvolution oder Faltung ist eine Operation auf zwei Funktionen mit je einem reellen Funktionsargument \mbox{\cite[S.~327-329]{Goodfellow-et-al-2016}}.
+
+Für Bilddaten wendet ein CNN diese Operation typischerweise auf zwei dreidimensionale Matrizen an, nämlich einerseits auf die Eingabedaten und andererseits auf einen sogenannten Filter oder auch Kernel. Die Eingabedaten sind in der ersten Schicht des Netzes die RGB-Pixelinformationen und in allen weiteren konvolutionalen Schichten die Ausgabe der vorherigen Schicht. Ein Filter ist eine Anzahl von trainierbaren Parametern, in diesem Fall auch eine . Beide Matrizen haben also die Form $(H\ x\ W\ x\ C)$, wobei $H$ die Höhe, $W$ die Breite und $C$ die RGB-Farbwerte repräsentiert.
+
+Jede der drei Matriximensionen variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs (\cite{Goodfellow-et-al-2016}, \cite{RFB15a}, \cite{isola2018imagetoimage}) nimmt die Kardinalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten. Beim Pooling werden aus benachbarten Matrixkoeffizienten meist das Maximum, seltener der Durchschnitt oder andere Aggregierungen gebildet. Auf diese Weise wird das neuronale Netz darauf trainiert die relevanten Informationen zu extrahieren. \cite{Goodfellow-et-al-2016}
+
+Den konvolutionalen Schichten folgt in einigen Anwendungsfällen eine voll vernetzte Schicht (engl. Fully Connected Layer, FC), in der für jedes Neuron mit jedem Neuron der vorherigen Schicht eine Verbindung besteht. Besonders für die Bilderkennung ist diese Architektur gut geeignet. Die Ausgabe des neuronalen Netzes ist dann ein Vektor, beispielsweise von Wahrscheinlichkeitswerten für das Vorhandensein bestimmter Objekte und gegebenenfalls Bildkoordinaten der erkannten Objekte. Im Fall der Bildgenerierung ist die Ausgabe aber wieder eine Matrix von RGB-Pixelinformationen in der Form $(H\ x\ W\ x\ 3)$.
+
+\section{U-Net-Architektur}
+\label{sec:unet}
+Die bis hierhin beschriebenen neuronalen Netze besitzen eine gradlinige Struktur, in der die Ausgabe einer Schicht nur an die nächste Schicht übergeben wird. Bei zunehmender Anzahl der Schichten verbessert sich die Performance neuronaler Netze mit diesem Aufbau zunächst, aber verschlechtert sich bei zu vielen Schichten wieder. In einem Residual Neural Network (ResNet) verhindern zusätzliche Verbindungen zwischen nicht direkt aufeinanderfolgenden Schichten diesen Performanceverlust.
+
+Ein U-Net ist eine spezielle Form eines ResNets. Es hat eine annähernd symmetrische Struktur, in der sich die Kardinalitäten der Matrizen zuerst verringern und anschließend wieder erhöhen. U-Nets erzielen selbst mit wenigen Trainingsdaten gute Ergebnisse und benötigen dafür vergleichsweise wenig Rechenleistung. \cite{he2015deep}
+
+\section{Image- To Image-Translation}
+\label{sec:nst}
+
+
+
+\chapter{Durchführung des Experiments}
+\label{ch:conduct}
+
+\section{Vorbereitung der Eingabedaten}
+\label{sec:preparation}
+
+\section{Anwendung herkömmlicher Shader}
+\label{sec:shader}
+
+\section{Hyperparameter}
+\label{sec:hyperparams}
+
+\section{Performancebeobachtungen}
+\label{sec:performance}
+
+\section{Zusammenfassung}
+\label{sec:conclusion}
