@@ -19,4 +19,4 @@ training_checkpoints/
 *.fdb_latexmk
 *.avi
 /video/animations
-
+model*data*
