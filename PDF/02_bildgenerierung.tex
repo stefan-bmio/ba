@@ -1,20 +1,5 @@
-\chapter{Entwicklungsumgebung}
-\label{ch:latex}
-
-\section{Ubuntu Linux}
-\label{sec:ubuntu}
-
-\section{Python}
-\label{sec:python}
-
-\section{Tensorflow}
-\label{sec:tensorflow}
-
-\section{CUDA}
-\label{sec:cuda}
-
-\chapter{Neuronale Netze}
-\label{ch:neuralnets}
+\chapter{Modell}
+\label{ch:model}
 
 \section{Logistische Regression}
 \label{sec:logreg}
@@ -24,8 +9,6 @@
 
 \section{Convolutional Neural Networks}
 \label{sec:cnn}
-Viele Computer-Vision-Aufgaben können durch ein Convolutional Neural Network (CNN) mit hoher Genauigkeit erfüllt werden. Eine Konvolution oder Faltung ist eine Operation auf zwei Funktionen mit je einem reellen Funktionsargument \mbox{\cite[S.~327-329]{Goodfellow-et-al-2016}}.
-
 Für Bilddaten wendet ein CNN diese Operation typischerweise auf zwei dreidimensionale Matrizen an, nämlich einerseits auf die Eingabedaten und andererseits auf einen sogenannten Filter oder auch Kernel. Die Eingabedaten sind in der ersten Schicht des Netzes die RGB-Pixelinformationen und in allen weiteren konvolutionalen Schichten die Ausgabe der vorherigen Schicht. Ein Filter ist eine Anzahl von trainierbaren Parametern, in diesem Fall auch eine . Beide Matrizen haben also die Form $(H\ x\ W\ x\ C)$, wobei $H$ die Höhe, $W$ die Breite und $C$ die RGB-Farbwerte repräsentiert.
 
 Jede der drei Matriximensionen variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs (\cite{Goodfellow-et-al-2016}, \cite{Lecun99objectrecognition}, \cite{RFB15a}, \cite{isola2018imagetoimage}) nimmt die Kardinalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten. Beim Pooling werden aus benachbarten Matrixkoeffizienten meist das Maximum, seltener der Durchschnitt oder andere Aggregierungen gebildet. Auf diese Weise wird das neuronale Netz darauf trainiert die relevanten Informationen zu extrahieren. \cite{Goodfellow-et-al-2016}
@@ -41,12 +24,29 @@ Ein U-Net ist eine spezielle Form eines ResNets. Es hat eine annähernd symmetri
 \section{Generative Adversarial Networks}
 \label{gan}
 
-\section{Image- To Image- Translation}
-\label{sec:nst}
+\section{Image-To-Image-Translation}
+\label{sec:pix2pix}
 
 
+\chapter{Implementierung}
 
-\chapter{Durchführung des Experiments}
+\section{Entwicklungsumgebung}
+\label{sec:env}
+
+\subsection{Ubuntu Linux}
+\label{subsec:ubuntu}
+
+\subsection{Python}
+\label{subsec:python}
+
+\subsection{Tensorflow}
+\label{subsec:tensorflow}
+
+\subsection{CUDA}
+\label{subsec:cuda}
+
+
+\chapter{Experimente und Resultate}
 \label{ch:conduct}
 
 \section{Vorbereitung der Eingabedaten}
@@ -61,5 +61,6 @@ Ein U-Net ist eine spezielle Form eines ResNets. Es hat eine annähernd symmetri
 \section{Performancebeobachtungen}
 \label{sec:performance}
 
-\section{Zusammenfassung}
+
+\chapter{Diskussion}
 \label{sec:conclusion}
