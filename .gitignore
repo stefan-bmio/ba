@@ -20,3 +20,4 @@ training_checkpoints/
 *.avi
 /video/animations
 model*data*
+*.ndjson

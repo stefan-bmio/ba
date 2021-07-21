@@ -235,7 +235,7 @@ def vgg_layers(layer_names):
 
     outputs = [vgg.get_layer(name).output for name in layer_names]
 
-    model = tf.keras.Model([vgg.input], outputs)
+    model = tf.keras.Model([vgg.inp], outputs)
     return model
 
 
