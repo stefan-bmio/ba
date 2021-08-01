@@ -1,5 +1,42 @@
 \chapter{Einleitung}
 \label{ch:einleitung}
+Obwohl die Idee für eine Maschine, die anhand eingegebener Daten selbständig
+Entscheidungen treffen kann und die ersten praktischen Ansätze für künstliche
+neuronale Netze schon einige Jahrzehnte alt sind, findet der Einsatz derartiger
+Algorithmen erst seit einigen Jahren statt. Viele Erfindungen, die vor 30 bis 50
+Jahren in Filmen und Serien Science Fiction darstellten, sind inzwischen nicht
+nur Realität, sondern auch alltagstauglich. Zu den wichtigsten Beispielen zählen
+verbale Schnittstellen an Computersystemen und auch Armbanduhren, autonome
+Fahrzeuge etwa in Gestalt von Parkassistenten und verschiedene Verfahren zur
+biometrischen Identitätsprüfung.
+
+Andere rasche technologische Fortschritte aus der jüngeren Vergangenheit haben
+nicht immer nur die Lebensqualität der beteiligten Personen erhöht, sondern
+stellten durch Missbrauch gelegentlich sogar Gefahren
+dar. So wie das Internet auch zur Verbreitung von Falschinformationen und
+die sichere Verschlüsselung von gespeicherten Daten auch für Erpressungen genutzt
+werden kann, ist die Generierung von täuschend echten Bildern unter Umständen
+geeignet, persönlichen, finanziellen oder anders gearteten Schaden zu verursachen.
+
+Weiterhin existieren bei der Auswahl der Trainingsdaten für künstliche neuronale
+Netze rechtliche Grenzen. Bilddaten sind in mehr als ausreichenden Mengen
+vorhanden, berücksichtigen aber zum Beispiel nicht immer das Recht am eigenen
+Bild. Für diese Bachelorarbeit sind die Anforderungen an die Bildqualität außerdem sehr
+hoch, da möglichst auch Texturen und Lichtreflexionen erlernt werden sollen.
+Modellgrafiken mit geeigneten Material- und Beleuchtungseigenschaften
+gibt es zwar auch, aber nur in weitaus geringeren Mengen. Für solche Fremdarbeiten,
+die sehr arbeitsaufwendig sind, wäre auch die Klärung der Nutzungsrechte
+erforderlich geworden. Für Trainingsergebnisse, die das mentale Modell einer
+breiten Nutzergemeinschaft reflektieren, sind grundsätzlich auch Daten aus
+möglichst vielen verschiedenen Quellen erforderlich.
+
+Es ist deshalb eine Brücke geschlagen worden zwischen Trainingsdaten, die
+zum einen aus zufällig ausgewählte Benutzereingaben bestehen, und solchen, die
+bestimmte Qualitätseigenschaften erfüllen und in beliebiger Menge erstellt werden
+können. Ein künstliches neuronales Netz soll aus Skizzen des
+``Quick, Draw!''-Datasets von Google hochwertig gestaltete Figuren
+generieren. TODO: Hierfür kommen als Ein- und Ausgabedaten sowohl Bilddateien als
+auch die jeweils zugrundeliegenden Dateiformate NDJSON und Wavefront OBJ infrage.
 
 \section{Ziel der Arbeit}
 \label{sec:ziel}
@@ -20,6 +57,15 @@ Künstliche neuronale Netze finden erst seit wenigen Jahren breite Aufmerksamkei
 seit auch Heimcomputer in der Lage sind die hohe Anzahl der erforderlichen
 Rechenoperationen in annehmbarer Zeit auszuführen. Seitdem sind wenige,
 englischsprachige Einführungen in die Thematik entstanden. Ein häufig genanntes
-Buch ist "Deep Learning", das online kostenfrei zugänglich ist \cite{Goodfellow-et-al-2016}.
-Ebenfalls online kostenfrei ist das Buch "Dive into Deep Learning" \cite{zhang2020dive}.
-Ein weiteres Buch ist
+Buch ist ``Deep Learning'', das online kostenfrei zugänglich ist \cite{Goodfellow-et-al-2016}.
+Ebenfalls online kostenfrei ist das Buch ``Dive into Deep Learning'' \cite{zhang2020dive}.
+Ein weiteres, praxisorientierteres Buch ist ``Deep Learning with Python'' \cite{chollet2017}, dessen
+zweite Auflage bald herausgegeben wird.
+
+Als Architektur für ein künstliches neuronales Netz kommt für diese Arbeit
+zunächst derselbe Aufbau wie in ``Image-To-Image-Translation'' \cite{isola2018imagetoimage} zum Einsatz. Dieser setzt seinerseits auf Generative
+Adversarial Networks \cite{goodfellow2014generative} und Conditional Generative Adversarial Networks \cite{mirza2014conditional} auf.
+
+In ``Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks'' \cite{radford2016unsupervised} werden ebenfalls
+realitätsnahe Ergebnisse erzielt. Anders als bei den bisher erwähnten Arbeiten
+wird Unsupervised Learning verwendet, um das künstliche neuronale Netz zu trainieren.
