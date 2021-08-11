@@ -4,6 +4,31 @@
 
 \section{Logistische Regression}
 \label{sec:logreg}
+Ein vergleichsweise einfacher Algorithmus des Maschinellen Lernens ist Logistic Regression oder Softmax Regression. Es lassen sich damit Klassifizierungen durchführen. Bei binären Klassifizierungen werden die Eingaben in zwei Kategorien unterteilt. Häufige Beispiele sind fehlerfreie oder fehlerhafte Produktionsergebnisse, ärztliche Befunde einer bestimmten Krankheit oder Gesundheit und ob in einem Bild ein bestimmtes Objekt vorhanden ist oder nicht.
+
+Bei der Multiclass Logistic Regression werden die Eingaben in mehr als zwei Klassen unterteilt. Es lassen sich damit beispielsweise in einem Bild  verschiedene Arten von Fahrzeugen, Gegenständen oder Tieren unterteilen.
+
+Diagramm: Ein-Schicht-NN (Die Ausgabeschicht wird nicht mitgezählt) Logistic Regeression kann mit einer einzelnen oder mehreren neuronalen Schichten imlementiert sein. Das künstliche neuronale Netz in Abb. x besitzt eine einzelne aus drei Einheiten bestehende Schicht. Eine Einheit besteht zunächst aus einer differenzierbaren Funktion. Oft ist das eine Multiplikation der Eingaben $X$ mit einer Anzahl lernbaren Parametern $W$ und eine anschließende Addition mit Bias-Werten $b$. Die Ausgabe einer Schicht wird oft mit $\hat{y}$ bezeichnet:
+\begin{align}
+\hat{y} = WX+b
+\end{align}
+
+Dieser folgt eine Aktivierungsfunktion, die dem errechneten Wert einen anderen Wert zuordnet, der entweder nahe $0$ oder nahe $1$ liegt (gelegentlich nahe $-1$ oder nahe $1$). Beispiele für Aktivierungsfunktionen sind Sigmoid:
+\begin{align}
+sig(t) = \frac{1}{1+e^{-t}}
+\end{align}
+
+und Rectified Linear Unit, kurz ReLU:
+\begin{align}
+f(x) = max(0, x)
+\end{align}
+
+oder auch Leaky ReLU:
+\begin{align}
+f(x) = max(0.01x, x)
+\end{align}
+
+In einigen künstlichen neuronalen Netzen werden zusätzlich die Eingaben für jede Schicht normalisiert, wodurch die Minimierung der Verlustfunktion (Gradient Descent) optimiert werden kann.
 
 \section{Deep Neural Networks}
 \label{sec:dnn}
@@ -24,15 +49,20 @@ Ein U-Net ist eine spezielle Form eines ResNets. Es hat eine annähernd symmetri
 
 \section{Generative Adversarial Networks}
 \label{gan}
-Ein Generative Adversarial Network besteht zunächst aus einem Generator und einem Discriminator \cite{goodfellow2014generative}. Der Generator lernt während des
+Ein Generative Adversarial Network (GAN)besteht zunächst aus einem Generator und einem Discriminator \cite{goodfellow2014generative}. Der Generator lernt während des
 Trainings täuschend echt aussehende Bilddaten zu generieren. Der Discriminator
 wird dagegen darauf trainiert, echte von generierte Bildern zu unterscheiden.
 Anschließend können beide Modelle ``gegeneinander antreten''. Deswegen wird es
 Generative \textit{Adversarial} Network genannt.
 
+GANs unterscheiden sich von anderen Modellen durch ihren Aufbau und in Bezug auf das Trainingsziel. Künstliche neuronale Netze ermitteln häufig einen skalaren Wert wie beispielsweise einen Wahrscheinlichkeitswert und minimieren zu diesem Zweck eine Verlustfunktion. In einem GAN sind zwei CNNs im Einsatz. Das erste, der Generator, erstellt Tensoren n-ter Klasse. In diesem Beispiel sind das RGB-Bildinformationen. Das zweite CNN wird Discriminator genannt und bekommt als Eingabe die Ausgabe des ersten CNNs. Der Discriminator wird darauf trainiert, generierte Bilder von Bildern aus dem Trainingsset zu unterscheiden. Er minimiert also eine Verlustfunktion. Der Generator wird darauf trainiert, diese Verlustfunktion zu maximieren. Dieser Vorgang stammt aus der Spieltheorie und heißt Minimax. \cite{goodfellow2014generative}
+
+Eine Erweiterung des GANs ist das Conditional Generative Adversarial Net (cGAN). In cGANs erhält der Generator zusätzliche Eingabedaten ($y$, ``Ground Truth''), die Hinweise für die Generierung enthalten. Der Discriminator erhält diese zusätzlichen Daten ebenfalls, um die Erkennung während des Trainings zu optimieren. \cite{mirza2014conditional}
+
 \section{Image-To-Image-Translation}
 \label{sec:pix2pix}
-
+Der Image-To-Image-Translation-Algorithmus oder kurz Pix2Pix-Algorithmus verwendet
+ein GAN, um Bilder in Bilder zu übersetzen. Dafür kommen zwei CNNs zum Einsatz, nämlich eins für den Generator und eins für den Discriminator.
 
 \chapter{Implementierung}
 
@@ -65,6 +95,8 @@ in Bezug auf die Verarbeitungszeit eine wichtige Rolle. Bildformate der Größe 
 
 Sowohl während der Entwicklung als auch zur Laufzeit kann es vorteilhaft sein, Farbwerte statt auf der oft verwendeten Skala von 0 bis 255 als Fließkommazahlen im Bereich 0,0 bis 1,0 darzustellen. Auch für die Ausgaben der einzelnen Schichten eines künstlichen neuronalen Netzes kann diese Normalisierung durchgeführt werden (TODO: BatchNorm).
 
+Ein ebenso wichtiger wie aufwendiger Vorgang ist die Klassifizierung der Trainingsdaten, also die Zuweisung von Eingaben zu den erlernbaren Ergebnissen. Aufgrund der selbst erstellten Ausgabebilder existieren für diesen Zweck keine vorgefertigten Datasets. Die Sortierung und Zuweisung erfolgt deshalb manuell.
+
 
 
 \section{Anwendung herkömmlicher Shader}
@@ -72,6 +104,11 @@ Sowohl während der Entwicklung als auch zur Laufzeit kann es vorteilhaft sein, 
 
 \section{Hyperparameter}
 \label{sec:hyperparams}
+Die Pix2Pix-Referenzimplementierung ist bereits für die Übersetzung von Skizzen in Fotos eingestellt. Für das Training waren anfangs mehrere Tausend Epochs, also Trainingsdurchläufe, erfoderlich, um zufriedenstellende Ergebnisse zu sehen. TODO: Diese Zahl konnte durch ... verringert werden.
+
+Die Eingabebilder sind 256x256 Pixel groß und besitzen einen Farbkanal für Graustufen. Sie werden am Anfang des Trainingsprozesses durch sogenanntes Jittering augmentiert. Dabei werden die Bilder zuerst auf 286x268 Pixel vergrößert und anschließend auf einen zufälligen 256x256 Pixel großer Ausschnitt wieder verkleinert. Diese  Pixelgrößen können im Experiment geändert werden.
+
+Der Adam Optimierer \cite{kingma2017adam} erhält für die Learning-Rate den Wert 0,0002. Das Momentum ist auf 0,9 voreingestellt. Diese beiden Werte beinflussen die Lerngeschwindigkeit und sind in begrenztem Maße anpassbar.
 
 \section{Performancebeobachtungen}
 \label{sec:performance}
