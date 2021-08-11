@@ -10,12 +10,6 @@ import constants
 import hyperparameters as hp
 
 
-def load_image(filepath):
-    image = tf.io.read_file(filepath)
-    image = tf.image.decode_jpeg(image, channels=1)
-    return tf.image.convert_image_dtype(image, dtype=tf.float32)
-
-
 def generate_kernel(horizontal=True):
     kernel_repeat = -np.ones((int(hp.kernel_size / 2)))
     kernel_repeat = np.append(kernel_repeat, [0])
@@ -57,9 +51,12 @@ def convolution(inp, kernel, output_filename):
         with open(os.path.join(constants.images_path, filename + "_" + str(i) + ".jpg"), "wb") as fd:
             fd.write(tf.io.encode_jpeg(tf.image.convert_image_dtype(output_image, tf.uint8)).numpy())
 
+        if i >= hp.num_convolutions - constants.save_last_intermediates:
+            np.savetxt(os.path.join(
+                constants.result_path, filename + "_" + ".csv"), output)
+
         inp = output
 
-    np.savetxt(os.path.join(constants.result_path, filename + ".csv"), output)
 
     return outputs
 
@@ -75,17 +72,23 @@ if __name__ == "__main__":
     if (os.path.isdir(logdir)):
         shutil.rmtree(logdir)
 
-    train_dataset = tf.data.Dataset.list_files('train/images/*')
+    train_dataset = tf.data.Dataset.list_files(constants.input_path)
 
-    train_dataset = train_dataset.map(load_image, num_parallel_calls=AUTOTUNE)
-    # train_dataset = train_dataset.map(load_image)
-
+    filenames = []
     kernel_horz = generate_kernel()
     kernel_vert = generate_kernel(False)
 
-    for index, image in enumerate(train_dataset):
+    for index, filepath in enumerate(train_dataset):
+        print("processing image " + str(index + 1))
+        filenames.append(filepath.numpy())
+        image = tf.io.read_file(filepath)
+        image = tf.image.decode_jpeg(image, channels=1)
+        image = tf.image.convert_image_dtype(image, dtype=tf.float32)
+
         outputs_horz = convolution(image, kernel_horz, constants.label_horizontal + str(index) + '_')
         log_images(outputs_horz, index, constants.label_horizontal)
 
         outputs_vert = convolution(image, kernel_vert, constants.label_vertical + str(index) + '_')
         log_images(outputs_vert, index, constants.label_vertical)
+
+    np.savetxt(constants.filenames_file, [filename.decode() for filename in filenames], fmt="%s")
