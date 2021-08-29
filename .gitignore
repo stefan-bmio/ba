@@ -19,6 +19,7 @@ training_checkpoints/
 *.toc
 *.fdb_latexmk
 *.avi
+/video/*
 /video/animations
 model*data*
 table.ndjson
