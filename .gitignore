@@ -21,6 +21,7 @@ training_checkpoints/
 *.avi
 /video/*
 /video/animations
+video2.mp4
 model*data*
 table.ndjson
 candle.ndjson
