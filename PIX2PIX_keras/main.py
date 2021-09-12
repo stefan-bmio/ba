@@ -143,7 +143,7 @@ def load_image_test(image_file):
 
 
 # train_dataset = tf.data.Dataset.list_files(str(PATH / 'train/*.jpg'))
-PATH = '../PIX2PIX/images/combined/'
+PATH = '../PIX2PIX/images/combined/candles/'
 train_dataset = tf.data.Dataset.list_files(PATH + 'train/*.png')
 train_dataset = train_dataset.map(load_image_train,
                                   num_parallel_calls=tf.data.AUTOTUNE)
@@ -352,7 +352,7 @@ def generate_images(model, test_input, tar, image_index):
         # Getting the pixel values in the [0, 1] range to plot.
         plt.imshow(display_list[i] * 0.5 + 0.5)
         plt.axis('off')
-    plt.savefig('results/' + str(image_index) + '.png')
+    plt.savefig('results/' + str(image_index) + '.jpg')
 
 
 # for example_input, example_target in test_dataset.take(1):
