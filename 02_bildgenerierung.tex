@@ -139,15 +139,21 @@ Ein ebenso wichtiger wie aufwendiger Vorgang ist die Klassifizierung der Trainin
 
 \section{Anwendung herkömmlicher Shader}
 \label{sec:shader}
-Gängige Methoden zur Bildgenerierung beinhalten Texturen, die als 2D-Grafiken vorliegen und auf die Flächen von 3D-Objekten aufgebracht werden können. Anstelle vorhandener Grafiken können Texturen auch generiert werden. Dafür existieren Algorithmen, die Flächen beispielsweise Farbverläufe, Farbrauschen oder Verzerrungen hinzufügen. Vor allen durch Kombination verschiedener Texturshader können interessante Effekte wie Marmorisierungen, Holz- oder auch Wasseroberflächen erzielt werden.
+Shader definieren die Interaktion des Lichts mit der Oberfläche des Objekts. Dabei können Shader aus einem oder mehreren BSDFs (Bidirectional Scattering Distribution Function) bestehen, die wiederum von Mix-und Add-Shadern in der Zusammensetzung gemischt werden. \cite{wartmann2014blender}
 
-Shading im klassischen Sinne behandelt vor allem die Beleuchtung einer Szene und der darin enthaltenen Objekte, sowie Reflexionen. Hierfür kommen Lichtquellen zum Einsatz, die verschiedene Größen, Lichtstärken und -farben haben und das Licht wie ein Laser oder ein Spotlight in eine bestimmte Richtung, oder wie die Sonne rundherum in alle Richtungen abgeben können.
+In der Computergrafik wird die Darstellung der Oberfläche eines Objekts durch die drei Faktoren Material, Textur und Ausleuchtung bestimmt. Material ist die Grundfarbe der Oberfläche. Textur sind die physischen Charakteristiken der Oberfläche, und Ausleuchtung ist die Hintergrundbeleuchtung oder Licht, welches von Lichtern (Lampen) emittiert wird. \cite{blain2020blender}
 
-Im Zusammenhang mit Texturen ist die Oberflächenbeschaffenheit eines Objektes in einer Szene modellierbar. Spekulares Licht bezeichnet Lichtpunkte, die zum Beispiel auf glatten, runden Oberflächen auftreten können. Diffuses Licht hat im Gegensatz dazu keine scharfen Konturen. Durch Nachahmung unterschiedlicher Materialeigenschaften können Oberflächen matt schwarz oder metallisch glänzend erscheinen. Auch spiegelnde Flächen können programmiert werden, die dann abhängig von den in der Szene enthaltenen Objekten und Lichtquellen sowie von der Perspektive des Betrachters farbiges Licht reflektieren.
+In der Computergrafik ist ein Material die Farbe eines Objektes. Es legt fest, wie das sichtbare Spektrum des Lichts von der Oberfläche des Objekts reflektiert wird. Ein Material legt außerdem fest, ob die Oberfläche matt oder metallisch erscheint. \cite{blain2020blender}
 
-Zwei der verbreitetsten Shading-Algorithmen sind Toon Shading und Phong Shading. Beim Toon Shading werden durch Lichtreflexionen die Konturen der Objekte in der Szene hervorgehoben. Die Objekte setzen sich dadurch voneinander und zum Beispiel vom Hintergrund stärker ab. Es entsteht ein Gesamtbild ähnlich wie bei colorierten Zeichnungen, wie sie eben in Comic- und Zeichentrickproduktionen typisch sind.
+Material (Farbe) kann entsprechend der drei Farbschemas RGB, HSV oder Hex dargestellt werden. Wie die Farbe in jedem Schema erscheint ist auch von einem Alpha-Wert, welcher für die Menge der Transparenz steht, abhängig. \cite{blain2020blender}
 
-Phong Shading ermöglicht hoch realistische Lichteffekte, indem Reflexionen für jeden Pixel einzeln berechnet werden. Dadurch sind Abstufungen von diffus bis spekular und auch Kombinationen, etwa durch mehrere verschiedenen Lichtquellen, möglich.
+Texturen definieren das physische Erscheinungsbild einer Oberfläche, also etwa wie glatt oder uneben diese erscheint, oder ihre Struktur, welche die visuelle Wahrnehumg der physischen Beschaffenheit des Objekts definiert. Diese Definition bestimmt, woraus die Oberfläche besteht, wie Holz, Ziegelsteine, Wasser und so weiter. \cite{blain2020blender}
+
+Texturen werden durch Algorithmen generiert, wie sie in Blender integriert sind (prozedurale Texturen) oder aus Bilddateien (Bildtexturen). \cite{blain2020blender}
+
+Die Qualität eines Bildes hängts direkt von der Effektivität des Shading-Algorithmus ab, der wiederum von der Modellierungsmethode des Objektes abhängt. Zwei wesentliche Methoden der Objektbeschreibung werden häufig verwendet, nämlich Oberflächendefinition mittels mathematischer Gleichungen und Oberflächenapproximation durch Mosaike aus polygonalen Flächen. \cite{phong1975shading}
+
+Polygonobjekte sind anfangs immer ungeglättet, das heißt, dass beim Rendern oder in der schattierten Ansicht zunächst immer die einzelnen Flächen zu sehen sind, aus denen sich das Objekt zusammensetzt. Eine mögliche, wenn auch in Sachen Renderzeit und Speicherverbrauch ungünstige Methode wäre, einfach das Objekt so weit in kleinere Flächen zu unterteilen, dass beim Rendern eine Fläche pro Pixel gerendert wird. In der praktischen Arbeit verwendet man deshalb einen Trick, bei dem die Übergänge zwischen den einzelnen Flächen ``glattgerechnet'' werden. Übliche Verfahren hier sind das Gouraud oder Phong Shading. \cite{wartmann2014blender}
 
 \section{Hyperparameter}
 \label{sec:hyperparams}

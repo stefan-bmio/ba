@@ -22,8 +22,8 @@
 \contentsline {section}{\numberline {1)}Vorbereitung der Eingabedaten}{9}{section.4.1}
 \contentsline {section}{\numberline {2)}Anwendung herk\IeC {\"o}mmlicher Shader}{9}{section.4.2}
 \contentsline {section}{\numberline {3)}Hyperparameter}{10}{section.4.3}
-\contentsline {section}{\numberline {4)}Performancebeobachtungen}{10}{section.4.4}
-\contentsline {chapter}{\numberline {5}Diskussion}{11}{chapter.5}
+\contentsline {section}{\numberline {4)}Performancebeobachtungen}{11}{section.4.4}
+\contentsline {chapter}{\numberline {5}Diskussion}{12}{chapter.5}
 \contentsline {chapter}{\nonumberline Literatur}{13}{chapter*.2}
 \contentsline {chapter}{Bildnachweis}{15}{chapter*.3}
 \contentsline {chapter}{Abk\IeC {\"u}rzungs- und Symbolverzeichnis}{17}{chapter*.4}
