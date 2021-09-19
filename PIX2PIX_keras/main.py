@@ -16,37 +16,12 @@ config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
 
 
-# dataset_name = "facades"
-#
-# _URL = f'http://efrosgans.eecs.berkeley.edu/pix2pix/datasets/{dataset_name}.tar.gz'
-#
-# path_to_zip = tf.keras.utils.get_file(
-#     fname=f"{dataset_name}.tar.gz",
-#     origin=_URL,
-#     extract=True)
-#
-# path_to_zip = pathlib.Path(path_to_zip)
-#
-# PATH = path_to_zip.parent / dataset_name
-#
-# list(PATH.parent.iterdir())
-#
-# sample_image = tf.io.read_file(str(PATH / 'train/1.jpg'))
-# sample_image = tf.io.decode_jpeg(sample_image)
-# print(sample_image.shape)
-#
-# plt.figure()
-# plt.imshow(sample_image)
-
-
 def load(image_file):
     # Read and decode an image file to a uint8 tensor
     image = tf.io.read_file(image_file)
     image = tf.image.decode_jpeg(image)
 
     # Split each image tensor into two tensors:
-    # - one with a real building facade image
-    # - one with an architecture label image
     w = tf.shape(image)[1]
     w = w // 2
     input_image = image[:, :w, :]
@@ -59,14 +34,7 @@ def load(image_file):
     return input_image, real_image
 
 
-# inp, re = load(str(PATH / 'train/100.jpg'))
-# # Casting to int for matplotlib to display the images
-# plt.figure()
-# plt.imshow(inp / 255.0)
-# plt.figure()
-# plt.imshow(re / 255.0)
-
-# The facade training set consist of 400 images
+# Adjust this value to the number of training images
 BUFFER_SIZE = 400
 # The batch size of 1 produced better results for the U-Net in the original pix2pix experiment
 BATCH_SIZE = 1
@@ -116,15 +84,6 @@ def random_jitter(input_image, real_image):
     return input_image, real_image
 
 
-# plt.figure(figsize=(6, 6))
-# for i in range(4):
-#     rj_inp, rj_re = random_jitter(inp, re)
-#     plt.subplot(2, 2, i + 1)
-#     plt.imshow(rj_inp / 255.0)
-#     plt.axis('off')
-# plt.show()
-
-
 def load_image_train(image_file):
     input_image, real_image = load(image_file)
     input_image, real_image = random_jitter(input_image, real_image)
@@ -142,7 +101,6 @@ def load_image_test(image_file):
     return input_image, real_image
 
 
-# train_dataset = tf.data.Dataset.list_files(str(PATH / 'train/*.jpg'))
 PATH = '../PIX2PIX/images/combined/candles/'
 train_dataset = tf.data.Dataset.list_files(PATH + 'train/*.png')
 train_dataset = train_dataset.map(load_image_train,
@@ -176,11 +134,6 @@ def downsample(filters, size, apply_batchnorm=True):
     return result
 
 
-# down_model = downsample(3, 4)
-# down_result = down_model(tf.expand_dims(inp, 0))
-# print(down_result.shape)
-
-
 def upsample(filters, size, apply_dropout=False):
     initializer = tf.random_normal_initializer(0., 0.02)
 
@@ -199,11 +152,6 @@ def upsample(filters, size, apply_dropout=False):
     result.add(tf.keras.layers.ReLU())
 
     return result
-
-
-# up_model = upsample(3, 4)
-# up_result = up_model(down_result)
-# print(up_result.shape)
 
 
 def build_generator():
@@ -258,10 +206,6 @@ def build_generator():
 
 
 generator = build_generator()
-# tf.keras.utils.plot_model(generator, show_shapes=True, dpi=64)
-#
-# gen_output = generator(inp[tf.newaxis, ...], training=False)
-# plt.imshow(gen_output[0, ...])
 
 LAMBDA = 100
 
@@ -311,13 +255,6 @@ def build_discriminator():
 discriminator = build_discriminator()
 
 
-# tf.keras.utils.plot_model(discriminator, show_shapes=True, dpi=64)
-#
-# disc_out = discriminator([inp[tf.newaxis, ...], gen_output], training=False)
-# plt.imshow(disc_out[0, ..., -1], vmin=-20, vmax=20, cmap='RdBu_r')
-# plt.colorbar()
-
-
 def discriminator_loss(disc_real_output, disc_generated_output):
     real_loss = loss_object(tf.ones_like(disc_real_output), disc_real_output)
 
@@ -354,9 +291,6 @@ def generate_images(model, test_input, tar, image_index):
         plt.axis('off')
     plt.savefig('results/' + str(image_index) + '.jpg')
 
-
-# for example_input, example_target in test_dataset.take(1):
-#     generate_images(generator, example_input, example_target)
 
 log_dir = "logs/"
 
