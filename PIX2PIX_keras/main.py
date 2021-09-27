@@ -1,7 +1,6 @@
 import tensorflow as tf
 
 import os
-import pathlib
 import time
 import datetime
 
@@ -10,10 +9,6 @@ from IPython import display
 
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
-
-config = ConfigProto()
-config.gpu_options.allow_growth = True
-session = InteractiveSession(config=config)
 
 
 def load(image_file):
@@ -32,15 +27,6 @@ def load(image_file):
     real_image = tf.cast(real_image, tf.float32)
 
     return input_image, real_image
-
-
-# Adjust this value to the number of training images
-BUFFER_SIZE = 400
-# The batch size of 1 produced better results for the U-Net in the original pix2pix experiment
-BATCH_SIZE = 1
-# Each image is 256x256 in size
-IMG_WIDTH = 256
-IMG_HEIGHT = 256
 
 
 def resize(input_image, real_image, height, width):
@@ -99,23 +85,6 @@ def load_image_test(image_file):
     input_image, real_image = normalize(input_image, real_image)
 
     return input_image, real_image
-
-
-PATH = '../PIX2PIX/images/combined/candles/'
-train_dataset = tf.data.Dataset.list_files(PATH + 'train/*.png')
-train_dataset = train_dataset.map(load_image_train,
-                                  num_parallel_calls=tf.data.AUTOTUNE)
-train_dataset = train_dataset.shuffle(BUFFER_SIZE)
-train_dataset = train_dataset.batch(BATCH_SIZE)
-
-try:
-    test_dataset = tf.data.Dataset.list_files(str(PATH + 'test/*.png'))
-except tf.errors.InvalidArgumentError:
-    test_dataset = tf.data.Dataset.list_files(str(PATH + 'val/*.png'))
-test_dataset = test_dataset.map(load_image_test)
-test_dataset = test_dataset.batch(BATCH_SIZE)
-
-OUTPUT_CHANNELS = 3
 
 
 def downsample(filters, size, apply_batchnorm=True):
@@ -205,13 +174,6 @@ def build_generator():
     return tf.keras.Model(inputs=inputs, outputs=x)
 
 
-generator = build_generator()
-
-LAMBDA = 100
-
-loss_object = tf.keras.losses.BinaryCrossentropy(from_logits=True)
-
-
 def generator_loss(disc_generated_output, gen_output, target):
     gan_loss = loss_object(tf.ones_like(disc_generated_output), disc_generated_output)
 
@@ -252,9 +214,6 @@ def build_discriminator():
     return tf.keras.Model(inputs=[inp, tar], outputs=last)
 
 
-discriminator = build_discriminator()
-
-
 def discriminator_loss(disc_real_output, disc_generated_output):
     real_loss = loss_object(tf.ones_like(disc_real_output), disc_real_output)
 
@@ -263,17 +222,6 @@ def discriminator_loss(disc_real_output, disc_generated_output):
     total_disc_loss = real_loss + generated_loss
 
     return total_disc_loss
-
-
-generator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
-discriminator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
-
-checkpoint_dir = './training_checkpoints'
-checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
-checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
-                                 discriminator_optimizer=discriminator_optimizer,
-                                 generator=generator,
-                                 discriminator=discriminator)
 
 
 def generate_images(model, test_input, tar, image_index):
@@ -290,12 +238,6 @@ def generate_images(model, test_input, tar, image_index):
         plt.imshow(display_list[i] * 0.5 + 0.5)
         plt.axis('off')
     plt.savefig('results/' + str(image_index) + '.jpg')
-
-
-log_dir = "logs/"
-
-summary_writer = tf.summary.create_file_writer(
-    log_dir + "fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
 
 
 @tf.function
@@ -353,13 +295,65 @@ def fit(train_ds, test_ds, steps):
             checkpoint.save(file_prefix=checkpoint_prefix)
 
 
-fit(train_dataset, test_dataset, steps=40000)
+if __name__ == '__main__':
+    config = ConfigProto()
+    config.gpu_options.allow_growth = True
+    session = InteractiveSession(config=config)
 
-# Restoring the latest checkpoint in checkpoint_dir
-checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
+    # Adjust this value to the number of training images
+    BUFFER_SIZE = 400
+    # The batch size of 1 produced better results for the U-Net in the original pix2pix experiment
+    BATCH_SIZE = 1
+    # Each image is 256x256 in size
+    IMG_WIDTH = 256
+    IMG_HEIGHT = 256
 
-# Run the trained model on a few examples from the test set
-index = 1000
-for inp, tar in test_dataset.take(5):
-    generate_images(generator, inp, tar, index)
-    index = index + 1
+    PATH = '../PIX2PIX/images/combined/candles/'
+    train_dataset = tf.data.Dataset.list_files(PATH + 'train/*.png')
+    train_dataset = train_dataset.map(load_image_train,
+                                      num_parallel_calls=tf.data.AUTOTUNE)
+    train_dataset = train_dataset.shuffle(BUFFER_SIZE)
+    train_dataset = train_dataset.batch(BATCH_SIZE)
+
+    try:
+        test_dataset = tf.data.Dataset.list_files(str(PATH + 'test/*.png'))
+    except tf.errors.InvalidArgumentError:
+        test_dataset = tf.data.Dataset.list_files(str(PATH + 'val/*.png'))
+    test_dataset = test_dataset.map(load_image_test)
+    test_dataset = test_dataset.batch(BATCH_SIZE)
+
+    OUTPUT_CHANNELS = 3
+
+    generator = build_generator()
+
+    LAMBDA = 100
+
+    loss_object = tf.keras.losses.BinaryCrossentropy(from_logits=True)
+
+    discriminator = build_discriminator()
+
+    generator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
+    discriminator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
+
+    checkpoint_dir = './training_checkpoints'
+    checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
+    checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
+                                     discriminator_optimizer=discriminator_optimizer,
+                                     generator=generator,
+                                     discriminator=discriminator)
+
+    log_dir = "logs/"
+
+    summary_writer = tf.summary.create_file_writer(
+        log_dir + "fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+
+    fit(train_dataset, test_dataset, steps=40000)
+
+    # Restoring the latest checkpoint in checkpoint_dir
+    checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
+
+    # Run the trained model on a few examples from the test set
+    index = 1000
+    for inp, tar in test_dataset.take(5):
+        generate_images(generator, inp, tar, index)
+        index = index + 1

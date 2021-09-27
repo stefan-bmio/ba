@@ -11,24 +11,24 @@
 \contentsline {section}{\numberline {5)}U-Net-Architektur}{5}{section.2.5}
 \contentsline {section}{\numberline {6)}Generative Adversarial Networks}{5}{section.2.6}
 \contentsline {section}{\numberline {7)}Image-To-Image-Translation}{6}{section.2.7}
-\contentsline {chapter}{\numberline {3}Implementierung}{7}{chapter.3}
-\contentsline {section}{\numberline {1)}Entwicklungsumgebung}{7}{section.3.1}
-\contentsline {subsection}{\numberline {1.1)}Ubuntu Linux}{7}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {1.2)}Python}{7}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {1.3)}Tensorflow}{7}{subsection.3.1.3}
-\contentsline {subsection}{\numberline {1.4)}CUDA}{7}{subsection.3.1.4}
-\contentsline {subsection}{\numberline {1.5)}Image-To-Image-Translation in Python}{7}{subsection.3.1.5}
-\contentsline {chapter}{\numberline {4}Experimente und Resultate}{9}{chapter.4}
-\contentsline {section}{\numberline {1)}Vorbereitung der Eingabedaten}{9}{section.4.1}
-\contentsline {section}{\numberline {2)}Anwendung herk\IeC {\"o}mmlicher Shader}{9}{section.4.2}
-\contentsline {section}{\numberline {3)}Hyperparameter}{10}{section.4.3}
-\contentsline {section}{\numberline {4)}Performancebeobachtungen}{11}{section.4.4}
-\contentsline {chapter}{\numberline {5}Diskussion}{12}{chapter.5}
-\contentsline {chapter}{\nonumberline Literatur}{13}{chapter*.2}
-\contentsline {chapter}{Bildnachweis}{15}{chapter*.3}
-\contentsline {chapter}{Abk\IeC {\"u}rzungs- und Symbolverzeichnis}{17}{chapter*.4}
-\contentsline {chapter}{Abbildungsverzeichnis}{19}{chapter*.4}
-\contentsline {chapter}{Tabellenverzeichnis}{21}{chapter*.5}
-\contentsline {chapter}{Anhang}{24}{part*.8}
-\contentsline {chapter}{\numberline {A}Quelltexte}{24}{appendix.A}
-\contentsline {section}{\numberline {1)}Image-To-Image-Translation main.py}{24}{section.A.1}
+\contentsline {chapter}{\numberline {3}Implementierung}{8}{chapter.3}
+\contentsline {section}{\numberline {1)}Entwicklungsumgebung}{8}{section.3.1}
+\contentsline {subsection}{\numberline {1.1)}Ubuntu Linux}{8}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {1.2)}Python}{8}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {1.3)}Tensorflow}{8}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {1.4)}CUDA}{8}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {1.5)}Image-To-Image-Translation in Python}{8}{subsection.3.1.5}
+\contentsline {chapter}{\numberline {4}Experimente und Resultate}{10}{chapter.4}
+\contentsline {section}{\numberline {1)}Vorbereitung der Eingabedaten}{10}{section.4.1}
+\contentsline {section}{\numberline {2)}Anwendung herk\IeC {\"o}mmlicher Shader}{10}{section.4.2}
+\contentsline {section}{\numberline {3)}Hyperparameter}{11}{section.4.3}
+\contentsline {section}{\numberline {4)}Performancebeobachtungen}{12}{section.4.4}
+\contentsline {chapter}{\numberline {5}Diskussion}{13}{chapter.5}
+\contentsline {chapter}{\nonumberline Literatur}{15}{chapter*.2}
+\contentsline {chapter}{Bildnachweis}{17}{chapter*.3}
+\contentsline {chapter}{Abk\IeC {\"u}rzungs- und Symbolverzeichnis}{19}{chapter*.4}
+\contentsline {chapter}{Abbildungsverzeichnis}{21}{chapter*.4}
+\contentsline {chapter}{Tabellenverzeichnis}{23}{chapter*.5}
+\contentsline {chapter}{Anhang}{26}{part*.8}
+\contentsline {chapter}{\numberline {A}Quelltexte}{26}{appendix.A}
+\contentsline {section}{\numberline {1)}Image-To-Image-Translation main.py}{26}{section.A.1}
