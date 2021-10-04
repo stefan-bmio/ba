@@ -40,16 +40,41 @@ auch die jeweils zugrundeliegenden Dateiformate NDJSON und Wavefront OBJ infrage
 
 \section{Ziel der Arbeit}
 \label{sec:ziel}
-Die Arbeit verfolgt das Ziel, verschiedene bewährte Architekturen künstlicher
-neuronaler Netze zur Generierung von Bildern zu untersuchen und in einem
-praxisorientierten Zusammenhang zu testen. Ich zeige mehrere Möglichkeiten,
-wirklichkeitsnahe Bilder von Alltagsgegenständen aus Skizzen, die durch Benutzer
-erstellt wurden, mittels eines künstlichen neuronalen Netzes zu generieren. Die
-Bilddateien der Skizzen sowie die generierten Bilddateien können dabei aus
-RBG-Pixelinformationen bestehen oder die Grafik mittels Bildkoordinaten beschreiben,
-wie es bei Vektorgrafiken und 3D-Modellen der Fall ist. Eine Anwendung der
-Ergebnisse ist beispielsweise als Feature eines Grafiktablets oder eines
-Smartboards denkbar.
+Für diese Arbeit habe ich mir zum Ziel gesetzt, anhand wissenschaftlicher Literatur die Grundlagen und Methoden des maschinellen Lernens zu erarbeiten. Im Rahmen des Themas dieser Abschlussarbeit habe ich mit verschiedenen künstlichen neuronalen Netzen experimentiert, um Bilder zu generieren.
+
+Im Zuge der Ausarbeitung des Konzeptes waren zunächst verschiedene Rahmenbedingungen zu bewerten. Trainingsdaten müssen in großen Mengen verfügbar sein. Urheberrechtliche oder gar Lizenzfragen sollten möglichst nicht auftreten. Weiterhin sollten die Eingabebilder eine gewisse Homogenität aufweisen, um ein Modell auf die Aspekte Textur und Shading trainieren zu können. Meine Recherche verschiedener Methoden zur Generierung von Bildern mittels künstlichen neuronalen Netzen ist im \hyperref[sec:related]{nächsten Abschnitt zu den bisherigen Arbeiten} näher beschrieben.
+
+Die Entscheidung fiel schließlich auf ein Machine-Learning-Modell, das unter anderem die Ergebnisse der Canny-Edge-Detection \cite{canny1986edge} eines Bildes, also nur die Umrisse des abgebildeten Objekts, in das Originalbild zurückübersetzen kann. Das Modell heißt Image-To-Image-Translation \cite{isola2018imagetoimage} oder kurz Pix2Pix. In meinen Experimenten habe ich das Modell erfolgreich darauf trainiert, handgezeichnete Skizzen in fotorealistische Abbildungen von Alltagsgegenständen zu übersetzen. Der Algorithmus ist in dem \hyperref[sec:pix2pix]{Abschnitt zu Image-To-Image-Translation des Kapitels 2} beschrieben.
+
+Es gibt verschiedene denkbare praktische Anwendungsfälle für diese automatische Übersetzung. Vergleichbar mit Handschrifterkennung oder der Erkennung primitiver geometrischer Formen durch Geräte mit Stift- oder Fingereingabe kann die Erkennung von handgezeichneten Alltagsgegenständen etwa durch Smartboards die Illustration von Alltagssituationen erleichtern. In meinen Experimenten habe ich Skizzen von Autos in fotorealistische Abbildungen übersetzt. Damit ist die Darstellung einer Situation im Straßenverkehr vorstellbar, wie sie in einer Fahrschule vorteilhaft sein könnte. Ein weiterer konkreter Anwendungsfall ist die Inneneinrichtung einer Wohnung mit verschiedenen Möbelstücken.
+
+Eine umfangreiche Sammlung an handgezeichneten Eingabebildern ist im Dataset des ``Quick, Draw!''-Minigames von Google zu finden. Ziel des kostenlosen Browser-Spiels ist es, ein vorgebenes Motiv innerhalb 20 Sekunden mittels Maus, Touchpad oder einem vergleichbaren Eingabegerät so zu zeichnen, dass ein zeitgleich aktiver Algorithmus die Zeichnung klassifizieren kann. Das Dataset besteht aus den erstellten Zeichnungen, ist nach Motiven sortiert und ebenfalls kostenlos verfügbar. Somit ist es für meine Experimente bestmöglich geeignet. Die Verwendung des ``Quick, Draw!''-Datasets ist in \hyperref[ch:conduct]{Kapitel 4} beschrieben.
+
+Es ist in begrenztem Maße möglich, die Zahl der vorhandenen Eingabebilder durch Data Augmentation zu erhöhen \cite{chollet2017dlpython}. Dabei werden die Bilder gespiegelt, gedreht, skaliert oder auf andere Weise verändert oder verfälscht. Es ist außerdem denkbar, die Eingabedaten selbst zu erstellen. Weil der Zusammenhang mit prozeduralen Shadern durch die Aufgabenstellung gegeben ist, habe ich mich dazu entschieden einen wesentlichen Teil der Eingabebilder zu entwerfen und automatisiert zu erstellen. Es sind Bilder verschiedener Alltagsgegegenstände entstanden, die sich in der Form unterscheiden, deren Texturen und Lichtverhältnisse sich aber gleichen. Dadurch war es mir möglich das Modell auf die Übersetzung der handgezeichneten Skizzen in passende, fotorealistische Bilder zu trainieren. Das Erstellen der 3D-Modelle sowie die Automatisierung ist ebenfalls in \hyperref[ch:conduct]{Kapitel 4} beschrieben.
+
+Eingabedaten für das Training der Image-To-Image-Translation sind also zum einen handgezeichnete Skizzen und zum anderen fotorealistische Abbildungen alltäglicher Gegenstände. In der Literatur wird häufig das Bild, das übersetzt werden soll, als Input bezeichnet. Im Gegensatz dazu wird das Bild, in das übersetzt werden soll, Ground Truth oder Target genannt \cite{chollet2017dlpython}. Ich werde in diesem Dokument dieselben Bezeichnungen verwenden.
+
+Im Verlauf der Experimente habe ich den Trainingsfortschritt und -erfolg verschiedener Eingabebilder und Algorithmen betrachtet. Die interessantesten Größen beim maschinellen Lernen sind die Menge der Eingabedaten, die Anzahl der Trainingsdurchläufe und im Zusammenhang damit die Dauer des Trainings. Das tatsächliche Trainingsergebnis habe ich in Augenschein genommen und subjektiv für zufriedenstellend oder nicht zufriedenstellend befunden.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\textwidth]{bilder/0.jpg}
+	\includegraphics[width=0.3\textwidth]{bilder/1.jpg}
+	\includegraphics[width=0.3\textwidth]{bilder/15.jpg}
+	\caption[step01]{Das Modell generiert das Ergebnis schrittweise aus zufälligem Rauschen. Nach 15000 Trainingsschritten ist das Ergebnis zufriedenstellend.}
+	\label{fig:trichter}
+\end{figure}
+
+% Die Arbeit verfolgt das Ziel, verschiedene bewährte Architekturen künstlicher
+% neuronaler Netze zur Generierung von Bildern zu untersuchen und in einem
+% praxisorientierten Zusammenhang zu testen. Ich zeige mehrere Möglichkeiten,
+% wirklichkeitsnahe Bilder von Alltagsgegenständen aus Skizzen, die durch Benutzer
+% erstellt wurden, mittels eines künstlichen neuronalen Netzes zu generieren. Die
+% Bilddateien der Skizzen sowie die generierten Bilddateien können dabei aus
+% RBG-Pixelinformationen bestehen oder die Grafik mittels Bildkoordinaten beschreiben,
+% wie es bei Vektorgrafiken und 3D-Modellen der Fall ist. Eine Anwendung der
+% Ergebnisse ist beispielsweise als Feature eines Grafiktablets oder eines
+% Smartboards denkbar.
 
 \section{Bisherige Arbeiten}
 \label{sec:related}
