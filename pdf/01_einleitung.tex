@@ -52,7 +52,7 @@ Eine umfangreiche Sammlung an handgezeichneten Eingabebildern ist im Dataset des
 
 Es ist in begrenztem Maße möglich, die Zahl der vorhandenen Eingabebilder durch Data Augmentation zu erhöhen \cite{chollet2017dlpython}. Dabei werden die Bilder gespiegelt, gedreht, skaliert oder auf andere Weise verändert oder verfälscht. Es ist außerdem denkbar, die Eingabedaten selbst zu erstellen. Weil der Zusammenhang mit prozeduralen Shadern durch die Aufgabenstellung gegeben ist, habe ich mich dazu entschieden einen wesentlichen Teil der Eingabebilder zu entwerfen und automatisiert zu erstellen. Es sind Bilder verschiedener Alltagsgegegenstände entstanden, die sich in der Form unterscheiden, deren Texturen und Lichtverhältnisse sich aber gleichen. Dadurch war es mir möglich das Modell auf die Übersetzung der handgezeichneten Skizzen in passende, fotorealistische Bilder zu trainieren. Das Erstellen der 3D-Modelle sowie die Automatisierung ist ebenfalls in \hyperref[ch:conduct]{Kapitel 4} beschrieben.
 
-Eingabedaten für das Training der Image-To-Image-Translation sind also zum einen handgezeichnete Skizzen und zum anderen fotorealistische Abbildungen alltäglicher Gegenstände. In der Literatur wird häufig das Bild, das übersetzt werden soll, als Input bezeichnet. Im Gegensatz dazu wird das Bild, in das übersetzt werden soll, Ground Truth oder Target genannt \cite{chollet2017dlpython}. Ich werde in diesem Dokument dieselben Bezeichnungen verwenden.
+Eingabedaten für das Training der Image-To-Image-Translation sind also zum einen handgezeichnete Skizzen und zum anderen fotorealistische Abbildungen alltäglicher Gegenstände. In der Literatur wird häufig das Bild, das übersetzt werden soll, als Input bezeichnet. Im Gegensatz dazu wird das Bild, in das übersetzt werden soll, Ground Truth oder Target genannt \cite{chollet2017dlpython}. Ich verwende in diesem Dokument dieselben Bezeichnungen.
 
 Im Verlauf der Experimente habe ich den Trainingsfortschritt und -erfolg verschiedener Eingabebilder und Algorithmen betrachtet. Die interessantesten Größen beim maschinellen Lernen sind die Menge der Eingabedaten, die Anzahl der Trainingsdurchläufe und im Zusammenhang damit die Dauer des Trainings. Das tatsächliche Trainingsergebnis habe ich in Augenschein genommen und subjektiv für zufriedenstellend oder nicht zufriedenstellend befunden.
 
@@ -61,7 +61,7 @@ Im Verlauf der Experimente habe ich den Trainingsfortschritt und -erfolg verschi
 	\includegraphics[width=0.3\textwidth]{bilder/0.jpg}
 	\includegraphics[width=0.3\textwidth]{bilder/1.jpg}
 	\includegraphics[width=0.3\textwidth]{bilder/15.jpg}
-	\caption[step01]{Das Modell generiert das Ergebnis schrittweise aus zufälligem Rauschen. Nach 15000 Trainingsschritten ist das Ergebnis zufriedenstellend.}
+	\caption[Verschiedene Trainingsschritte]{Das Modell generiert das Ergebnis schrittweise aus zufälligem Rauschen. Nach 15000 Trainingsschritten ist das Ergebnis zufriedenstellend.}
 	\label{fig:trichter}
 \end{figure}
 
@@ -84,15 +84,78 @@ Rechenoperationen in annehmbarer Zeit auszuführen. Seitdem sind wenige,
 englischsprachige Einführungen in die Thematik entstanden. Ein häufig genanntes
 Buch ist ``Deep Learning'', das online kostenfrei zugänglich ist \cite{Goodfellow-et-al-2016}.
 Ebenfalls online kostenfrei ist das Buch ``Dive into Deep Learning'' \cite{zhang2020dive}.
-Ein weiteres, praxisorientierteres Buch ist ``Deep Learning with Python'' \cite{chollet2017}, dessen
+Ein weiteres, praxisorientierteres Buch ist ``Deep Learning with Python'' \cite{chollet2017dlpython}, dessen
 zweite Auflage bald herausgegeben wird.
 
-Als Architektur für ein künstliches neuronales Netz kommt für diese Arbeit
-zunächst derselbe Aufbau wie in ``Image-To-Image-Translation'' \cite{isola2018imagetoimage} zum Einsatz. Dieser setzt seinerseits auf Generative
-Adversarial Networks \cite{goodfellow2014generative} und Conditional Generative Adversarial Networks \cite{mirza2014conditional} auf.
+Erste Recherchen haben verschiedene Arten und Implementierungen Bilder generierender künstlicher neuronaler Netze herausgestellt. Das Model aus ``DRAW: A Recurrent Neural Network For Image Generation'' \cite{gregor2015draw} kann darauf trainiert werden, handschriftliche Ziffern wie die des MNIST-Datasets zu generieren.
+
+Die Schlüsselerkenntnis in ``A Neural Algorithm of Artistic Style'' \cite{gatys2015nst} ist, dass Inhalt und Stil eines Bildes voneinander getrennt werden können. Das Model kann zum Beispiel den Stil eines Künstlers auf das Bild eines anderen übertragen.
+
+In anderen Ansätzen mit rekurrenten neuronalen Netzen wird jedes Eingabebild in eine Sequenz von Pixeln umgeformt. Anschließend wird das künstliche neuronale Netz darauf trainiert, teilweise geschwärzte Bilder wieder zu vervollständigen \cite{chen2020generative}, \cite{oord2016pixel}. Es werden auch Bilder generiert und die Fähigkeit des jeweiligen Models, die Darstellung von Bildern zu lernen, untersucht und mit der anderer Models verglichen. Ein weiterer, ebenfalls rekurrenter Algorithmus generiert Bilder aus textuellen Beschreibungen \cite{ramesh2021zeroshot}.
+
+Besondere Aufmerksamkeit habe ich den Generative Adversarial Networks \cite{goodfellow2014generative} gegeben. Die Ergebnisse dieser Familie von künstlichen neuronalen Netzen sind teilweise erstaunlich gut, und es gibt bereits einige Beispielanwendungen und frei verfügbaren Quelltext. Je nach Anwendung des Models variiert die Qualität der Resultate.
+
+Die vielseitigste Generierung von Bildern bietet Image-To-Image-Translation with Conditional Adversarial Networks \cite{isola2018imagetoimage}. In der Arbeit werden Labels in Fotos zurückübersetzt, Schwarzweißbilder coloriert und weitere Anwendungsbeispiele gezeigt. Vor allem die Übersetzung ``Kanten nach Foto'' (``Edges to Photo'') ist für mein Vorhaben relevant. Das Dokument enthält dafür mehrere Beispiele und Hinweise für die Anpassung der Hyperparameter. Der Algorithmus setzt auf Generative Adversarial Networks \cite{goodfellow2014generative} und Conditional Generative Adversarial Networks \cite{mirza2014conditional} auf.
 
 In ``Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks'' \cite{radford2016unsupervised} werden ebenfalls
 realitätsnahe Ergebnisse erzielt. Anders als bei den bisher erwähnten Arbeiten
 wird Unsupervised Learning verwendet, um das künstliche neuronale Netz zu trainieren.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bilder/image_arithmetic.png}
+	\caption[Bildarithmetik]{Unter anderem werden in ``Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks'' \cite{radford2016unsupervised} Bilder in einer Art Arithmetik miteinander kombiniert, um ein neues Ergebnis zu erzeugen}
+	\label{fig:unsupervisedexamples}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bilder/mnist_faces.png}
+	\caption[GAN Beispielbilder]{Das Dokument über ``Generative Adversarial Nets'' zeigt mehrere Beispiele generierter Bilder. Es ist deutlich zu erkennen, wie gut der Algorithmus geeignet ist Bilder zu generieren. Die gelb gerahmten Bilder sind die Ground Truth aus dem jeweiligen Trainingsset.}
+	\label{fig:ganexamples}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[h]
+	\centering
+	\raisebox{-0.5\height}{\includegraphics[width=0.1\textwidth]{bilder/edges2cats_a.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.05\textwidth]{bilder/arrow.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.1\textwidth]{bilder/edges2cats_b.png}}
+	\hspace{.5cm}
+	\raisebox{-0.5\height}{\includegraphics[width=0.09\textwidth]{bilder/fotogenerator_a.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.05\textwidth]{bilder/arrow.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.09\textwidth]{bilder/fotogenerator_b.png}}
+	\hspace{.5cm}
+	\raisebox{-0.5\height}{\includegraphics[width=0.1\textwidth]{bilder/sketch2portrait_a.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.05\textwidth]{bilder/arrow.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.1\textwidth]{bilder/sketch2portrait_b.png}}
+	\label{fig:pix2pixexamples_1}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\raisebox{-0.5\height}{\includegraphics[width=0.1\textwidth]{bilder/pokemon_a.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.05\textwidth]{bilder/arrow.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.1\textwidth]{bilder/pokemon_b.png}}
+	\hspace{.5cm}
+	\raisebox{-0.5\height}{\includegraphics[width=0.09\textwidth]{bilder/shoe_a.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.05\textwidth]{bilder/arrow.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.09\textwidth]{bilder/shoe_b.png}}
+	\hspace{.5cm}
+	\raisebox{-0.5\height}{\includegraphics[width=0.1\textwidth]{bilder/handbag_a.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.05\textwidth]{bilder/arrow.png}}
+	\raisebox{-0.5\height}{\includegraphics[width=0.1\textwidth]{bilder/handbag_b.png}}
+	\caption[Bildarithmetik]{In Image-To-Image-Translation with Conditional Adversarial Networks sind viele Beispiele für die Generierung von Bildern aus Handzeichnungen oder Ergebnissen einer Kantenerkennung (zum Beispiel HED oder Canny).}
+	\label{fig:pix2pixexamples_2}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	
+	TODO: Bild Tische, Kerze, jeweils drei
+	\caption[Eigene Beispiele]{Meine Ergebnisse zeigen, dass aus einer Handzeichnung ein fotorealistisches Bild generiert werden kann. Die generierten Bilder nehmen ungefähr die Proportionen der Handzeichnungen an, erstellen realistische Darstellungen der Gegengenstände und fügen Texturen und Lichteffekte hinzu.}
+	\label{fig:myexamples}
+\end{figure}
 
 Blender ist ein 3D-Computergrafikprogramm mit Werkzeugen für die Modellierung und Animation von Objekten und Charakteren und zur Erstellung von Hintergrundszenen. Szenen können als Standbilder hergestellt werden. Animierte Sequenzen können für Videoproduktionen genutzt werden. Modelle und Szenen werden durch Farben und Texturen noch aufgewertet, wodurch brillante realistische Effekte produziert werden. Die Standbilder und Videos können als Kunstwerke oder als architektonisch oder wissenschaftliche Präsentationen Anwendung finden. \cite{blain2020blender}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.5.17)  4 OCT 2021 20:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.5.17)  11 OCT 2021 19:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1983,13 +1983,6 @@ Package biblatex Info: ... file 'abschlussarbeit.bbl' found.
 
 Package biblatex Warning: The following entry could not be found
 (biblatex)                in the database:
-(biblatex)                chollet2017
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
 (biblatex)                chollet201chollet2017dlpython7
 (biblatex)                Please verify the spelling and rerun
 (biblatex)                LaTeX afterwards.
@@ -2305,6 +2298,126 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 79.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 79.
+Package cleveref Info: loaded `ngerman' language definitions on input line 98.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 98.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 98.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 98.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 98.
+
+[3 <./bilder/0.jpg> <./bilder/1.jpg> <./bilder/15.jpg>]
+<bilder/image_arithmetic.png, id=222, 1137.24875pt x 194.7275pt>
+File: bilder/image_arithmetic.png Graphic file (type png)
+<use bilder/image_arithmetic.png>
+Package pdftex.def Info: bilder/image_arithmetic.png  used on input line 106.
+(pdftex.def)             Requested size: 450.69174pt x 77.17055pt.
+<bilder/mnist_faces.png, id=226, 565.11125pt x 183.68625pt>
+File: bilder/mnist_faces.png Graphic file (type png)
+<use bilder/mnist_faces.png>
+Package pdftex.def Info: bilder/mnist_faces.png  used on input line 113.
+(pdftex.def)             Requested size: 450.69174pt x 146.49792pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 119.
+
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 119.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 119.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 119.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 119.
+ [4 <./bilder/image_arithmetic.png> <./bilder/mnist_faces.png>]
+<bilder/edges2cats_a.png, id=237, 129.48375pt x 126.4725pt>
+File: bilder/edges2cats_a.png Graphic file (type png)
+<use bilder/edges2cats_a.png>
+Package pdftex.def Info: bilder/edges2cats_a.png  used on input line 122.
+(pdftex.def)             Requested size: 45.07191pt x 44.02287pt.
+<bilder/arrow.png, id=238, 24.09pt x 11.04124pt>
+File: bilder/arrow.png Graphic file (type png)
+<use bilder/arrow.png>
+Package pdftex.def Info: bilder/arrow.png  used on input line 123.
+(pdftex.def)             Requested size: 22.53595pt x 10.32887pt.
+<bilder/edges2cats_b.png, id=239, 127.47626pt x 126.4725pt>
+File: bilder/edges2cats_b.png Graphic file (type png)
+<use bilder/edges2cats_b.png>
+Package pdftex.def Info: bilder/edges2cats_b.png  used on input line 124.
+(pdftex.def)             Requested size: 45.07191pt x 44.7176pt.
+<bilder/fotogenerator_a.png, id=240, 92.345pt x 96.36pt>
+File: bilder/fotogenerator_a.png Graphic file (type png)
+<use bilder/fotogenerator_a.png>
+Package pdftex.def Info: bilder/fotogenerator_a.png  used on input line 126.
+(pdftex.def)             Requested size: 40.5606pt x 42.32353pt.
+File: bilder/arrow.png Graphic file (type png)
+<use bilder/arrow.png>
+Package pdftex.def Info: bilder/arrow.png  used on input line 127.
+(pdftex.def)             Requested size: 22.53595pt x 10.32887pt.
+<bilder/fotogenerator_b.png, id=241, 91.34125pt x 93.34875pt>
+File: bilder/fotogenerator_b.png Graphic file (type png)
+<use bilder/fotogenerator_b.png>
+Package pdftex.def Info: bilder/fotogenerator_b.png  used on input line 128.
+(pdftex.def)             Requested size: 40.5606pt x 41.45245pt.
+<bilder/sketch2portrait_a.png, id=242, 110.4125pt x 107.40125pt>
+File: bilder/sketch2portrait_a.png Graphic file (type png)
+<use bilder/sketch2portrait_a.png>
+Package pdftex.def Info: bilder/sketch2portrait_a.png  used on input line 130.
+(pdftex.def)             Requested size: 45.07191pt x 43.84305pt.
+File: bilder/arrow.png Graphic file (type png)
+<use bilder/arrow.png>
+Package pdftex.def Info: bilder/arrow.png  used on input line 131.
+(pdftex.def)             Requested size: 22.53595pt x 10.32887pt.
+<bilder/sketch2portrait_b.png, id=243, 108.405pt x 107.40125pt>
+File: bilder/sketch2portrait_b.png Graphic file (type png)
+<use bilder/sketch2portrait_b.png>
+Package pdftex.def Info: bilder/sketch2portrait_b.png  used on input line 132.
+(pdftex.def)             Requested size: 45.07191pt x 44.65425pt.
+<bilder/pokemon_a.png, id=244, 108.405pt x 108.405pt>
+File: bilder/pokemon_a.png Graphic file (type png)
+<use bilder/pokemon_a.png>
+Package pdftex.def Info: bilder/pokemon_a.png  used on input line 138.
+(pdftex.def)             Requested size: 45.07191pt x 45.07158pt.
+File: bilder/arrow.png Graphic file (type png)
+<use bilder/arrow.png>
+Package pdftex.def Info: bilder/arrow.png  used on input line 139.
+(pdftex.def)             Requested size: 22.53595pt x 10.32887pt.
+<bilder/pokemon_b.png, id=245, 104.39pt x 108.405pt>
+File: bilder/pokemon_b.png Graphic file (type png)
+<use bilder/pokemon_b.png>
+Package pdftex.def Info: bilder/pokemon_b.png  used on input line 140.
+(pdftex.def)             Requested size: 45.07191pt x 46.80676pt.
+<bilder/shoe_a.png, id=246, 116.435pt x 108.405pt>
+File: bilder/shoe_a.png Graphic file (type png)
+<use bilder/shoe_a.png>
+Package pdftex.def Info: bilder/shoe_a.png  used on input line 142.
+(pdftex.def)             Requested size: 40.5606pt x 37.76366pt.
+File: bilder/arrow.png Graphic file (type png)
+<use bilder/arrow.png>
+Package pdftex.def Info: bilder/arrow.png  used on input line 143.
+(pdftex.def)             Requested size: 22.53595pt x 10.32887pt.
+<bilder/shoe_b.png, id=247, 117.43875pt x 108.405pt>
+File: bilder/shoe_b.png Graphic file (type png)
+<use bilder/shoe_b.png>
+Package pdftex.def Info: bilder/shoe_b.png  used on input line 144.
+(pdftex.def)             Requested size: 40.5606pt x 37.43945pt.
+<bilder/handbag_a.png, id=248, 112.42pt x 113.42375pt>
+File: bilder/handbag_a.png Graphic file (type png)
+<use bilder/handbag_a.png>
+Package pdftex.def Info: bilder/handbag_a.png  used on input line 146.
+(pdftex.def)             Requested size: 45.07191pt x 45.47426pt.
+File: bilder/arrow.png Graphic file (type png)
+<use bilder/arrow.png>
+Package pdftex.def Info: bilder/arrow.png  used on input line 147.
+(pdftex.def)             Requested size: 22.53595pt x 10.32887pt.
+<bilder/handbag_b.png, id=249, 112.42pt x 113.42375pt>
+File: bilder/handbag_b.png Graphic file (type png)
+<use bilder/handbag_b.png>
+Package pdftex.def Info: bilder/handbag_b.png  used on input line 148.
+(pdftex.def)             Requested size: 45.07191pt x 45.47426pt.
 )
 Package cleveref Info: loaded `ngerman' language definitions on input line 31.
 Package babel Info: Redefining ngerman shorthand "|
@@ -2315,8 +2428,11 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 31.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 31.
-
-[3 <./bilder/0.jpg> <./bilder/1.jpg> <./bilder/15.jpg>]
+ [5 <./bilder/edges2cats_a.png> <./bilder/arrow.png> <./bilder/edges2cats_b.png
+> <./bilder/fotogenerator_a.png> <./bilder/fotogenerator_b.png> <./bilder/sketc
+h2portrait_a.png> <./bilder/sketch2portrait_b.png> <./bilder/pokemon_a.png> <./
+bilder/pokemon_b.png> <./bilder/shoe_a.png> <./bilder/shoe_b.png> <./bilder/han
+dbag_a.png> <./bilder/handbag_b.png>]
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 31.
 Package babel Info: Redefining ngerman shorthand "~
@@ -2325,11 +2441,10 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 31.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 31.
- [4
+ [6
 
 
-]
-(./02_bildgenerierung.tex
+] (./02_bildgenerierung.tex
 chapter 2.
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 1.
@@ -2365,7 +2480,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 27.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 27.
- [5
+ [7
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
@@ -2385,7 +2500,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 60.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 60.
- [6]
+ [8]
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 63.
 Package babel Info: Redefining ngerman shorthand "~
@@ -2403,7 +2518,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 78.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 78.
- [7]
+ [9]
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 81.
 Package babel Info: Redefining ngerman shorthand "~
@@ -2434,7 +2549,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 102.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 102.
- [8]
+ [10]
 Package cleveref Info: loaded `ngerman' language definitions on input line 110.
 
 Package babel Info: Redefining ngerman shorthand "|
@@ -2445,7 +2560,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 110.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 110.
- [9]
+ [11]
 chapter 3.
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 110.
@@ -2471,7 +2586,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 140.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 140.
-[10
+[12
 
 ]
 Package cleveref Info: loaded `ngerman' language definitions on input line 142.
@@ -2484,7 +2599,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 142.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 142.
- [11]
+ [13]
 chapter 4.
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 142.
@@ -2506,7 +2621,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 166.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 166.
-[12
+[14
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
@@ -2526,7 +2641,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 188.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 188.
- [13]
+ [15]
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 188.
 Package babel Info: Redefining ngerman shorthand "~
@@ -2542,7 +2657,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 192.
 
-[14]
+[16]
 chapter 5.
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 192.
@@ -2557,7 +2672,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 40.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 40.
- [15
+ [17
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
@@ -2568,7 +2683,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 40.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 40.
- [16
+ [18
 
 
 ]
@@ -2612,6 +2727,33 @@ Package biblatex Warning: '\mkdaterangeedtf' is deprecated.
 (biblatex)                Please use '\mkdaterangeiso'.
 
 Package cleveref Info: loaded `ngerman' language definitions on input line 41.
+Package cleveref Info: loaded `ngerman' language definitions on input line 41.
+Package cleveref Info: loaded `ngerman' language definitions on input line 41.
+
+Package biblatex Warning: '\mkdaterangeedtf' is deprecated.
+(biblatex)                Please use '\mkdaterangeiso'.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 41.
+
+Package biblatex Warning: '\mkdaterangeedtf' is deprecated.
+(biblatex)                Please use '\mkdaterangeiso'.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 41.
+
+Package biblatex Warning: '\mkdaterangeedtf' is deprecated.
+(biblatex)                Please use '\mkdaterangeiso'.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 41.
+
+Package biblatex Warning: '\mkdaterangeedtf' is deprecated.
+(biblatex)                Please use '\mkdaterangeiso'.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 41.
+
+Package biblatex Warning: '\mkdaterangeedtf' is deprecated.
+(biblatex)                Please use '\mkdaterangeiso'.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 41.
 
 Package biblatex Warning: '\mkdaterangeedtf' is deprecated.
 (biblatex)                Please use '\mkdaterangeiso'.
@@ -2634,6 +2776,17 @@ Package biblatex Warning: '\mkdaterangeedtf' is deprecated.
 (biblatex)                Please use '\mkdaterangeiso'.
 
 Package cleveref Info: loaded `ngerman' language definitions on input line 41.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 41.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 41.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 41.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 41.
+[19
+
+]
 
 Package biblatex Warning: '\mkdaterangeedtf' is deprecated.
 (biblatex)                Please use '\mkdaterangeiso'.
@@ -2664,17 +2817,6 @@ Package biblatex Warning: '\mkdaterangeedtf' is deprecated.
 (biblatex)                Please use '\mkdaterangeiso'.
 
 Package cleveref Info: loaded `ngerman' language definitions on input line 41.
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 41.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 41.
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 41.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 41.
-[17
-
-]
 
 Package biblatex Warning: '\mkdaterangeedtf' is deprecated.
 (biblatex)                Please use '\mkdaterangeiso'.
@@ -2689,7 +2831,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 44.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 44.
-[18] (./97_bildnachweis.tex
+[20] (./97_bildnachweis.tex
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 2.
 Package babel Info: Redefining ngerman shorthand "~
@@ -2703,7 +2845,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 48.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 48.
- [19
+ [21
 
 
 
@@ -2716,7 +2858,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 48.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 48.
- [20
+ [22
 
 
 ] (./98_symbole_abk.tex
@@ -2733,7 +2875,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 52.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 52.
- [21
+ [23
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
@@ -2744,7 +2886,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 52.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 52.
- [22
+ [24
 
 
 ]
@@ -2769,7 +2911,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 57.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 57.
- [23
+ [25
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
@@ -2780,7 +2922,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 57.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 57.
- [24
+ [26
 
 
 ]
@@ -2804,7 +2946,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 62.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 62.
- [25
+ [27
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
@@ -2815,7 +2957,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 62.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 62.
- [26
+ [28
 
 
 ]
@@ -2828,7 +2970,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 1.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 1.
- [27
+ [29
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
@@ -2853,7 +2995,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 67.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 67.
-[28
+[30
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -2868,7 +3010,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 136.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 136.
- [29]
+ [31]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package cleveref Info: loaded `ngerman' language definitions on input line 204.
@@ -2881,7 +3023,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 204.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 204.
- [30]
+ [32]
 Overfull \hbox (43.71329pt too wide) in paragraph at lines 222--224
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
@@ -2905,7 +3047,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 271.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 271.
- [31]
+ [33]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineMonoT-TLF/m/it' in size <8> no
 t available
 (Font)              Font shape `T1/LinuxLibertineMonoT-TLF/m/sl' tried instead 
@@ -2931,7 +3073,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 339.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 339.
- [32])
+ [34])
 
 Package caption Warning: Unused \captionsetup[subtable] on input line 33.
 See the caption package documentation for explanation.
@@ -2945,7 +3087,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 66.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 66.
-[33]
+[35]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 66.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 66.
  (./abschlussarbeit.aux
@@ -2954,17 +3096,17 @@ Package cleveref Info: loaded `ngerman' language definitions on input line 25.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 66.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 66.
 Package rerunfilecheck Info: File `abschlussarbeit.out' has not changed.
-(rerunfilecheck)             Checksum: BBC4B18C71EC58C76FF40EF26F303C23;1652.
+(rerunfilecheck)             Checksum: 4A691E3D15A048FAFA8650E31A75DA04;1656.
 Package logreq Info: Writing requests to 'abschlussarbeit.run.xml'.
 \openout1 = `abschlussarbeit.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 48767 strings out of 492649
- 939259 string characters out of 6129622
- 1465032 words of memory out of 5000000
- 51317 multiletter control sequences out of 15000+600000
- 679249 words of font info for 229 fonts, out of 8000000 for 9000
+ 48902 strings out of 492649
+ 942705 string characters out of 6129622
+ 1465870 words of memory out of 5000000
+ 51401 multiletter control sequences out of 15000+600000
+ 681488 words of font info for 245 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  77i,11n,122p,9143b,4226s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_d6jdyt.enc
@@ -2984,10 +3126,10 @@ blic/libertine/LinLibertineT.pfb></usr/local/texlive/2018/texmf-dist/fonts/type
 1/public/libertine/LinLibertineTB.pfb></usr/local/texlive/2018/texmf-dist/fonts
 /type1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2018/texmf-dist/
 fonts/type1/public/eurosym/feymr10.pfb>
-Output written on abschlussarbeit.pdf (39 pages, 803626 bytes).
+Output written on abschlussarbeit.pdf (41 pages, 1275183 bytes).
 PDF statistics:
- 915 PDF objects out of 1000 (max. 8388607)
- 854 compressed objects within 9 object streams
- 456 named destinations out of 1000 (max. 500000)
- 30452 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 985 PDF objects out of 1000 (max. 8388607)
+ 891 compressed objects within 9 object streams
+ 468 named destinations out of 1000 (max. 500000)
+ 30527 words of extra memory for PDF output out of 35830 (max. 10000000)
 

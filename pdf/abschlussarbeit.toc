@@ -3,32 +3,32 @@
 \contentsline {chapter}{\numberline {1}Einleitung}{1}{chapter.1}
 \contentsline {section}{\numberline {1)}Ziel der Arbeit}{1}{section.1.1}
 \contentsline {section}{\numberline {2)}Bisherige Arbeiten}{3}{section.1.2}
-\contentsline {chapter}{\numberline {2}Modell}{5}{chapter.2}
-\contentsline {section}{\numberline {1)}Tensoren}{5}{section.2.1}
-\contentsline {section}{\numberline {2)}Logistische Regression}{6}{section.2.2}
-\contentsline {section}{\numberline {3)}Deep Neural Networks}{6}{section.2.3}
-\contentsline {section}{\numberline {4)}Convolutional Neural Networks}{6}{section.2.4}
-\contentsline {section}{\numberline {5)}U-Net-Architektur}{7}{section.2.5}
-\contentsline {section}{\numberline {6)}Generative Adversarial Networks}{7}{section.2.6}
-\contentsline {section}{\numberline {7)}Image-To-Image-Translation}{8}{section.2.7}
-\contentsline {chapter}{\numberline {3}Implementierung}{10}{chapter.3}
-\contentsline {section}{\numberline {1)}Entwicklungsumgebung}{10}{section.3.1}
-\contentsline {subsection}{\numberline {1.1)}Ubuntu Linux}{10}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {1.2)}Python}{10}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {1.3)}Tensorflow}{10}{subsection.3.1.3}
-\contentsline {subsection}{\numberline {1.4)}CUDA}{10}{subsection.3.1.4}
-\contentsline {subsection}{\numberline {1.5)}Image-To-Image-Translation in Python}{10}{subsection.3.1.5}
-\contentsline {chapter}{\numberline {4}Experimente und Resultate}{12}{chapter.4}
-\contentsline {section}{\numberline {1)}Vorbereitung der Eingabedaten}{12}{section.4.1}
-\contentsline {section}{\numberline {2)}Anwendung herk\IeC {\"o}mmlicher Shader}{12}{section.4.2}
-\contentsline {section}{\numberline {3)}Hyperparameter}{13}{section.4.3}
-\contentsline {section}{\numberline {4)}Performancebeobachtungen}{14}{section.4.4}
-\contentsline {chapter}{\numberline {5}Diskussion}{15}{chapter.5}
-\contentsline {chapter}{\nonumberline Literatur}{17}{chapter*.3}
-\contentsline {chapter}{Bildnachweis}{19}{chapter*.4}
-\contentsline {chapter}{Abk\IeC {\"u}rzungs- und Symbolverzeichnis}{21}{chapter*.5}
-\contentsline {chapter}{Abbildungsverzeichnis}{23}{chapter*.5}
-\contentsline {chapter}{Tabellenverzeichnis}{25}{chapter*.6}
-\contentsline {chapter}{Anhang}{28}{part*.9}
-\contentsline {chapter}{\numberline {A}Quelltexte}{28}{appendix.A}
-\contentsline {section}{\numberline {1)}Image-To-Image-Translation main.py}{28}{section.A.1}
+\contentsline {chapter}{\numberline {2}Modell}{7}{chapter.2}
+\contentsline {section}{\numberline {1)}Tensoren}{7}{section.2.1}
+\contentsline {section}{\numberline {2)}Logistische Regression}{8}{section.2.2}
+\contentsline {section}{\numberline {3)}Deep Neural Networks}{8}{section.2.3}
+\contentsline {section}{\numberline {4)}Convolutional Neural Networks}{8}{section.2.4}
+\contentsline {section}{\numberline {5)}U-Net-Architektur}{9}{section.2.5}
+\contentsline {section}{\numberline {6)}Generative Adversarial Networks}{9}{section.2.6}
+\contentsline {section}{\numberline {7)}Image-To-Image-Translation}{10}{section.2.7}
+\contentsline {chapter}{\numberline {3}Implementierung}{12}{chapter.3}
+\contentsline {section}{\numberline {1)}Entwicklungsumgebung}{12}{section.3.1}
+\contentsline {subsection}{\numberline {1.1)}Ubuntu Linux}{12}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {1.2)}Python}{12}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {1.3)}Tensorflow}{12}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {1.4)}CUDA}{12}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {1.5)}Image-To-Image-Translation in Python}{12}{subsection.3.1.5}
+\contentsline {chapter}{\numberline {4}Experimente und Resultate}{14}{chapter.4}
+\contentsline {section}{\numberline {1)}Vorbereitung der Eingabedaten}{14}{section.4.1}
+\contentsline {section}{\numberline {2)}Anwendung herk\IeC {\"o}mmlicher Shader}{14}{section.4.2}
+\contentsline {section}{\numberline {3)}Hyperparameter}{15}{section.4.3}
+\contentsline {section}{\numberline {4)}Performancebeobachtungen}{16}{section.4.4}
+\contentsline {chapter}{\numberline {5}Diskussion}{17}{chapter.5}
+\contentsline {chapter}{\nonumberline Literatur}{19}{chapter*.8}
+\contentsline {chapter}{Bildnachweis}{21}{chapter*.9}
+\contentsline {chapter}{Abk\IeC {\"u}rzungs- und Symbolverzeichnis}{23}{chapter*.10}
+\contentsline {chapter}{Abbildungsverzeichnis}{25}{chapter*.10}
+\contentsline {chapter}{Tabellenverzeichnis}{27}{chapter*.11}
+\contentsline {chapter}{Anhang}{30}{part*.14}
+\contentsline {chapter}{\numberline {A}Quelltexte}{30}{appendix.A}
+\contentsline {section}{\numberline {1)}Image-To-Image-Translation main.py}{30}{section.A.1}
