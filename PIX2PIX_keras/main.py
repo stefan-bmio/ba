@@ -308,7 +308,7 @@ if __name__ == '__main__':
     IMG_WIDTH = 256
     IMG_HEIGHT = 256
 
-    PATH = '../PIX2PIX/images/combined/candles/'
+    PATH = '../PIX2PIX/images/combined/tables/'
     train_dataset = tf.data.Dataset.list_files(PATH + 'train/*.png')
     train_dataset = train_dataset.map(load_image_train,
                                       num_parallel_calls=tf.data.AUTOTUNE)
