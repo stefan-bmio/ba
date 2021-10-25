@@ -303,7 +303,7 @@ if __name__ == '__main__':
     # Adjust this value to the number of training images
     BUFFER_SIZE = 400
     # The batch size of 1 produced better results for the U-Net in the original pix2pix experiment
-    BATCH_SIZE = 1
+    BATCH_SIZE = 4
     # Each image is 256x256 in size
     IMG_WIDTH = 256
     IMG_HEIGHT = 256
