@@ -106,5 +106,13 @@ hidelinks
 ]{hyperref}
 \usepackage[german]{cleveref}
 
+%eigene
 \renewcommand\thesection{\arabic{section})}
-\renewcommand\thesubsection{\arabic{section}.\arabic{subsection})}
+\renewcommand\thesubsection{\arabic{section}\arabic{subsection})}
+\newcommand{\imagetranslation}[2]{
+	\raisebox{-0.5\height}{\fbox{\includegraphics[width=0.1\textwidth]{#1}}}
+	\raisebox{-0.5\height}{$\rightarrow$}
+	\raisebox{-0.5\height}{\fbox{\includegraphics[width=0.1\textwidth]{#2}}}
+}
+
+\setlength{\fboxsep}{0pt}

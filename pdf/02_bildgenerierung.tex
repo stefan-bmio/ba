@@ -102,7 +102,19 @@ In der Funktion \lstinline|upsample| entstehen die übrigen CNN-Schichten des Ge
 
 In \lstinline|build_generator| werden die Schichten des Generators zusammengefügt. Im Encoder wird acht Mal \lstinline|downsample| aufgerufen, bis die Dimensionen des Eingabetensors, die am Anfang der Bildgröße entsprechen (Breite und Höhe, also $256x256$ Pixel), durch die Konvolution auf $1$ reduziert sind. Die Dimension, welche die Anzahl Farbkanäle der Eingabebilder repräsentiert, erhöht sich im Encoder auf den Wert $512$. Die Werte dieser Achse werden als Features \cite{zhang2020dive} \cite{chollet2017dlpython} \cite{zaccone2018tensorflow} bezeichnet.
 
-Der Decoder ruft seinerseits sieben Mal \lstinline|upsample| auf und führt eine weiter Entfaltung durch, wodurch die Dimensionen des bearbeiteten Tensors wieder jeweils dieselbe Form wie in den Eingabebildern annehmen. Schließlich werden die Skip-Connections zwischen den Schichten 1 bis 8 des Encoders und des Decoders hergestellt.
+Der Decoder ruft seinerseits sieben Mal \lstinline|upsample| auf und führt eine weitere Entfaltung durch, wodurch die Dimensionen des bearbeiteten Tensors wieder jeweils dieselbe Form wie in den Eingabebildern annehmen. Schließlich werden die Skip-Connections zwischen den Schichten 1 bis 8 des Encoders und des Decoders hergestellt.
+
+In der Funktion \lstinline|generator_loss| ist die Backpropagation des Generators implementiert. Zuerst wird dafür die Kreuzentropie des Ergebnisses des Discriminators und eines gleich großen Tensors, der mit Einsen initialisiert wird, gebildet. TODO: crossentropy Das Ergebnis ist das GAN-Loss. Anschließend kommt die L1 Loss Function, auch Mean Absolute Error genannt, zum Einsatz:
+\begin{align}
+  \mathcal{L} _{L1}(G) = \mathbb{E}_{x,y,z}[\|y - G(x,z)\|_1]
+\end{align}
+wobei $x$ für die Eingabebilder, $y$ für die Ground Truth und $z$ für das Ergebnis des des Generators, also das generierte Bild, steht \cite{isola2018imagetoimage}. Dieses L1-Loss wird aus dem Durchschnitt der absoluten Differenz der Ground Truth und des Generatorergebnisses berechnet. Der Gesamtverlust des Generators ist das GAN-Loss plus das Produkt aus dem Regularisierungsparameter Lambda, der konstant $100$ beträgt, und dem L1-Loss. Die Funktion \lstinline|generator_loss| gibt den Gesamtverlust, das GAN-Loss und das L1-Loss zurück.
+
+In \lstinline|build_discriminator| wird der Discriminator aus verschiedenen neuronalen Schichten zusammengesetzt. Zwei Tensoren \lstinline|input_image| und \lstinline|target_image| mit denselben Anzahlen Achsen und denselben Dimensionen wie die Eingabebilder werden zu einem einzelnen Tensor konkateniert. Anschließend wird für diesen Tensor dreimal \lstinline|downsample| aufgerufen, bis der Tensor die Dimensionen $(32x32x256)$ hat. Es folgt ein Padding mit Nullen, eine weitere Konvolution sowie Batch Normalization und die Leaky ReLU Aktivierungsfunktion. Nach einem weiteren Null-Padding und einer weiteren Konvolution hat der Tensor die Dimensionen $(30x30x1)$.
+
+In der Funktion \lstinline|discriminator_loss| ist die Backpropagation des Discriminators implementiert. Aus jeweils einem Tensor mit den gleichen Dimensionen wie die Eingabebilder und mit Einsen initialisiert wird die Kreuzentropie mit einem Trainingsbild und dem Ergebnis des Generators gebildet. Die jeweiligen Werte für den Verlust des Discriminators werden als Gesamtverlust zurückgegeben.
+
+
 
 Im Ausführungsstrang wird zunächst eine Option des GPU-Speichermanagements gewählt, um die Größe des reservierten Speichers dynamisch anwachsen zu lassen. \cite{zaccone2018tensorflow} Zu Beginn der Experimente hat sich diese Einstellung als vorteilhaft herausgestellt.
 
