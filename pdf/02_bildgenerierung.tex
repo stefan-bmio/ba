@@ -114,10 +114,30 @@ In \lstinline|build_discriminator| wird der Discriminator aus verschiedenen neur
 
 In der Funktion \lstinline|discriminator_loss| ist die Backpropagation des Discriminators implementiert. Aus jeweils einem Tensor mit den gleichen Dimensionen wie die Eingabebilder und mit Einsen initialisiert wird die Kreuzentropie mit einem Trainingsbild und dem Ergebnis des Generators gebildet. Die jeweiligen Werte für den Verlust des Discriminators werden als Gesamtverlust zurückgegeben.
 
+Die Funktion \lstinline|generate_images| verwendet das Model des Generators, um aus Eingabebildern eigene Bilder zu generieren. Sie erstellt anschließend eine Ausgabedatei mit einem Beispiel bestehend aus einem Eingabebild, der zugehörigen Ground Truth und dem daraus generierten Bild.
 
+In der Funktion \lstinline|train_step| werden die wichtigsten Möglichkeiten genutzt, die durch Verwendung des Keras-Frameworks zur Verfügung stehen. Es wird ein Generator mit dem übergebenen Input-Bild und dem ebenfalls übergebenen Target-Bild initialisiert. Außerdem werden zwei Discriminator initialisiert, nämlich einmal mit dem Input- und dem Target-Bild und einmal mit dem Input-Bild und dem durch den Generator erstellten Bild.
+
+Die Initialisierung des Generators und der Discriminator anhand der vorliegenden Bilder werden durch das Framework aufgezeichnet. Dadurch ist es anschließend möglich, die Gradienten mittels der in \lstinline|generator_loss| und \lstinline|discriminator_loss| berechneten Fehler des Generators und des Discriminators zu berechnen, um diese Werte an die jeweiligen Optimizer zu übergeben.
+
+Schließlich wird in \lstinline|train_step| eine maschinenlesbare Zusammenfassung des aktuellen Trainingsschrittes erstellt. In TensorBoard kann diese Zusammenfassung eingelesen werden, um den aktuellen Trainingsdurchlauf und Trainingserfolg zu beobachten und abgeschlossene Trainingsdurchläufe zu vergleichen.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bilder/tensorboard.png}
+	\caption[TensorBoard]{Im TensorBoard können zum Beispiel die Fehlerraten des aktuellen Trainingsdurchlaufs abgelesen oder frühere Trainingsdurchläufe miteinander verglichen werden.}
+	\label{fig:unsupervisedexamples}
+\end{figure}
+
+In der Funktion \lstinline|fit| wird zuerst ein Bild des Testsets geladen. Das Beispielbild wird verwendet, um durch Aufrufen von \lstinline|generate_images| den aktuellen Trainingserfolg in Form einer Bilddatei im Ausgabeverzeichnis zu speichern. Dieser Vorgang erfolgt nach je 1000 Trainingsschritten.
+
+Über die Trainingsbilder wird wiederholt iteriert und für jedes Trainingsbild \lstinline|train_step| aufgerufen.
+
+Nach je 5000 Trainingsschritten speichert \lstinline|fit| außerdem einen Checkpoint. Dadurch kann einerseits das Training unterbrochen und zu einem späteren Zeitpunkt fortgesetzt werden. Andererseits wird das Modell auf diese Weise persistiert, und es ist später möglich, das künstliche neuronale Netz für seinen eigentlichen Einsatzzweck zu nutzen, ohne es erneut zu trainieren.
 
 Im Ausführungsstrang wird zunächst eine Option des GPU-Speichermanagements gewählt, um die Größe des reservierten Speichers dynamisch anwachsen zu lassen. \cite{zaccone2018tensorflow} Zu Beginn der Experimente hat sich diese Einstellung als vorteilhaft herausgestellt.
 
+Es werden auch einige Parameter wie die Bildgröße und die Größe des Trainingssets und Hyperparameter wie die Batchgröße gesetzt. Das Trainings- und das Testset werden eingelesen, der Generator und die Discriminator erstellt und der Adam-Optimizer initialisiert. Nachdem anschließend das Schreiben der Checkpoints und der Zusammenfassung vorbereitet wurde, erfolgt das Training durch Aufruf von \lstinline|fit|. Im letzten Schritt wird das Modell mit 5 Beispielbildern aus dem Testset aufgerufen.
 
 \chapter{Implementierung}
 
