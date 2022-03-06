@@ -20,6 +20,67 @@ Ein Tensor ist durch drei Schlüsselattribute definiert:
 
 Viele in dieser Arbeit verwendeten Tensoren beschreiben RBG-Bilddaten. Sie sind deshalb dritter Stufe, und die enthaltenen Daten sind Ganzzahlen zwischen $0$ und $255$. Die Form der durch das künstliche neuronale Netz generierten Bilder ist $(256, 256, 3)$. Die Dimensionen beschreiben hier also die Breite, Höhe und Farbtiefe der Bilddateien.
 
+\section{Kreuzentropie}
+n artificial intelligence applications, we useprobability theory in two major ways. First, the laws of probability tell us how AIsystems should reason, so we design our algorithms to compute or approximatevarious expressions derived using probability theory. Second, we can use probabilityand statistics to theoretically analyze the behavior of proposed AI systems.
+
+There are three possible sources of uncertainty:1.Inherent stochasticity in the system being modeled. For example, mostinterpretations of quantum mechanics describe the dynamics of subatomicparticles as being probabilistic. We can also create theoretical scenarios thatwe postulate to have random dynamics, such as a hypothetical card gamewhere we assume that the cards are truly shuffled into a random order
+
+ncomplete observability. Even deterministic systems can appear stochasticwhen we cannot observe all the variables that drive the behavior of thesystem. For example, in the Monty Hall problem, a game show contestant isasked to choose between three doors and wins a prize held behind the chosendoor. Two doors lead to a goat while a third leads to a car. The outcomegiven the contestant’s choice is deterministic, but from the contestant’s pointof view, the outcome is uncertain.
+Gefangenenparadoxon
+
+Probability theorywas originally developed to analyze the frequencies of events. It is easy to seehow probability theory can be used to study events like drawing a certain hand ofcards in a poker game. These kinds of events are often repeatable. When we saythat an outcome has a probabilitypof occurring, it means that if we repeated theexperiment (e.g., drawing a hand of cards) infinitely many times, then a proportionpof the repetitions would result in that outcome. This kind of reasoning does notseem immediately applicable to propositions that are not repeatable. If a doctoranalyzes a patient and says that the patient has a 40 percent chance of havingthe flu, this means something very different—we cannot make infinitely manyreplicas of the patient, nor is there any reason to believe that different replicas ofthe patient would present with the same symptoms yet have varying underlyingconditions. In the case of the doctor diagnosing the patient, we use probabilityto represent adegree of belief, with 1 indicating absolute certainty that thepatient has the flu and 0 indicating absolute certainty that the patient does nothave the flu. The former kind of probability, related directly to the rates at whichevents occur, is known asfrequentist probability, while the latter, related toqualitative levels of certainty, is known as Bayesian probability
+
+A probability distribution over discrete variables may be described using aproba-bility mass function(PMF). We typically denote probability mass functions witha capitalP. Often we associate each random variable with a different probabilitymass function and the reader must infer which PMF to use based on the identity54
+CHAPTER 3. PROBABILITY AND INFORMATION THEORYof the random variable, rather than on the name of the function;P(x) is usuallynot the same as P (y).The probability mass function maps from a state of a random variable tothe probability of that random variable taking on that state. The probabilitythatx=xis denoted asP(x), with a probability of 1 indicating thatx=xiscertain and a probability of 0 indicating thatx=xis impossible.
+
+Incomplete modeling. When we use a model that must discard some ofthe information we have observed, the discarded information results inuncertainty in the model’s predictions. For example, suppose we build arobot that can exactly observe the location of every object around it. If therobot discretizes space when predicting the future location of these objects,52
+CHAPTER 3. PROBABILITY AND INFORMATION THEORYthen the discretization makes the robot immediately become uncertain aboutthe precise position of objects: each object could be anywhere within thediscrete cell that it was observed to occupy
+
+To be a PMF on a random variablex, a functionPmust satisfy the followingproperties:• The domain of P must be the set of all possible states of
+xxx
+An impossible event has probability 0, and no statecan be less probable than that. Likewise, an event that is guaranteed tohappen has probability 1, and no state can have a greater chance of occurring.
+xxx
+. We refer to this property as beingnormalized. Withoutthis property, we could obtain probabilities greater than one by computingthe probability of one of many events occurring.For example, consider a single discrete random variablexwithkdifferentstates. We can place auniform distributiononx—that is, make each of itsstates equally likely—by setting its PMF toP (x = xi) =1k(3.1)for alli. We can see that this fits the requirements for a probability mass function.The value1kis positive because k is a positive integer. We also see that
+xxx
+so the distribution is properly normalized.
+
+When working with continuous random variables, we describe probability distri-butions using a probability density function (PDF) rather than a probabilitymass function. To be a probability density function, a functionpmust satisfy thefollowing properties:• The domain of p must be the set of all possible states of
+
+ xxx
+
+ Note that we do not require p(x) <= 1
+
+ xxx
+
+or an example of a PDF corresponding to a specific probability density overa continuous random variable, consider a uniform distribution on an interval ofthe real numbers. We can do this with a functionu(x;a, b), whereaandbare theendpoints of the interval, withb > a. The “;” notation means “parametrized by”;we considerxto be the argument of the function, whileaandbare parametersthat define the function. To ensure that there is no probability mass outside theinterval, we sayu
+
+xxx
+
+ Wecan see that this is non-negative everywhere. Additionally, it integrates to 1
+
+If we have two separate probability distributionsP(x) andQ(x) over the samerandom variablex, we can measure how different these two distributions are usingthe Kullback-Leibler (KL) divergence:
+
+xxx
+
+In the case of discrete variables, it is the extra amount of information (measuredin bits if we use the base-2 logarithm, but in machine learning we usually use natsand the natural logarithm) needed to send a message containing symbols drawnfrom probability distributionP, when we use a code that was designed to minimizethe length of messages drawn from probability distribution Q.The KL divergence has many useful properties, most notably being non-negative.The KL divergence is 0 if and only ifPandQare the same distribution in thecase of discrete variables, or equal ``almost everywhere'' in the case of continuousvariables. Because the KL divergence is non-negative and measures the differencebetween two distributions, it is often conceptualized as measuring some sort ofdistance between these distributions. It is not a true distance measure because itis not symmetric:
+
+xxx
+
+ for somePandQ. This asymmetrymeans that there are important consequences to the choice of whether to useDKL(P Q) or DKL(QP ). See figure 3.6 for more detail.72
+CHAPTER 3. PROBABILITY AND INFORMATION THEORY0.0 0.2 0.4 0.6 0.8 1.0p0.00.10.20.30.40.50.60.7Shannon entropy in natsFigure 3.5: Shannon entropy of a binary random variable. This plot shows how distri-butions that are closer to deterministic have low Shannon entropy while distributionsthat are close to uniform have high Shannon entropy. On the horizontal axis, we plotp, the probability of a binary random variable being equal to 1. The entropy is givenby
+
+xxx
+
+. Whenpis near 0, the distribution is nearly deterministic,because the random variable is nearly always 0. Whenpis near 1, the distribution isnearly deterministic, because the random variable is nearly always 1. Whenp= 0.5, theentropy is maximal, because the distribution is uniform over the two outcomes.A quantity that is closely related to the KL divergence is thecross-entropy
+
+xxx
+
+, which is similar to the KL divergence but lackingthe term on the left:
+
+xxx
+
+)Minimizing the cross-entropy with respect toQis equivalent to minimizing theKL divergence, because Q does not participate in the omitted term
+
 
 \section{Logistische Regression}
 \label{sec:logreg}
@@ -56,7 +117,7 @@ In einigen künstlichen neuronalen Netzen werden zusätzlich die Eingaben für j
 \label{sec:cnn}
 Für Bilddaten wendet ein CNN diese Operation typischerweise auf zwei dreidimensionale Matrizen an, nämlich einerseits auf die Eingabedaten und andererseits auf einen sogenannten Filter oder auch Kernel. Die Eingabedaten sind in der ersten Schicht des Netzes die RGB-Pixelinformationen und in allen weiteren konvolutionalen Schichten die Ausgabe der vorherigen Schicht. Ein Filter ist eine Anzahl von trainierbaren Parametern, in diesem Fall auch eine . Beide Matrizen haben also die Form $(H\ x\ W\ x\ C)$, wobei $H$ die Höhe, $W$ die Breite und $C$ die RGB-Farbwerte repräsentiert.
 
-Jede der drei Matrixdimensionen variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs (\cite{Goodfellow-et-al-2016}, \cite{Lecun99objectrecognition}, \cite{RFB15a}, \cite{isola2018imagetoimage}) nimmt die Kardinalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten. Beim Pooling werden aus benachbarten Matrixkoeffizienten meist das Maximum, seltener der Durchschnitt oder andere Aggregierungen gebildet. Auf diese Weise wird das neuronale Netz darauf trainiert die relevanten Informationen zu extrahieren. \cite{Goodfellow-et-al-2016}
+Jede der drei Matrixdimensionen variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs (\cite{goodfellow2016deeplearning}, \cite{Lecun99objectrecognition}, \cite{RFB15a}, \cite{isola2018imagetoimage}) nimmt die Kardinalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten. Beim Pooling werden aus benachbarten Matrixkoeffizienten meist das Maximum, seltener der Durchschnitt oder andere Aggregierungen gebildet. Auf diese Weise wird das neuronale Netz darauf trainiert die relevanten Informationen zu extrahieren. \cite{goodfellow2016deeplearning}
 
 Den konvolutionalen Schichten folgt in einigen Anwendungsfällen eine voll vernetzte Schicht (engl. Fully Connected Layer, FC), in der für jedes Neuron mit jedem Neuron der vorherigen Schicht eine Verbindung besteht. Besonders für die Bilderkennung ist diese Architektur gut geeignet. Die Ausgabe des neuronalen Netzes ist dann ein Vektor, beispielsweise von Wahrscheinlichkeitswerten für das Vorhandensein bestimmter Objekte und gegebenenfalls Bildkoordinaten der erkannten Objekte. Im Fall der Bildgenerierung ist die Ausgabe aber wieder eine Matrix von RGB-Pixelinformationen in der Form $(H\ x\ W\ x\ 3)$.
 
@@ -68,15 +129,72 @@ Ein U-Net ist eine spezielle Form eines ResNets. Es hat eine annähernd symmetri
 
 \section{Generative Adversarial Networks}
 \label{gan}
+Generative adversarial networks are based on a game theoretic scenario inwhich the generator network must compete against an adversary. The generatornetwork directly produces samples
+xxxx
+
+. Its adversary, thediscriminatornetwork, attempts to distinguish between samples drawn from the training dataand samples drawn from the generator. The discriminator emits a probability valuegiven byd(x;$\theta$(d)), indicating the probability thatxis a real training examplerather than a fake sample drawn from the model. \cite{goodfellow2016deeplearning}
+
 Ein Generative Adversarial Network (GAN)besteht zunächst aus einem Generator und einem Discriminator \cite{goodfellow2014generative}. Der Generator lernt während des
 Trainings täuschend echt aussehende Bilddaten zu generieren. Der Discriminator
 wird dagegen darauf trainiert, echte von generierte Bildern zu unterscheiden.
 Anschließend können beide Modelle ``gegeneinander antreten''. Deswegen wird es
 Generative \textit{Adversarial} Network genannt.
 
-GANs unterscheiden sich von anderen Modellen durch ihren Aufbau und in Bezug auf das Trainingsziel. Künstliche neuronale Netze ermitteln häufig einen skalaren Wert wie beispielsweise einen Wahrscheinlichkeitswert und minimieren zu diesem Zweck eine Verlustfunktion. In einem GAN sind zwei CNNs im Einsatz. Das erste, der Generator, erstellt Tensoren n-ter Klasse. In diesem Beispiel sind das RGB-Bildinformationen. Das zweite CNN wird Discriminator genannt und bekommt als Eingabe die Ausgabe des ersten CNNs. Der Discriminator wird darauf trainiert, generierte Bilder von Bildern aus dem Trainingsset zu unterscheiden. Er minimiert also eine Verlustfunktion. Der Generator wird darauf trainiert, diese Verlustfunktion zu maximieren. Dieser Vorgang stammt aus der Spieltheorie und heißt Minimax. \cite{goodfellow2014generative}
+GANs unterscheiden sich von anderen Modellen durch ihren Aufbau und in Bezug auf das Trainingsziel. Künstliche neuronale Netze ermitteln häufig einen skalaren Wert wie beispielsweise einen Wahrscheinlichkeitswert und minimieren zu diesem Zweck eine Verlustfunktion. In einem GAN sind zwei CNNs im Einsatz. Das erste, der Generator, erstellt Tensoren n-ter Klasse. In diesem Beispiel sind das RGB-Bildinformationen. Das zweite CNN wird Discriminator genannt und bekommt als Eingabe die Ausgabe des ersten CNNs. Der Discriminator wird darauf trainiert, generierte Bilder von Bildern aus dem Trainingsset zu unterscheiden. Er minimiert also eine Verlustfunktion. Der Generator wird darauf trainiert, diese Verlustfunktion zu maximieren. Dieser Vorgang heißt auch Min-Max-Spiel. \cite{goodfellow2014generative}
 
-Eine Erweiterung des GANs ist das Conditional Generative Adversarial Net (cGAN). In cGANs erhält der Generator zusätzliche Eingabedaten ($y$, ``Ground Truth''), die Hinweise für die Generierung enthalten. Der Discriminator erhält diese zusätzlichen Daten ebenfalls, um die Erkennung während des Trainings zu optimieren. \cite{mirza2014conditional}
+\section{Conditional Generative Adversarial Nets}
+\label{cgan}
+
+Eine Erweiterung des GANs ist das Conditional Generative Adversarial Net (cGAN). In cGANs erhält der Generator zusätzliche Eingabedaten ($y$, ``Ground Truth''), die Hinweise für die Generierung enthalten. Der Discriminator erhält diese zusätzlichen Daten ebenfalls, um die Erkennung während des Trainings zu optimieren.
+
+Dieses Modell kann Ziffern des MNIST-Datasets anhand von Klassenlabels generieren. Es kan auch verwendet werden, um multimodales Bild-Tagging durchzuführen. Dabei kann ein Bild beispielsweise nicht nur durch ein darauf erkennbares Objekt, sondern auch durch Aufzählung mehrerer unterschiedlicher Objekte und noch durch weitere Beschreibungen, wie erkennbare Jahreszeiten, Vorgänge oder Emotionen beschrieben werden.
+
+In einem generativen Modell ohne Konditionen ist keine Steuerung der Art und Weise (Modalitäten) möglich, in der die Ergebnisse generiert werden. Dagegen ist es in einem cGAN möglich, die Generierung zu lenken. Diese Lenkung könnte aufgrund von Klassenlabels oder auch verschiedensten anderen Modalitäten erfolgen.
+
+Um die Verteilung $p_g$ eines Generators über die Daten $x$ zu lernen, implementiert der Generator $G(z;\theta_g)$ eine Mapping-Funktion von anfänglichem Rauschen $p_z(z)$ zum Ergebnisraum. Der Discriminator $D(x;\theta_d)$ gibt einen einzelnen skalaren Wahrscheinlichkeitswert dafür, dass $x$ aus den Trainingsdaten statt aus $p_g$ stammt, aus.
+
+$G$ und $D$ werden simultan trainiert. Die Parameter für G werden angepasst, um $\log(-D(G(z)))$ zu minimieren und die Parameter für $D$ werden angepasst, um $\log D(x)$ zu minimieren, so als würden beide ein Zweispieler-Min-Max-Spiel mit der Wertfunktion (? TODO: MinMax, Spieltheorie) durchführen:
+\begin{align}
+\min_{G}\max_{D} V(D,G) = \mathbb{E}_{x\sim p_{data}(x)}[\log{D(x)}]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D(G(z)))].
+\end{align}
+
+Im Generator werden das anfängliche Rauschen $p_z(z)$ und $y$ kombiniert in verbundenen Hidden Layers repräsentiert. Das gegnerische Trainingsframework erlaubt eine flexible Zusammensetzung dieser Repräsentation.
+
+Im Discriminator werden paarweise $x$ und $y$ sowie $x$ und $G(z|y)$ als Eingaben verwendet. Die Objective Function (TODO: Übersetzung) des Zweispieler-Min-Max-Spiels ist dann:
+\begin{align}
+\min_{G}\max_{D} V(D,G) = \mathbb{E}_{x\sim p_{data}(x)}[\log{D(x|y)}]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D(G(z|y)))].
+\end{align}
+
+\chapter{Implementierung}
+
+\section{Entwicklungsumgebung}
+\label{sec:env}
+
+\subsection{Ubuntu Linux}
+\label{subsec:ubuntu}
+
+\subsection{Python}
+\label{subsec:python}
+
+\subsection{Tensorflow}
+\label{subsec:tensorflow}
+
+\subsection{CUDA}
+\label{subsec:cuda}
+Cuda ist eine NVIDIA-proprietäre Hardware- und Software-Architektur.
+
+Es ist das Schema, nach dem NVIDIA-Grafikkarten gebaut wurden, die sowohl traditionelle Grafik-Rendering-Aufgaben als auch allgemeine Aufgaben durchführen können. Zum Programmieren der CUDA GPUs wird die Sprache CUDA C verwendet. CUDA C ist im Wesentlichen die Programmiersprache C mit einer Handvoll Erweiterungen, welche die Programmierung hoch parallelisierter Maschinen wie NVIDIA GPUs ermöglichen. \cite{sanders2010cuda}
+
+Anders als frühere GPU-Generationen, die Rechenressourcen in Vertex- und Pixelshader aufteilten, enthält die CUDA-Architektur eine einheitliche Shader-Pipeline, welche die Zuordnung allgemeiner Berechnungen zu jeder arithmetisch-logischen Einheit (ALU) auf dem Chip durch ein Programm erlaubt. Diese ALUs wurden mit einem Befehlssatz entworfen, der für allgemeine Berechnungen statt für spezielle Grafikberechnungen zugeschnitten ist. Weiterhin wurde den Execution Units auf der GPU freier Lese- und Schreibzugriff auf den Speicher sowie Zugriff auf einen softwaregesteuerten Cache, genannt Shared Memory, gegeben. \cite{sanders2010cuda}
+
+Zusätzlich zu der Sprache für das Schreiben von Code für die GPU stellt NVIDIA einen spezialisierten Hardwaretreiber zur Verfügung, der die hohe Rechenleistung der CUDA-Architektur ausschöpft. Kenntnis der OpenGL- oder DirectX-Programmierschnittstellen ist nicht länger erforderlich. \cite{sanders2010cuda}
+
+\subsection{Image-To-Image-Translation in Python}
+Es besteht eine Auswahl an Beispielimplementierungen für Image-To-Image-Translation. Das Original-Paper verweist auf ein GitHub-Repository, das eine Lua-Implementierung zur Verfügung stellt. Wegen der besseren Eignung für Experimente auf einem lokalen Rechner durch CUDA-Unterstützung mit Tensorflow wird in dieser Arbeit Python verwendet.
+
+Die verwendete Beispielimplementierung ist zum Zeitpunkt der Erstellung dieses Dokumentes unter https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb zu finden. Eine an die aktuelle Version von Tensorflow und die Anforderungen dieser Arbeit angepasste Version befindet sich im Anhang.
+
+Die wichtigste Änderung ist das selbst erstellte Dataset, das statt der im Beispiel verwendeten Gebäudefassaden geladen wird. Es wurden Ausgaben entfernt, wegen derer die Ausführung des Skriptes unterbrochen wurde. Dabei wurden Bildinformationen und Beispielbilder nach dem Laden des Datasets, dem Aufteilen in Eingabebild und Ground Truth, der Erzeugung von Bildrauschen, Down- und Upsampling sowie den ersten Trainingsdurchläufen ausgegeben, die während des Trainings der Skizzen- und Renderbilder nicht betrachtet werden mussten. Außerdem wurden bei jedem Training Diagramme des Generators und des Discriminators erzeugt.
 
 \section{Image-To-Image-Translation}
 \label{sec:pix2pix}
@@ -125,7 +243,7 @@ Schließlich wird in \lstinline|train_step| eine maschinenlesbare Zusammenfassun
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{bilder/tensorboard.png}
-	\caption[TensorBoard]{Im TensorBoard können zum Beispiel die Fehlerraten des aktuellen Trainingsdurchlaufs abgelesen oder frühere Trainingsdurchläufe miteinander verglichen werden.}
+	\caption[TensorBoard]{Im TensorBoard können die Fehlerraten des aktuellen Trainingsdurchlaufs abgelesen oder frühere Trainingsdurchläufe miteinander verglichen werden.}
 	\label{fig:unsupervisedexamples}
 \end{figure}
 
@@ -138,37 +256,6 @@ Nach je 5000 Trainingsschritten speichert \lstinline|fit| außerdem einen Checkp
 Im Ausführungsstrang wird zunächst eine Option des GPU-Speichermanagements gewählt, um die Größe des reservierten Speichers dynamisch anwachsen zu lassen. \cite{zaccone2018tensorflow} Zu Beginn der Experimente hat sich diese Einstellung als vorteilhaft herausgestellt.
 
 Es werden auch einige Parameter wie die Bildgröße und die Größe des Trainingssets und Hyperparameter wie die Batchgröße gesetzt. Das Trainings- und das Testset werden eingelesen, der Generator und die Discriminator erstellt und der Adam-Optimizer initialisiert. Nachdem anschließend das Schreiben der Checkpoints und der Zusammenfassung vorbereitet wurde, erfolgt das Training durch Aufruf von \lstinline|fit|. Im letzten Schritt wird das Modell mit 5 Beispielbildern aus dem Testset aufgerufen.
-
-\chapter{Implementierung}
-
-\section{Entwicklungsumgebung}
-\label{sec:env}
-
-\subsection{Ubuntu Linux}
-\label{subsec:ubuntu}
-
-\subsection{Python}
-\label{subsec:python}
-
-\subsection{Tensorflow}
-\label{subsec:tensorflow}
-
-\subsection{CUDA}
-\label{subsec:cuda}
-Cuda ist eine NVIDIA-proprietäre Hardware- und Software-Architektur.
-
-Es ist das Schema, nach dem NVIDIA-Grafikkarten gebaut wurden, die sowohl traditionelle Grafik-Rendering-Aufgaben als auch allgemeine Aufgaben durchführen können. Zum Programmieren der CUDA GPUs wird die Sprache CUDA C verwendet. CUDA C ist im Wesentlichen die Programmiersprache C mit einer Handvoll Erweiterungen, welche die Programmierung hoch parallelisierter Maschinen wie NVIDIA GPUs ermöglichen. \cite{sanders2010cuda}
-
-Anders als frühere GPU-Generationen, die Rechenressourcen in Vertex- und Pixelshader aufteilten, enthält die CUDA-Architektur eine einheitliche Shader-Pipeline, welche die Zuordnung allgemeiner Berechnungen zu jeder arithmetisch-logischen Einheit (ALU) auf dem Chip durch ein Programm erlaubt. Diese ALUs wurden mit einem Befehlssatz entworfen, der für allgemeine Berechnungen statt für spezielle Grafikberechnungen zugeschnitten ist. Weiterhin wurde den Execution Units auf der GPU freier Lese- und Schreibzugriff auf den Speicher sowie Zugriff auf einen softwaregesteuerten Cache, genannt Shared Memory, gegeben. \cite{sanders2010cuda}
-
-Zusätzlich zu der Sprache für das Schreiben von Code für die GPU stellt NVIDIA einen spezialisierten Hardwaretreiber zur Verfügung, der die hohe Rechenleistung der CUDA-Architektur ausschöpft. Kenntnis der OpenGL- oder DirectX-Programmierschnittstellen ist nicht länger erforderlich. \cite{sanders2010cuda}
-
-\subsection{Image-To-Image-Translation in Python}
-Es besteht eine Auswahl an Beispielimplementierungen für Image-To-Image-Translation. Das Original-Paper verweist auf ein GitHub-Repository, das eine Lua-Implementierung zur Verfügung stellt. Wegen der besseren Eignung für Experimente auf einem lokalen Rechner durch CUDA-Unterstützung mit Tensorflow wird in dieser Arbeit Python verwendet.
-
-Die verwendete Beispielimplementierung ist zum Zeitpunkt der Erstellung dieses Dokumentes unter https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb zu finden. Eine an die aktuelle Version von Tensorflow und die Anforderungen dieser Arbeit angepasste Version befindet sich im Anhang.
-
-Die wichtigste Änderung ist das selbst erstellte Dataset, das statt der im Beispiel verwendeten Gebäudefassaden geladen wird. Es wurden Ausgaben entfernt, wegen derer die Ausführung des Skriptes unterbrochen wurde. Dabei wurden Bildinformationen und Beispielbilder nach dem Laden des Datasets, dem Aufteilen in Eingabebild und Ground Truth, der Erzeugung von Bildrauschen, Down- und Upsampling sowie den ersten Trainingsdurchläufen ausgegeben, die während des Trainings der Skizzen- und Renderbilder nicht betrachtet werden mussten. Außerdem wurden bei jedem Training Diagramme des Generators und des Discriminators erzeugt.
 
 
 \chapter{Experimente und Resultate}
