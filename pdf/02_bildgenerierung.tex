@@ -2,11 +2,11 @@
 \label{ch:model}
 
 \section{Tensoren}
-Mehrdimensionale Arrays, in NumPy ndarray (N-Dimensional Array) genannt, werden auch Tensoren genannt. Gennerell verwenden alle derzeitigen Systeme für Maschinelles Lernen Tensoren als zugrundeliegende Datenstruktur. Tensoren sind elementar für dieses Fachgebiet. \cite{chollet2017dlpython}
+Mehrdimensionale Arrays, in NumPy ndarray (N-Dimensional Array) genannt, werden auch Tensoren genannt. Gennerell verwenden alle derzeitigen Systeme für Maschinelles Lernen Tensoren als zugrundeliegende Datenstruktur. Tensoren sind elementar für dieses Fachgebiet. \cite{chollet2021deep}
 
-In seinem Kern ist ein Tensor ein Container für numerische Daten. Tensoren sind die Verallgemeinerung der Matrizen für eine beliebige Anzahl Dimensionen. Im Zusammenhang mit Tensoren werden die Dimensionen häufig Achsen gennannt. Die Anzahl der Achsen wird auch als Stufe bezeichnet. Ein Skalar ist ein Tensor nullter Stufe. Ein Vektor ist ein Tensor erster Stufe und eine Matrix ein Tensor zweiter Stufe. \cite{chollet201chollet2017dlpython7}
+In seinem Kern ist ein Tensor ein Container für numerische Daten. Tensoren sind die Verallgemeinerung der Matrizen für eine beliebige Anzahl Dimensionen. Im Zusammenhang mit Tensoren werden die Dimensionen häufig Achsen gennannt. Die Anzahl der Achsen wird auch als Stufe bezeichnet. Ein Skalar ist ein Tensor nullter Stufe. Ein Vektor ist ein Tensor erster Stufe und eine Matrix ein Tensor zweiter Stufe. \cite{chollet2021deep}
 
-Der Begriff der Dimension, der für Vektoren und Matrizen eindeutig ist, wird für Tensoren in der Literatur unterschiedlich verwendet.  \cite{chollet2017dlpython} In dieser Arbeit soll die Dimension einer Achse eines Tensors die Anzahl der numerischen Werte entlang dieser Achse bezeichnen.
+Der Begriff der Dimension, der für Vektoren und Matrizen eindeutig ist, wird für Tensoren in der Literatur unterschiedlich verwendet.  \cite{chollet2021deep} In dieser Arbeit soll die Dimension einer Achse eines Tensors die Anzahl der numerischen Werte entlang dieser Achse bezeichnen.
 
 Bilder erscheinen als Tensoren dritter Stufe, deren Achsen der Höhe, Breite und den Farbkanälen (Rot, Grün und Blau) entsprechen. \cite{zhang2020dive}
 
@@ -16,7 +16,7 @@ Ein Tensor ist durch drei Schlüsselattribute definiert:
 \item Form: Dies ist ein Tupel aus Ganzzahlen, das die Dimension jeder Achse beschreibt. Beispiele sind $(3, 5)$ für die Form einer Matrix und $(3, 3, 5)$ für einen Tensor dritter Stufe. Ein Vektor hat eine Form mit einem einzelnen Element, etwa so: $(5,)$, während ein Skalar eine leere Form hat: $()$.
 \item Datentyp (in Python-Bibliotheken gewöhnlich $dtype$ genannt): Dies ist der Typ der im Tensor enthaltenen Daten. Zum Beispiel könnte der Datentyp eines Tensors $float16$, $float32$, $float64$, $uint8$ und so weiter sein.
 \end{itemize}
-\cite{chollet2017dlpython}
+\cite{chollet2021deep}
 
 Viele in dieser Arbeit verwendeten Tensoren beschreiben RBG-Bilddaten. Sie sind deshalb dritter Stufe, und die enthaltenen Daten sind Ganzzahlen zwischen $0$ und $255$. Die Form der durch das künstliche neuronale Netz generierten Bilder ist $(256, 256, 3)$. Die Dimensionen beschreiben hier also die Breite, Höhe und Farbtiefe der Bilddateien.
 
@@ -90,7 +90,7 @@ Die Funktion \lstinline|resize| ist ebenfalls für die Verarbeitung zweier Bilde
 
 Die Funktion \lstinline|random_crop| stellt einen zufälligen Ausschnitt der zwei Eingabebilder frei. Sie wird aufgerufen, nachdem die Eingabebilder hochskaliert wurden. In der Referenzimplementierung wie auch in dieser Arbeit beträgt die Bildgröße vorher $286x286$ Pixel und $256x256$ Pixel nach dem Freistellen. Die zurückgegebenen Bilder haben dann wieder die gleichen Abmessungen wie die Eingabedaten.
 
-In der Funktion \lstinline|normalize| werden die RGB-Werte der beiden Eingabebilder normalisiert. Dadurch sollen zu große Schritte auf dem Gradienten verhindert werden, die das Konvergieren verhindern könnten. \cite{chollet2017dlpython} Die RGB-Werte sind zunächst als Ganzzahlen im Bereich von 0 bis 255 gegeben und werden in Fließkommazahlen im Bereich -1 bis 1 umgerechnet.
+In der Funktion \lstinline|normalize| werden die RGB-Werte der beiden Eingabebilder normalisiert. Dadurch sollen zu große Schritte auf dem Gradienten verhindert werden, die das Konvergieren verhindern könnten. \cite{chollet2021deep} Die RGB-Werte sind zunächst als Ganzzahlen im Bereich von 0 bis 255 gegeben und werden in Fließkommazahlen im Bereich -1 bis 1 umgerechnet.
 
 In \lstinline|random_jitter| wird zunächst \lstinline|resize| aufgerufen, um die Eingabebilder auf 286x286 Pixel zu skalieren. Anschließend wird \lstinline|random_crop| auf die skalierten Bilder angewendet. Schließlich werden aufgrund einer Zufallszahl beide Eingabebilder mit einer Wahrscheinlichkeit von 50 Prozent gespiegelt.
 
@@ -100,7 +100,7 @@ Die Funktion \lstinline|downsample| erzeugt eine Schicht eines CNNs mit optional
 
 In der Funktion \lstinline|upsample| entstehen die übrigen CNN-Schichten des Generators. Der Entfaltung, bei der die Faltung der Funktion \lstinline|downsample| umgekehrt wird (engl. Transposed Convolution \cite{zaccone2018tensorflow}), folgt hier immer die Batch Normalization sowie optional Dropout mit einem Wahrscheinlichkeitswert von $0.5$. Das ist in den ersten drei Schichten des Decoders im Generator der Fall und bedeutet, dass statistisch die Hälfte der Aktivierungen „fallengelassen“ werden, also nicht in das Trainingsergebnis eingehen. Als Aktivierungsfunktion kommt ReLU zum Einsatz.
 
-In \lstinline|build_generator| werden die Schichten des Generators zusammengefügt. Im Encoder wird acht Mal \lstinline|downsample| aufgerufen, bis die Dimensionen des Eingabetensors, die am Anfang der Bildgröße entsprechen (Breite und Höhe, also $256x256$ Pixel), durch die Konvolution auf $1$ reduziert sind. Die Dimension, welche die Anzahl Farbkanäle der Eingabebilder repräsentiert, erhöht sich im Encoder auf den Wert $512$. Die Werte dieser Achse werden als Features \cite{zhang2020dive} \cite{chollet2017dlpython} \cite{zaccone2018tensorflow} bezeichnet.
+In \lstinline|build_generator| werden die Schichten des Generators zusammengefügt. Im Encoder wird acht Mal \lstinline|downsample| aufgerufen, bis die Dimensionen des Eingabetensors, die am Anfang der Bildgröße entsprechen (Breite und Höhe, also $256x256$ Pixel), durch die Konvolution auf $1$ reduziert sind. Die Dimension, welche die Anzahl Farbkanäle der Eingabebilder repräsentiert, erhöht sich im Encoder auf den Wert $512$. Die Werte dieser Achse werden als Features \cite{zhang2020dive} \cite{chollet2021deep} \cite{zaccone2018tensorflow} bezeichnet.
 
 Der Decoder ruft seinerseits sieben Mal \lstinline|upsample| auf und führt eine weitere Entfaltung durch, wodurch die Dimensionen des bearbeiteten Tensors wieder jeweils dieselbe Form wie in den Eingabebildern annehmen. Schließlich werden die Skip-Connections zwischen den Schichten 1 bis 8 des Encoders und des Decoders hergestellt.
 
@@ -141,19 +141,50 @@ Es werden auch einige Parameter wie die Bildgröße und die Größe des Training
 
 \chapter{Implementierung}
 
-\section{Entwicklungsumgebung}
-\label{sec:env}
-
-\subsection{Ubuntu Linux}
+\section{Ubuntu Linux}
 \label{subsec:ubuntu}
+Ubuntu ist eine der bekanntesten Linux-Distributionen. Es ist kostenlos und in verschiedenen Editionen für unterschiedliche Zwecke erhältich. Es kann beispielsweise für Server oder für Desktop-Computer verwendet werden.
 
-\subsection{Python}
+Die Wahl des Betriebssystems fiel für dieses Projekt auf Ubuntu, weil die Integration mit der NVidia-Grafikkartenerweiterung CUDA mit Abstand am besten dokumentiert ist. Es gibt sowohl für Ubuntu als auch für CUDA eine lebendige Community. Dadurch besteht bei eventuell auftretenden Schwierigkeiten stets die Möglichkeit, auf die Erfahrungen anderer Nutzer zurückzugreifen.
+
+Die Installation des Betriebssystems ist vergleichsweise einfach. Ein Volume-Image im ISO-Dateiformat (ISO 9660) kann vom Ubuntu-eigenen Server heruntergeladen und anschließend entweder auf eine CD oder DVD gebrannt oder auf einen bootfähigen USB-Stick kopiert werden.
+
+Der Software-Assistent des Installationsprogramms hat eine leicht zu bedienende grafische Benutzeroberfläche. Es können alle wichtigen Einstellungen wie Eingabe- und Ausgabesprache, Uhrzeit und Sicherheitseinstellungen vorgenommen werden.
+
+Es ist auch möglich, Ubuntu unter Windows innerhalb der WSL (Windows Subsystem for Linux) zu installieren. Auch dort besteht die Möglichkeit, die Hardwareunterstützung zu nutzen. Ubuntu unter WSL ist dann in der Lage, mittels CUDA die GPU für das Training neuronaler Netze zu verwenden.
+
+Für diese Arbeit wurde Ubuntu als Hauptbetriebssystem genutzt. Die Schritte zur Einrichtung einer Entwicklungsumgebung für maschinelles Lernen sind auf \href{https://ubuntu.com/tutorials/enabling-gpu-acceleration-on-ubuntu-on-wsl2-with-the-nvidia-cuda-platform#1-overview}{ubuntu.com} beschrieben.
+
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width=0.5\textwidth]{bilder/ubuntu-tutorial.png}
+% 	\caption[Ubuntu Tutorial]{Bildquelle: \href{https://ubuntu.com}{ubuntu.com} \newline Auf \href{https://ubuntu.com}{ubuntu.com} findet sich eine umfassende Sammlung von Anleitungen, unter anderem für die Einrichtung eines Machine-Learning-Setups.}
+% 	\label{fig:unsupervisedexamples}
+% \end{figure}
+
+
+\section{Python}
 \label{subsec:python}
+Die Programmiersprache Python ist eine beliebte Wahl für Software-Projekte im Bereich des maschinellen Lernens. Ein wichtiger Grund dafür sind die verschiedenen verfügbaren Bilbiotheken, die zum Beispiel Bausteine für künstliche neuronale Netze und sogar häufig Algorithmen bereitstellen. Zwei der berühmtesten Bibliotheken dieser Art sind TensorFlow und Keras.
 
-\subsection{Tensorflow}
+Python ist eine beliebte, quelloffene Programmiersprache sowohl für eigenständige Programme als auch für Anwendungs-Skripte in vielen verschiedenen Bereichen. Es ist kostenlos, portabel sowie relativ einfach und wird  mit bemerkenswertem Enthusiasmus verwendet. \cite{lutz2013python}
+
+Version 3.0 war die erste in einer Reihe der aufstrebenden und nicht abwärtskompatiblen Abwandelung der Sprache die allgemein als 3.X bezeichnet wird. Version 2.6 behielt die Abwärtskompatibilität zu einer zahllosen Menge bestehenden Python-Quelltextes bei und war die letzte der gemeinhin als 2.X bekannten Reihe.  \cite{lutz2013python}
+
+Für viele hebt sich Python durch seinen Fokus auf Lesbarkeit, Stimmigkeit und Softwarequalität insgesamt aus anderen Tools der Skripting-Welt hervor. Python-Quelltext ist gemacht, um lesbar und dadurch wiederverwendbar und wartbar zu sein -- noch viel mehr als traditionelle Skriptsprachen. Die Gleichförmigkeit von Python-Quelltext macht ihn leicht verständlich, selbst wenn man ihn nicht selbst gegschrieben hat. Zusätzlich unterstützt Python fortgeschrittene Mechanismen für wiederverwendbare Software, wie objektorienterte (OO) und funktionale Programmierung.
+
+Python erhöht die Entwicklerprodutkivität um einiges mehr als kompilierte oder statisch typisierte Sprachen wie C, C++ und Java. Die Größe von Pythoncode ist typischerweise ein Drittel bis ein Fünftel von der equivalenten C++- oder Java-Quelltexts. Das heißt es gibt weniger zu tippen, weniger zu debuggen und schließlich weniger zu warten. Python-Programme sind auch unmittelbar ausführbar, ohne die langwierigen Kompilier- und Linkschritte, die für manche anderen Tools erforderlich sind, und erhöht die Programmierergeschwindigkeit somit noch weiter.
+
+Die meisten Python-Programme laufen unverändert auf allen wichtigen Computerplattformen. Um Pythoncode zwischen Lunux und Windows zu portieren, ist es zum Beispiel gewöhnlich nur erforderlich den Skriptcode von einer Maschine zur anderen zu kopieren. Überdies bietet Python multiple Optionen für die Erstellung portabler grafischer Benutzerschnittstellen, Datenbankanwendungen, webbasiserter Systeme und anderem. Selbst Betriebssystemschnittstellen, einschließlich Programmausführungen und Verzeichnisverarbeitung sind so portable wie irgend möglich.
+
+Python enthält eine große Sammlung vorgefertigter und portabler Funktionalitäten, bekannt als die Standardbibliothek. Diese Bibliothek unterstützt eine Reihe von Programmieraufgaben auf Anwendungsebene, von Musterkennung in Texten bis Netzwerkprogrammierung. Außerdem kann Python sowohl mit selbstentwickelten Bilbiotheken als auch einer unüberschaubaren Kollektion von Unterstützungssoftware dritter erweitert werden. Pythons Drittanbieter-Bereich bietet Tools zur Webseitenerstellung, numerische Programmierung, Zugriff auf serielle Ports, Spieleentwicklung und vieles mehr. Die Erweiterung NumPy wird zum Beispiel als kostenloses und mächtigeres Equivalent zum numerischen Programmiersystem Matlab bezeichnet.
+
+Pythonskripte knnen leicht mit anderen Teilen einer Anwendung kommunizieren, indem sie eine Vielzahl integrierter Mechanismen nutzen. Solche Integrationen erlauben es, Python als Produktanpassungs- und Produkterweiterungstool zu verwenden. Python code kann heute C- und C++-Bibliotheken aufrufen, von C- und C++-Programmen aufgerufen werden, in Java- und .NET-Komponenten integriert werden, mittels Frameworks wie COM und Silverlight kommunizieren, sich mit Geräten via serieller Schnittstelle verbinden und über Netzwerke mit Schnittstellen wie SOAP, XML-RPC und CORBA interagieren. Es ist kein alleinstehendes Tool. \cite{lutz2013python} 
+
+\section{Tensorflow}
 \label{subsec:tensorflow}
 
-\subsection{CUDA}
+\section{CUDA}
 \label{subsec:cuda}
 Cuda ist eine NVIDIA-proprietäre Hardware- und Software-Architektur.
 
@@ -163,18 +194,17 @@ Anders als frühere GPU-Generationen, die Rechenressourcen in Vertex- und Pixels
 
 Zusätzlich zu der Sprache für das Schreiben von Code für die GPU stellt NVIDIA einen spezialisierten Hardwaretreiber zur Verfügung, der die hohe Rechenleistung der CUDA-Architektur ausschöpft. Kenntnis der OpenGL- oder DirectX-Programmierschnittstellen ist nicht länger erforderlich. \cite{sanders2010cuda}
 
-\subsection{Image-To-Image-Translation in Python}
+\section{Image-To-Image-Translation in Python}
 Es besteht eine Auswahl an Beispielimplementierungen für Image-To-Image-Translation. Das Original-Paper verweist auf ein GitHub-Repository, das eine Lua-Implementierung zur Verfügung stellt. Wegen der besseren Eignung für Experimente auf einem lokalen Rechner durch CUDA-Unterstützung mit Tensorflow wird in dieser Arbeit Python verwendet.
 
 Die verwendete Beispielimplementierung ist zum Zeitpunkt der Erstellung dieses Dokumentes unter https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb zu finden. Eine an die aktuelle Version von Tensorflow und die Anforderungen dieser Arbeit angepasste Version befindet sich im Anhang.
 
 Die wichtigste Änderung ist das selbst erstellte Dataset, das statt der im Beispiel verwendeten Gebäudefassaden geladen wird. Es wurden Ausgaben entfernt, wegen derer die Ausführung des Skriptes unterbrochen wurde. Dabei wurden Bildinformationen und Beispielbilder nach dem Laden des Datasets, dem Aufteilen in Eingabebild und Ground Truth, der Erzeugung von Bildrauschen, Down- und Upsampling sowie den ersten Trainingsdurchläufen ausgegeben, die während des Trainings der Skizzen- und Renderbilder nicht betrachtet werden mussten. Außerdem wurden bei jedem Training Diagramme des Generators und des Discriminators erzeugt.
 
-
 \chapter{Experimente und Resultate}
 \label{ch:conduct}
 
-\section{Vorbereitung der Eingabedaten}
+\section{Vorbereitung der vorhandenen Eingabedaten}
 \label{sec:preparation}
 Die Trainingsdaten liegen für das ``Quick, Draw!''-Dataset im NDJSON-Format und als Blender-Dateien beziehungsweise
 Wavefront OBJ-Dateien vor. Die effizienteste Möglichkeit, die Skizzen und 3D-Modelle für die Verarbeitung in einem CNN vorzubereiten, ist das Rendern und  Speichern als Bilddateien. Als Dateiformat kommen JPEG oder PNG infrage. Beide Formate können leicht als Trainingsset mit Tensorflow geladen werden.
@@ -189,6 +219,66 @@ in Bezug auf die Verarbeitungszeit eine wichtige Rolle. Bildformate der Größe 
 Sowohl während der Entwicklung als auch zur Laufzeit kann es vorteilhaft sein, Farbwerte statt auf der oft verwendeten Skala von $0$ bis $255$ als Fließkommazahlen im Bereich $0,0$ bis $1,0$ darzustellen. Auch für die Ausgaben der einzelnen Schichten eines künstlichen neuronalen Netzes kann diese Normalisierung durchgeführt werden (TODO: BatchNorm).
 
 Ein ebenso wichtiger wie aufwendiger Vorgang ist die Klassifizierung der Trainingsdaten, also die Zuweisung von Eingaben zu den erlernbaren Ergebnissen. Aufgrund der selbst erstellten Ausgabebilder existieren für diesen Zweck keine vorgefertigten Datasets. Die Sortierung und Zuweisung erfolgt deshalb manuell.
+\pagebreak
+
+\section{Erstellung eigener Eingabedaten}
+
+Die Vorteile, die selbst erstellte Eingabedaten bieten, rechtfertigen in dieser Arbeit das Erstellen vieler eigener Eingabebilder. Dafür ist es nicht erforderlich, jedes Bild einzeln von Hand zu erzeugen. Blender verfügt über eine Python-Schnittstelle. Mit ihr ist es möglich, etwa die Ausrichtung eines dreidimensionalen Objekts automatisiert mehrmals zu ändern und jeweils ein Bild zu erstellen, sodass aus einem einzigen Modell mehrere Eingabebilder entstehen. Bei einigen Modellen wie zum Beispiel Tischen konnte sogar die Form aus zufälligen Werten für Höhe, Breite und Tiefe generiert werden.
+
+\begin{figure}[h]
+	\centering
+  \includegraphics[width=0.325\textwidth]{bilder/limo1_m.png}
+  \includegraphics[width=0.325\textwidth]{bilder/limo2_m.png}
+  \includegraphics[width=0.325\textwidth]{bilder/limo3_m.png}
+
+	\caption[Verschiedene Perspektiven]{3D-Modelle von Fahrzeugen können unterschiedlich in der Szene ausgerichtet werden. Dadurch entstehen verschiedene, aber gleichartige Eingabebilder.}
+	\label{fig:limo}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.325\textwidth]{bilder/random_table1_render4.png}
+	\includegraphics[width=0.325\textwidth]{bilder/random_table1_render0.png}
+	\includegraphics[width=0.325\textwidth]{bilder/random_table1_render2.png}
+
+	\includegraphics[width=0.325\textwidth]{bilder/random_table11_render4.png}
+	\includegraphics[width=0.325\textwidth]{bilder/random_table11_render0.png}
+	\includegraphics[width=0.325\textwidth]{bilder/random_table11_render2.png}
+
+	\caption[Generierte Tische]{Tische können fast vollkommen automatisiert erstellt werden. Für Höhe, Breite und Tiefe der Tischbeine und Tischplatte wurden jeweils zufällige Werte innerhalb bestimmter sinnvoller Bereiche ermittelt. Dadurch konnte mit verhältnismäßig geringem Aufwand eine große Menge an Eingabebildern produziert werden.}
+	\label{fig:tables}
+\end{figure}
+
+3D-Modellierungsprogramme haben prinzipiell ungewohnte Benutzeroberflächen. Das Navigieren in einer dreidimensionalen Szene erfordert Eingaben, die mittels Maus und Tastatur nicht gleichzeitig intuitiv und effizient ausgeführt werden können.
+
+Für das Modellieren ist aber exaktes Arbeiten nötig. Ein 3D-Modellierungsprogramm muss deshalb in der Lage sein, präzise Änderungen im dreidimensionalen Raum nach den Eingaben des Benutzers durchzuführen. Blender besitzt dafür vielfältigste Funktionen. Insbesondere gibt es neben der freien Navigation im Raum verschiedene vordefinierte Perspektiven wie zum Beispiel Draufsicht und Seitenansicht. Es gibt Orientierungslinien in der Szene, an denen ein geometrisches Objekt ausgerichtet werden kann und auch sollte, um korrekt modellieren zu können
+
+Todo: Textur (Holzoptik)
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{bilder/blender.png}
+
+	\caption[Blender-Arbeitsbereich]{Blender bietet verschiedene Perspektiven und Werkzeuge, um komplexe Gebilde präzise zu modellieren. }
+
+	\label{fig:blender}
+\end{figure}
+
+Blender bietet neben 3D-Navigations-Schaltflächen eine große Zahl an Werkzeugen, mit denen Modelle erstellt und bearbeitete werden können, sowie vorgefertigte Formen. Objekte können unter anderem verschoben, verzerrt, geteilt und zusammengefügt werden.
+
+Zudem gibt es Szenen-Objekte, die besondere Funktionen besitzen. Neben der Kamera, deren Position und Ausrichtung für das Ergebnisbild entscheidend ist, können auch verschiedenartige Lichtquellen und Spiegel in der Szene platziert werden, die in die Berechnung des Endergebnisses einbezogen werden. Zudem können Animationseffekte wie Feuer, Wasser und Wind erzeugt werden.
+\pagebreak
+
+Um Bilder automatisiert erstellen zu lassen wurde ein Blender-Python-Script entwickelt (s. \hyperref[blenderpy]{Anhang}). Das Skript export das Ergebnis als Waveform-OBJ und als JPEG-Bilddatei.
+
+Zunächst werden drei Zufallswerte für die Breite, Höhe und Tiefe jeweils der Tischplatte sowie der Tischbeine ermittelt. Für den Abstand der Tischbeine von der Tischkante wird ein weiterer Zufallswert berechnet. Anschließend werden Blender-Standard-Würfel so in der Szene platziert und anhand der Zufallswerte verformt, dass die Form eines Tisches entsteht.
+
+Die Tischform wird mit einer Textur versehen, damit eine Holzoptik entsteht.
+
+Die Objekte werden anschließend ausgewählt, um fünfmal um den entsprechenden Anteil einer Umdrehung (Pi / 5) gedreht zu werden. Dies geschieht in einer Schleife. Nach jeder Drehung wird eine Bilddatei gespeichert.
+
+Der gesamte Vorgang wird selbst in einer Schleife durchgeführt, sodass nach einer Ausführung 50 verschiedene Tische generiert und zu jedem Tisch fünf Bilddateien, also insgesamt 250 Bilddateien, gespeichert wurden.
 
 
 \section{Anwendung herkömmlicher Shader}
