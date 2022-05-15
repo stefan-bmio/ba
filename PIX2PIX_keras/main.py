@@ -226,7 +226,7 @@ def discriminator_loss(disc_real_output, disc_generated_output):
 
 def generate_images(model, test_input, tar, image_index):
     prediction = model(test_input, training=True)
-    plt.figure(figsize=(15, 15))
+    plt.figure(num=0, figsize=(15, 15))
 
     display_list = [test_input[0], tar[0], prediction[0]]
     title = ['Input Image', 'Ground Truth', 'Predicted Image']
@@ -240,7 +240,7 @@ def generate_images(model, test_input, tar, image_index):
     plt.savefig('results/' + str(image_index) + '.jpg')
 
 
-@tf.function
+@tf.function()
 def train_step(input_image, target, step):
     with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
         gen_output = generator(input_image, training=True)
