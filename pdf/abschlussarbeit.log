@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.13)  15 MAY 2022 15:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.13)  23 MAY 2022 23:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2152,20 +2152,23 @@ Class scrreprt Warning: \float@addtolists detected!
 
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 17.28pt on input line 41.
-[1
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1
 
 
 
 ]
-Underfull \vbox (badness 2435) has occurred while \output is active []
+Underfull \vbox (badness 2884) has occurred while \output is active []
 
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sl' in size <12> not a
 vailable
 (Font)              Font shape `T1/LinuxLibertineT-TLF/m/it' tried instead on i
-nput line 58.
+nput line 54.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 58.
-Package cleveref Info: loaded `ngerman' language definitions on input line 58.
+(Font)              scaled to size 12.0pt on input line 54.
+Package cleveref Info: loaded `ngerman' language definitions on input line 54.
  [2]
 <bilder/0.jpg, id=151, 1084.05pt x 1084.05pt>
 File: bilder/0.jpg Graphic file (type jpg)
@@ -2188,111 +2191,117 @@ LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 10.95pt on input line 64.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 10.95pt on input line 64.
-Package cleveref Info: loaded `ngerman' language definitions on input line 98.
 
-[3 <./bilder/0.jpg> <./bilder/1.jpg> <./bilder/15.jpg>]
-<bilder/image_arithmetic.png, id=180, 1137.24875pt x 194.7275pt>
+Underfull \vbox (badness 1014) has occurred while \output is active []
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 91.
+ [3 <./bilder/0.jpg> <./bilder/1.jpg> <./bilder/15.jpg>]
+<bilder/image_arithmetic.png, id=174, 1137.24875pt x 194.7275pt>
 File: bilder/image_arithmetic.png Graphic file (type png)
 <use bilder/image_arithmetic.png>
 Package pdftex.def Info: bilder/image_arithmetic.png  used on input line 106.
 (pdftex.def)             Requested size: 450.69174pt x 77.17055pt.
-<bilder/mnist_faces.png, id=184, 565.11125pt x 183.68625pt>
+<bilder/mnist_faces.png, id=178, 565.11125pt x 183.68625pt>
 File: bilder/mnist_faces.png Graphic file (type png)
 <use bilder/mnist_faces.png>
 Package pdftex.def Info: bilder/mnist_faces.png  used on input line 113.
 (pdftex.def)             Requested size: 450.69174pt x 146.49792pt.
 
-Underfull \vbox (badness 4144) has occurred while \output is active []
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \vbox (badness 4647) has occurred while \output is active []
 
 Package cleveref Info: loaded `ngerman' language definitions on input line 119.
 
- [4 <./bilder/image_arithmetic.png> <./bilder/mnist_faces.png>]
-<bilder/edges2cats_a.png, id=198, 117.43875pt x 116.435pt>
+ [4 <./bilder/image_arithmetic.png>]
+<bilder/edges2cats_a.png, id=196, 117.43875pt x 116.435pt>
 File: bilder/edges2cats_a.png Graphic file (type png)
 <use bilder/edges2cats_a.png>
 Package pdftex.def Info: bilder/edges2cats_a.png  used on input line 122.
 (pdftex.def)             Requested size: 45.07191pt x 44.68636pt.
-<bilder/edges2cats_b.png, id=199, 116.435pt x 116.435pt>
+<bilder/edges2cats_b.png, id=197, 116.435pt x 116.435pt>
 File: bilder/edges2cats_b.png Graphic file (type png)
 <use bilder/edges2cats_b.png>
 Package pdftex.def Info: bilder/edges2cats_b.png  used on input line 122.
 (pdftex.def)             Requested size: 45.07191pt x 45.0719pt.
-<bilder/fotogenerator_a.png, id=200, 84.315pt x 86.3225pt>
+<bilder/fotogenerator_a.png, id=198, 84.315pt x 86.3225pt>
 File: bilder/fotogenerator_a.png Graphic file (type png)
 <use bilder/fotogenerator_a.png>
 Package pdftex.def Info: bilder/fotogenerator_a.png  used on input line 124.
 (pdftex.def)             Requested size: 45.07191pt x 46.14584pt.
-<bilder/fotogenerator_b.png, id=201, 83.31125pt x 86.3225pt>
+<bilder/fotogenerator_b.png, id=199, 83.31125pt x 86.3225pt>
 File: bilder/fotogenerator_b.png Graphic file (type png)
 <use bilder/fotogenerator_b.png>
 Package pdftex.def Info: bilder/fotogenerator_b.png  used on input line 124.
 (pdftex.def)             Requested size: 45.07191pt x 46.70169pt.
-<bilder/sketch2portrait_a.png, id=202, 96.36pt x 98.3675pt>
+<bilder/sketch2portrait_a.png, id=200, 96.36pt x 98.3675pt>
 File: bilder/sketch2portrait_a.png Graphic file (type png)
 <use bilder/sketch2portrait_a.png>
 Package pdftex.def Info: bilder/sketch2portrait_a.png  used on input line 126.
 (pdftex.def)             Requested size: 45.07191pt x 46.01057pt.
-<bilder/sketch2portrait_b.png, id=203, 98.3675pt x 98.3675pt>
+<bilder/sketch2portrait_b.png, id=201, 98.3675pt x 98.3675pt>
 File: bilder/sketch2portrait_b.png Graphic file (type png)
 <use bilder/sketch2portrait_b.png>
 Package pdftex.def Info: bilder/sketch2portrait_b.png  used on input line 126.
 (pdftex.def)             Requested size: 45.07191pt x 45.07097pt.
-<bilder/pokemon_a.png, id=204, 96.36pt x 101.37875pt>
+<bilder/pokemon_a.png, id=202, 96.36pt x 101.37875pt>
 File: bilder/pokemon_a.png Graphic file (type png)
 <use bilder/pokemon_a.png>
 Package pdftex.def Info: bilder/pokemon_a.png  used on input line 132.
 (pdftex.def)             Requested size: 45.07191pt x 47.41907pt.
-<bilder/pokemon_b.png, id=205, 96.36pt x 101.37875pt>
+<bilder/pokemon_b.png, id=203, 96.36pt x 101.37875pt>
 File: bilder/pokemon_b.png Graphic file (type png)
 <use bilder/pokemon_b.png>
 Package pdftex.def Info: bilder/pokemon_b.png  used on input line 132.
 (pdftex.def)             Requested size: 45.07191pt x 47.41907pt.
-<bilder/shoe_a.png, id=206, 118.4425pt x 119.44624pt>
+<bilder/shoe_a.png, id=204, 118.4425pt x 119.44624pt>
 File: bilder/shoe_a.png Graphic file (type png)
 <use bilder/shoe_a.png>
 Package pdftex.def Info: bilder/shoe_a.png  used on input line 134.
 (pdftex.def)             Requested size: 45.07191pt x 45.45383pt.
-<bilder/shoe_b.png, id=207, 118.4425pt x 119.44624pt>
+<bilder/shoe_b.png, id=205, 118.4425pt x 119.44624pt>
 File: bilder/shoe_b.png Graphic file (type png)
 <use bilder/shoe_b.png>
 Package pdftex.def Info: bilder/shoe_b.png  used on input line 134.
 (pdftex.def)             Requested size: 45.07191pt x 45.45383pt.
-<bilder/handbag_a.png, id=208, 118.4425pt x 119.44624pt>
+<bilder/handbag_a.png, id=206, 118.4425pt x 119.44624pt>
 File: bilder/handbag_a.png Graphic file (type png)
 <use bilder/handbag_a.png>
 Package pdftex.def Info: bilder/handbag_a.png  used on input line 136.
 (pdftex.def)             Requested size: 45.07191pt x 45.45383pt.
-<bilder/handbag_b.png, id=209, 118.4425pt x 119.44624pt>
+<bilder/handbag_b.png, id=207, 118.4425pt x 119.44624pt>
 File: bilder/handbag_b.png Graphic file (type png)
 <use bilder/handbag_b.png>
 Package pdftex.def Info: bilder/handbag_b.png  used on input line 136.
 (pdftex.def)             Requested size: 45.07191pt x 45.45383pt.
-<bilder/table1small.png, id=212, 925.056pt x 289.08pt>
+<bilder/table1small.png, id=210, 925.056pt x 289.08pt>
 File: bilder/table1small.png Graphic file (type png)
 <use bilder/table1small.png>
 Package pdftex.def Info: bilder/table1small.png  used on input line 143.
 (pdftex.def)             Requested size: 270.41779pt x 84.50592pt.
-<bilder/table2small.png, id=213, 925.056pt x 289.08pt>
+<bilder/table2small.png, id=211, 925.056pt x 289.08pt>
 File: bilder/table2small.png Graphic file (type png)
 <use bilder/table2small.png>
 Package pdftex.def Info: bilder/table2small.png  used on input line 144.
 (pdftex.def)             Requested size: 270.41779pt x 84.50592pt.
-<bilder/table3small.png, id=214, 925.056pt x 289.08pt>
+<bilder/table3small.png, id=212, 925.056pt x 289.08pt>
 File: bilder/table3small.png Graphic file (type png)
 <use bilder/table3small.png>
 Package pdftex.def Info: bilder/table3small.png  used on input line 145.
 (pdftex.def)             Requested size: 270.41779pt x 84.50592pt.
-<bilder/candle1small.png, id=215, 925.056pt x 361.35pt>
+<bilder/candle1small.png, id=213, 925.056pt x 361.35pt>
 File: bilder/candle1small.png Graphic file (type png)
 <use bilder/candle1small.png>
 Package pdftex.def Info: bilder/candle1small.png  used on input line 147.
 (pdftex.def)             Requested size: 270.41779pt x 105.63242pt.
-<bilder/candle2small.png, id=216, 925.056pt x 361.35pt>
+<bilder/candle2small.png, id=214, 925.056pt x 361.35pt>
 File: bilder/candle2small.png Graphic file (type png)
 <use bilder/candle2small.png>
 Package pdftex.def Info: bilder/candle2small.png  used on input line 148.
 (pdftex.def)             Requested size: 270.41779pt x 105.63242pt.
-<bilder/candle3small.png, id=217, 925.056pt x 361.35pt>
+<bilder/candle3small.png, id=215, 925.056pt x 361.35pt>
 File: bilder/candle3small.png Graphic file (type png)
 <use bilder/candle3small.png>
 Package pdftex.def Info: bilder/candle3small.png  used on input line 149.
@@ -2303,16 +2312,16 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 )
 Package cleveref Info: loaded `ngerman' language definitions on input line 31.
- [5 <./bilder/edges2cats_a.png> <./bilder/edges2cats_b.png> <./bilder/fotogener
-ator_a.png> <./bilder/fotogenerator_b.png> <./bilder/sketch2portrait_a.png> <./
-bilder/sketch2portrait_b.png> <./bilder/pokemon_a.png> <./bilder/pokemon_b.png>
- <./bilder/shoe_a.png> <./bilder/shoe_b.png> <./bilder/handbag_a.png (PNG copy)
-> <./bilder/handbag_b.png (PNG copy)>]
+ [5 <./bilder/mnist_faces.png> <./bilder/edges2cats_a.png> <./bilder/edges2cats
+_b.png> <./bilder/fotogenerator_a.png> <./bilder/fotogenerator_b.png> <./bilder
+/sketch2portrait_a.png> <./bilder/sketch2portrait_b.png> <./bilder/pokemon_a.pn
+g> <./bilder/pokemon_b.png> <./bilder/shoe_a.png> <./bilder/shoe_b.png> <./bild
+er/handbag_a.png (PNG copy)> <./bilder/handbag_b.png (PNG copy)>]
 Package cleveref Info: loaded `ngerman' language definitions on input line 31.
  [6 <./bilder/table1small.png (PNG copy)> <./bilder/table2small.png (PNG copy)>
  <./bilder/table3small.png (PNG copy)> <./bilder/candle1small.png (PNG copy)> <
-./bilder/candle2small.png (PNG copy)> <./bilder/candle3small.png (PNG copy)>] (
-./02_bildgenerierung.tex
+./bilder/candle2small.png (PNG copy)> <./bilder/candle3small.png (PNG copy)>]
+(./02_bildgenerierung.tex
 chapter 2.
 LaTeX Font Info:    Trying to load font information for TS1+LinuxLibertineT-TLF
  on input line 15.
@@ -2328,38 +2337,53 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
  [7
 
 
 
 ]
-Package cleveref Info: loaded `ngerman' language definitions on input line 38.
- [8]
-Package cleveref Info: loaded `ngerman' language definitions on input line 71.
+Package cleveref Info: loaded `ngerman' language definitions on input line 40.
+
+[8]
+Package cleveref Info: loaded `ngerman' language definitions on input line 55.
  [9]
-Package cleveref Info: loaded `ngerman' language definitions on input line 109.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
+Package cleveref Info: loaded `ngerman' language definitions on input line 77.
  [10]
-Package cleveref Info: loaded `ngerman' language definitions on input line 130.
+Package cleveref Info: loaded `ngerman' language definitions on input line 106.
 
- [11]
-Package cleveref Info: loaded `ngerman' language definitions on input line 155.
+
+[11]
+Package cleveref Info: loaded `ngerman' language definitions on input line 124.
 
  [12]
-Package cleveref Info: loaded `ngerman' language definitions on input line 168.
+Package cleveref Info: loaded `ngerman' language definitions on input line 147.
 
  [13]
+Package cleveref Info: loaded `ngerman' language definitions on input line 165.
+
+ [14]
 chapter 3.
-[14
+[15
 
 ]
-Package cleveref Info: loaded `ngerman' language definitions on input line 218.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [15]
+Package cleveref Info: loaded `ngerman' language definitions on input line 206.
+
+ [16]
+Package cleveref Info: loaded `ngerman' language definitions on input line 226.
+
+
+[17]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 229.
+(Font)              scaled to size 8.0pt on input line 226.
 LaTeX Font Info:    Trying to load font information for T1+LinuxLibertineMonoT-
-TLF on input line 229.
+TLF on input line 226.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/libertine/T1LinuxLibertineMonoT-T
 LF.fd
@@ -2369,133 +2393,137 @@ File: T1LinuxLibertineMonoT-TLF.fd 2019/05/20 (autoinst) Font definitions for T
 LaTeX Font Info:    Font shape `T1/LinuxLibertineMonoT-TLF/m/n' in size <8> not
  available
 (Font)              Font shape `T1/LinuxLibertineMonoT-TLF/regular/n' tried ins
-tead on input line 229.
+tead on input line 226.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineMonoT-TLF/regular/n' will be
-(Font)              scaled to size 8.0pt on input line 229.
+(Font)              scaled to size 8.0pt on input line 226.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineMonoT-TLF' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-Package cleveref Info: loaded `ngerman' language definitions on input line 240.
 
- [16]
-Package cleveref Info: loaded `ngerman' language definitions on input line 258.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [17]
-<bilder/tensorboard.png, id=338, 281.3712pt x 226.446pt>
-File: bilder/tensorboard.png Graphic file (type png)
-<use bilder/tensorboard.png>
-Package pdftex.def Info: bilder/tensorboard.png  used on input line 269.
-(pdftex.def)             Requested size: 450.69174pt x 362.74599pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \vbox (badness 3343) has occurred while \output is active []
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 286.
+Package cleveref Info: loaded `ngerman' language definitions on input line 243.
 
  [18]
-Overfull \hbox (26.24037pt too wide) in paragraph at lines 287--288
+Underfull \vbox (badness 2478) has occurred while \output is active []
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 259.
+
+ [19]
+<bilder/tensorboard.png, id=363, 281.3712pt x 226.446pt>
+File: bilder/tensorboard.png Graphic file (type png)
+<use bilder/tensorboard.png>
+Package pdftex.def Info: bilder/tensorboard.png  used on input line 266.
+(pdftex.def)             Requested size: 450.69174pt x 362.74599pt.
+
+Underfull \vbox (badness 1033) has occurred while \output is active []
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 272.
+
+ [20 <./bilder/tensorboard.png>]
+Overfull \hbox (26.24037pt too wide) in paragraph at lines 284--285
 \T1/LinuxLibertineT-TLF/m/n/12 (-20) tes un-ter htt-ps://github.com/tensorflow/
 docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb
  []
 
-Package cleveref Info: loaded `ngerman' language definitions on input line 291.
+Package cleveref Info: loaded `ngerman' language definitions on input line 288.
 
-[19 <./bilder/tensorboard.png>]
-Package cleveref Info: loaded `ngerman' language definitions on input line 291.
+[21]
+Package cleveref Info: loaded `ngerman' language definitions on input line 288.
 
- [20]
+ [22]
 chapter 4.
-[21
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [23
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package cleveref Info: loaded `ngerman' language definitions on input line 322.
+Package cleveref Info: loaded `ngerman' language definitions on input line 319.
 
- [22]
-<bilder/limo1_m.png, id=364, 256.96pt x 256.96pt>
+ [24]
+<bilder/limo1_m.png, id=388, 256.96pt x 256.96pt>
 File: bilder/limo1_m.png Graphic file (type png)
 <use bilder/limo1_m.png>
-Package pdftex.def Info: bilder/limo1_m.png  used on input line 329.
+Package pdftex.def Info: bilder/limo1_m.png  used on input line 326.
 (pdftex.def)             Requested size: 146.47343pt x 146.47655pt.
-<bilder/limo2_m.png, id=365, 256.96pt x 256.96pt>
+<bilder/limo2_m.png, id=389, 256.96pt x 256.96pt>
 File: bilder/limo2_m.png Graphic file (type png)
 <use bilder/limo2_m.png>
-Package pdftex.def Info: bilder/limo2_m.png  used on input line 330.
+Package pdftex.def Info: bilder/limo2_m.png  used on input line 327.
 (pdftex.def)             Requested size: 146.47343pt x 146.47655pt.
-<bilder/limo3_m.png, id=366, 256.96pt x 256.96pt>
+<bilder/limo3_m.png, id=390, 256.96pt x 256.96pt>
 File: bilder/limo3_m.png Graphic file (type png)
 <use bilder/limo3_m.png>
-Package pdftex.def Info: bilder/limo3_m.png  used on input line 331.
+Package pdftex.def Info: bilder/limo3_m.png  used on input line 328.
 (pdftex.def)             Requested size: 146.47343pt x 146.47655pt.
-<bilder/random_table1_render4.png, id=367, 642.4pt x 481.8pt>
+<bilder/random_table1_render4.png, id=391, 642.4pt x 481.8pt>
 File: bilder/random_table1_render4.png Graphic file (type png)
 <use bilder/random_table1_render4.png>
 Package pdftex.def Info: bilder/random_table1_render4.png  used on input line 3
-40.
+37.
 (pdftex.def)             Requested size: 146.47343pt x 109.85594pt.
-<bilder/random_table1_render0.png, id=368, 642.4pt x 481.8pt>
+<bilder/random_table1_render0.png, id=392, 642.4pt x 481.8pt>
 File: bilder/random_table1_render0.png Graphic file (type png)
 <use bilder/random_table1_render0.png>
 Package pdftex.def Info: bilder/random_table1_render0.png  used on input line 3
-41.
+38.
 (pdftex.def)             Requested size: 146.47343pt x 109.85594pt.
-<bilder/random_table1_render2.png, id=369, 642.4pt x 481.8pt>
+<bilder/random_table1_render2.png, id=393, 642.4pt x 481.8pt>
 File: bilder/random_table1_render2.png Graphic file (type png)
 <use bilder/random_table1_render2.png>
 Package pdftex.def Info: bilder/random_table1_render2.png  used on input line 3
-42.
+39.
 (pdftex.def)             Requested size: 146.47343pt x 109.85594pt.
-<bilder/random_table11_render4.png, id=370, 642.4pt x 481.8pt>
+<bilder/random_table11_render4.png, id=394, 642.4pt x 481.8pt>
 File: bilder/random_table11_render4.png Graphic file (type png)
 <use bilder/random_table11_render4.png>
 Package pdftex.def Info: bilder/random_table11_render4.png  used on input line 
-344.
+341.
 (pdftex.def)             Requested size: 146.47343pt x 109.85594pt.
-<bilder/random_table11_render0.png, id=371, 642.4pt x 481.8pt>
+<bilder/random_table11_render0.png, id=395, 642.4pt x 481.8pt>
 File: bilder/random_table11_render0.png Graphic file (type png)
 <use bilder/random_table11_render0.png>
 Package pdftex.def Info: bilder/random_table11_render0.png  used on input line 
-345.
+342.
 (pdftex.def)             Requested size: 146.47343pt x 109.85594pt.
-<bilder/random_table11_render2.png, id=372, 642.4pt x 481.8pt>
+<bilder/random_table11_render2.png, id=396, 642.4pt x 481.8pt>
 File: bilder/random_table11_render2.png Graphic file (type png)
 <use bilder/random_table11_render2.png>
 Package pdftex.def Info: bilder/random_table11_render2.png  used on input line 
-346.
+343.
 (pdftex.def)             Requested size: 146.47343pt x 109.85594pt.
-Package cleveref Info: loaded `ngerman' language definitions on input line 354.
+Package cleveref Info: loaded `ngerman' language definitions on input line 351.
 
 
-[23 <./bilder/limo1_m.png> <./bilder/limo2_m.png> <./bilder/limo3_m.png> <./bil
+[25 <./bilder/limo1_m.png> <./bilder/limo2_m.png> <./bilder/limo3_m.png> <./bil
 der/random_table1_render4.png> <./bilder/random_table1_render0.png> <./bilder/r
 andom_table1_render2.png> <./bilder/random_table11_render4.png> <./bilder/rando
 m_table11_render0.png> <./bilder/random_table11_render2.png>]
-<bilder/blender.png, id=388, 1802.735pt x 1077.02374pt>
+<bilder/blender.png, id=413, 1802.735pt x 1077.02374pt>
 File: bilder/blender.png Graphic file (type png)
 <use bilder/blender.png>
-Package pdftex.def Info: bilder/blender.png  used on input line 360.
+Package pdftex.def Info: bilder/blender.png  used on input line 357.
 (pdftex.def)             Requested size: 450.69174pt x 269.25528pt.
+Package cleveref Info: loaded `ngerman' language definitions on input line 368.
 
-Underfull \vbox (badness 5771) has occurred while \output is active []
+ [26 <./bilder/blender.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package cleveref Info: loaded `ngerman' language definitions on input line 371.
+Package cleveref Info: loaded `ngerman' language definitions on input line 394.
 
- [24 <./bilder/blender.png>]
-Package cleveref Info: loaded `ngerman' language definitions on input line 400.
+ [27]
+Package cleveref Info: loaded `ngerman' language definitions on input line 410.
 
- [25]
-Package cleveref Info: loaded `ngerman' language definitions on input line 413.
 
- [26]
+[28]
 chapter 5.
-) [27
+) [29
 
-] [28
+] [30
 
 
 ]
@@ -2561,7 +2589,7 @@ Package cleveref Info: loaded `ngerman' language definitions on input line 41.
 Package cleveref Info: loaded `ngerman' language definitions on input line 41.
 Package cleveref Info: loaded `ngerman' language definitions on input line 41.
 Package cleveref Info: loaded `ngerman' language definitions on input line 41.
-[29
+[31
 
 ]
 Package cleveref Info: loaded `ngerman' language definitions on input line 41.
@@ -2582,11 +2610,11 @@ Package cleveref Info: loaded `ngerman' language definitions on input line 41.
 Package cleveref Info: loaded `ngerman' language definitions on input line 41.
 Package cleveref Info: loaded `ngerman' language definitions on input line 41.
 Package cleveref Info: loaded `ngerman' language definitions on input line 44.
-[30] (./97_bildnachweis.tex) [31
+[32] (./97_bildnachweis.tex) [33
 
 
 
-] [32
+] [34
 
 
 ]
@@ -2646,9 +2674,9 @@ Package cleveref Info: loaded `ngerman' language definitions on input line 65.
 \tf@lof=\write7
 \openout7 = `abschlussarbeit.lof'.
 
- [33
+ [35
 
-] [34
+] [36
 
 
 ]
@@ -2709,28 +2737,28 @@ Package cleveref Info: loaded `ngerman' language definitions on input line 56.
 \tf@lot=\write8
 \openout8 = `abschlussarbeit.lot'.
 
- [35
+ [37
 
-] [36
+] [38
 
 
-] (./99_anhang.tex [37
+] (./99_anhang.tex [39
 
 ]
 chapter A.
-[38
+[40
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package cleveref Info: loaded `ngerman' language definitions on input line 136.
+Package cleveref Info: loaded `ngerman' language definitions on input line 133.
 
- [39]
+ [41]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package cleveref Info: loaded `ngerman' language definitions on input line 204.
+Package cleveref Info: loaded `ngerman' language definitions on input line 201.
 
- [40]
+ [42]
 Overfull \hbox (43.71329pt too wide) in paragraph at lines 222--224
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
@@ -2744,9 +2772,9 @@ Overfull \hbox (72.51358pt too wide) in paragraph at lines 261--262
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package cleveref Info: loaded `ngerman' language definitions on input line 271.
+Package cleveref Info: loaded `ngerman' language definitions on input line 269.
 
- [41]
+ [43]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineMonoT-TLF/m/it' in size <8> no
 t available
 (Font)              Font shape `T1/LinuxLibertineMonoT-TLF/regular/it' tried in
@@ -2766,14 +2794,14 @@ Overfull \hbox (19.71304pt too wide) in paragraph at lines 315--316
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package cleveref Info: loaded `ngerman' language definitions on input line 339.
+Package cleveref Info: loaded `ngerman' language definitions on input line 337.
 
- [42]
+ [44]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package cleveref Info: loaded `ngerman' language definitions on input line 374.
 
- [43]
+ [45]
 Overfull \hbox (43.71329pt too wide) in paragraph at lines 384--386
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
@@ -2822,44 +2850,14 @@ Overfull \hbox (1339.72647pt too wide) in paragraph at lines 420--422
 
 Package cleveref Info: loaded `ngerman' language definitions on input line 432.
 
-[44]
-Overfull \hbox (115.71402pt too wide) in paragraph at lines 463--465
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][] 
- []
-
-)
+[46])
 
 Package caption Warning: Unused \captionsetup[subtable] on input line 33.
 See the caption package documentation for explanation.
 
 Package cleveref Info: loaded `ngerman' language definitions on input line 62.
-[45] (./abschlussarbeit.aux
+[47] (./abschlussarbeit.aux
 Package cleveref Info: loaded `ngerman' language definitions on input line 28.
-Package cleveref Info: loaded `ngerman' language definitions on input line 295.
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 296.
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 297.
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 298.
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 299.
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 300.
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 301.
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 302.
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 303.
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 304.
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 305.
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 306.
-
 Package cleveref Info: loaded `ngerman' language definitions on input line 307.
 
 Package cleveref Info: loaded `ngerman' language definitions on input line 308.
@@ -2932,6 +2930,30 @@ Package cleveref Info: loaded `ngerman' language definitions on input line 341.
 
 Package cleveref Info: loaded `ngerman' language definitions on input line 342.
 
+Package cleveref Info: loaded `ngerman' language definitions on input line 343.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 344.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 345.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 346.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 347.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 348.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 349.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 350.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 351.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 352.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 353.
+
+Package cleveref Info: loaded `ngerman' language definitions on input line 354.
+
 )
 
 LaTeX Warning: There were multiply-defined labels.
@@ -2943,38 +2965,39 @@ Package logreq Info: Writing requests to 'abschlussarbeit.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 45945 strings out of 478994
- 889837 string characters out of 5858184
- 1830379 words of memory out of 5000000
- 61761 multiletter control sequences out of 15000+600000
- 558549 words of font info for 301 fonts, out of 8000000 for 9000
+ 45960 strings out of 478994
+ 889972 string characters out of 5858184
+ 1831461 words of memory out of 5000000
+ 61765 multiletter control sequences out of 15000+600000
+ 558660 words of font info for 299 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 118i,9n,138p,10659b,5237s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 118i,13n,138p,10659b,5237s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_dhi6qf.enc
 }{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}
-{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertinust1math/libusEX.en
-c}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertinust1math/libusBB.
-enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertinust1math/libusM
-R.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertinust1math/libu
-sMI.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_naoo
-yc.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertinust1math/lib
-usSYM.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_7g
-rukw.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_25t
-csq.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77
-jq.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa
-5.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertinust1math/L
-ibertinusT1Math.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libe
-rtine/LinBiolinumTB.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/
-libertine/LinLibertineMT.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pu
-blic/libertine/LinLibertineMTO.pfb></usr/local/texlive/2021/texmf-dist/fonts/ty
-pe1/public/libertine/LinLibertineT.pfb></usr/local/texlive/2021/texmf-dist/font
-s/type1/public/libertine/LinLibertineTB.pfb></usr/local/texlive/2021/texmf-dist
-/fonts/type1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2021/texmf
--dist/fonts/type1/public/stix/stix-mathcal.pfb>
-Output written on abschlussarbeit.pdf (51 pages, 2811086 bytes).
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertinust1math/libusBB.en
+c}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertinust1math/libusBMI
+.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertinust1math/libus
+EX.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertinust1math/lib
+usMR.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertinust1math/l
+ibusMI.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_n
+aooyc.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertinust1math/
+libusSYM.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn
+_7grukw.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_
+25tcsq.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_n
+h77jq.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_76
+gpa5.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertinust1mat
+h/LibertinusT1Math.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/l
+ibertine/LinBiolinumTB.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publ
+ic/libertine/LinLibertineMT.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1
+/public/libertine/LinLibertineMTO.pfb></usr/local/texlive/2021/texmf-dist/fonts
+/type1/public/libertine/LinLibertineT.pfb></usr/local/texlive/2021/texmf-dist/f
+onts/type1/public/libertine/LinLibertineTB.pfb></usr/local/texlive/2021/texmf-d
+ist/fonts/type1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2021/te
+xmf-dist/fonts/type1/public/stix/stix-mathcal.pfb>
+Output written on abschlussarbeit.pdf (53 pages, 2818837 bytes).
 PDF statistics:
- 1262 PDF objects out of 1440 (max. 8388607)
- 1113 compressed objects within 12 object streams
- 575 named destinations out of 1000 (max. 500000)
+ 1295 PDF objects out of 1440 (max. 8388607)
+ 1144 compressed objects within 12 object streams
+ 589 named destinations out of 1000 (max. 500000)
  62511 words of extra memory for PDF output out of 74296 (max. 10000000)
 

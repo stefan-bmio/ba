@@ -460,7 +460,10 @@ for index, line in enumerate(dataset):
     displacement_y = int((256 - min(y_coords) - max(y_coords)) / 2)
 
     for stroke in drawing:
-        draw.line(list(zip([x + displacement_x for x in stroke[0]], [y + displacement_y for y in stroke[1]])), fill=0)
+        draw.line(list(zip(
+          [x + displacement_x for x in stroke[0]],
+          [y + displacement_y for y in stroke[1]]
+        )), fill=0)
 
     im.save(os.path.join('cars', str(index) + '.jpg'), 'JPEG')
 

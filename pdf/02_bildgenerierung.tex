@@ -2,7 +2,7 @@
 \label{ch:model}
 
 \section{Tensoren}
-Mehrdimensionale Arrays, in NumPy ndarray (N-Dimensional Array) genannt, werden auch Tensoren genannt. Gennerell verwenden alle derzeitigen Systeme für Maschinelles Lernen Tensoren als zugrundeliegende Datenstruktur. Tensoren sind elementar für dieses Fachgebiet. \cite{chollet2021deep}
+Mehrdimensionale Arrays, in NumPy ndarray (N-Dimensional Array) genannt, werden auch Tensoren genannt. Generell verwenden alle derzeitigen Systeme für Maschinelles Lernen Tensoren als zugrundeliegende Datenstruktur. Tensoren sind elementar für dieses Fachgebiet. \cite{chollet2021deep}
 
 In seinem Kern ist ein Tensor ein Container für numerische Daten. Tensoren sind die Verallgemeinerung der Matrizen für eine beliebige Anzahl Dimensionen. Im Zusammenhang mit Tensoren werden die Dimensionen häufig Achsen gennannt. Die Anzahl der Achsen wird auch als Stufe bezeichnet. Ein Skalar ist ein Tensor nullter Stufe. Ein Vektor ist ein Tensor erster Stufe und eine Matrix ein Tensor zweiter Stufe. \cite{chollet2021deep}
 
@@ -21,66 +21,63 @@ Ein Tensor ist durch drei Schlüsselattribute definiert:
 Viele in dieser Arbeit verwendeten Tensoren beschreiben RBG-Bilddaten. Sie sind deshalb dritter Stufe, und die enthaltenen Daten sind Ganzzahlen zwischen $0$ und $255$. Die Form der durch das künstliche neuronale Netz generierten Bilder ist $(256, 256, 3)$. Die Dimensionen beschreiben hier also die Breite, Höhe und Farbtiefe der Bilddateien.
 
 \section{Kreuzentropie}
-n artificial intelligence applications, we useprobability theory in two major ways. First, the laws of probability tell us how AIsystems should reason, so we design our algorithms to compute or approximatevarious expressions derived using probability theory. Second, we can use probabilityand statistics to theoretically analyze the behavior of proposed AI systems.
+In Anwendungen mit künstlicher Intelligenz wird Wahrscheinlichkeitsrechnung auf zwei wesentliche Arten verwendet. Erstens erklären die Regeln der Wahrscheinlichkeit, wie KI-Systeme urteilen sollten, deshalb werden Algorithmen so gestaltet, dass sie vielfältige Ausdrücke mittels Probabilistik berechnen oder annähern. Zweitens können Wahrscheinlichkeitsrechnung und Statistik das Verhalten zu planender KI-Systeme theoretisch analysieren.
+\cite{goodfellow2016deeplearning}
 
-There are three possible sources of uncertainty:1.Inherent stochasticity in the system being modeled. For example, mostinterpretations of quantum mechanics describe the dynamics of subatomicparticles as being probabilistic. We can also create theoretical scenarios thatwe postulate to have random dynamics, such as a hypothetical card gamewhere we assume that the cards are truly shuffled into a random order
+Es gibt drei mögliche Quellen von Unsicherheit:
 
-ncomplete observability. Even deterministic systems can appear stochasticwhen we cannot observe all the variables that drive the behavior of thesystem. For example, in the Monty Hall problem, a game show contestant isasked to choose between three doors and wins a prize held behind the chosendoor. Two doors lead to a goat while a third leads to a car. The outcomegiven the contestant’s choice is deterministic, but from the contestant’s pointof view, the outcome is uncertain.
-Gefangenenparadoxon
+\begin{enumerate}
 
-Probability theorywas originally developed to analyze the frequencies of events. It is easy to seehow probability theory can be used to study events like drawing a certain hand ofcards in a poker game. These kinds of events are often repeatable. When we saythat an outcome has a probabilitypof occurring, it means that if we repeated theexperiment (e.g., drawing a hand of cards) infinitely many times, then a proportionpof the repetitions would result in that outcome. This kind of reasoning does notseem immediately applicable to propositions that are not repeatable. If a doctoranalyzes a patient and says that the patient has a 40 percent chance of havingthe flu, this means something very different—we cannot make infinitely manyreplicas of the patient, nor is there any reason to believe that different replicas ofthe patient would present with the same symptoms yet have varying underlyingconditions. In the case of the doctor diagnosing the patient, we use probabilityto represent adegree of belief, with 1 indicating absolute certainty that thepatient has the flu and 0 indicating absolute certainty that the patient does nothave the flu. The former kind of probability, related directly to the rates at whichevents occur, is known asfrequentist probability, while the latter, related toqualitative levels of certainty, is known as Bayesian probability
+\item Die dem modellierten System innewohnende Zufälligkeit. Zum Beispiel beschreiben die meisten Interpretationen der Quantenmechanik die Dynamik der subatomaren Partikel als probabilistisch. Es können auch theoretische Szenarios mit zufälligen Dynamiken gebildet werden, wie ein hypothetisches Kartenspiel, in dem die Karten wirklich in einer zufällilgen Reihenfolge gemischt werden.
 
-A probability distribution over discrete variables may be described using aproba-bility mass function(PMF). We typically denote probability mass functions witha capitalP. Often we associate each random variable with a different probabilitymass function and the reader must infer which PMF to use based on the identity54
-CHAPTER 3. PROBABILITY AND INFORMATION THEORYof the random variable, rather than on the name of the function;P(x) is usuallynot the same as P (y).The probability mass function maps from a state of a random variable tothe probability of that random variable taking on that state. The probabilitythatx=xis denoted asP(x), with a probability of 1 indicating thatx=xiscertain and a probability of 0 indicating thatx=xis impossible.
+\item Unvollständige Beobachtbarkeit. Auch deterministische Systeme können stochastisch anmuten, wenn nicht alle Variablen, die das Verhalten des Systems bestimmen, beobachtbar sind. Zum Beispiel, im Monty-Hall-Problem (Ziegenproblem), wird ein Kandidat einer Spielshow aufgefordert, zwischen drei Toren zu wählen und gewinnt einen Preis, der sich hinter der gewählten Tür befindet. Zwei Tore führen zu einer Ziege, während ein drittes zu einem Auto führt. Das Ergebnis aufgrund der Wahl des Kandidaten ist deterministisch, aber aus Sicht des Kandidaten ist das Ergebnis unsicher.
 
-Incomplete modeling. When we use a model that must discard some ofthe information we have observed, the discarded information results inuncertainty in the model’s predictions. For example, suppose we build arobot that can exactly observe the location of every object around it. If therobot discretizes space when predicting the future location of these objects,52
-CHAPTER 3. PROBABILITY AND INFORMATION THEORYthen the discretization makes the robot immediately become uncertain aboutthe precise position of objects: each object could be anywhere within thediscrete cell that it was observed to occupy
+\item Unvollständige Modellierung. Wenn ein Modell einen Teil der beobachteten Informationen verwerfen muss, resultieren die verworfenen Informationen in Unsicherheit bei den Vorhersagen des Modells. Nehmen wir zum Beispiel an, ein Roboter kann die genaue Position jedes Objektes um ihn herum feststellen. Wenn der Roboter den Raum zum Vorhersagen der zukünftigen Position dieser Objekte diskretisiert, dann lässt diese Diskretisierung den Roboter über die präzise Position von Objekten unmittelbar unsicher werden: Jedes Objekt könnte irgendwo innerhalb der diskreten Zelle sein, in der es festgellt wurde.
 
-To be a PMF on a random variablex, a functionPmust satisfy the followingproperties:• The domain of P must be the set of all possible states of
-xxx
-An impossible event has probability 0, and no statecan be less probable than that. Likewise, an event that is guaranteed tohappen has probability 1, and no state can have a greater chance of occurring.
-xxx
-. We refer to this property as beingnormalized. Withoutthis property, we could obtain probabilities greater than one by computingthe probability of one of many events occurring.For example, consider a single discrete random variablexwithkdifferentstates. We can place auniform distributiononx—that is, make each of itsstates equally likely—by setting its PMF toP (x = xi) =1k(3.1)for alli. We can see that this fits the requirements for a probability mass function.The value1kis positive because k is a positive integer. We also see that
-xxx
-so the distribution is properly normalized.
+\end{enumerate}
 
-When working with continuous random variables, we describe probability distri-butions using a probability density function (PDF) rather than a probabilitymass function. To be a probability density function, a functionpmust satisfy thefollowing properties:• The domain of p must be the set of all possible states of
+In vielen Fällen ist es praktikabler, eine einfache aber unsichere Regel statt einer komplexen aber sicheren zu verwenden, selbst wenn die wahre Regel deterministisch ist und ein Modellierungssystem die Genauigkeit besitzt, eine komplexe Regel bereitstellen zu können. Zum Beispiel ist die einfache Regel ``Die meisten Vögel fliegen'' einfach zu entwickeln und weitgehend nützlich, während eine Regel in der Form ``Vögel fliegen, außer sehr junge Vögel, die noch nicht gelernt haben zu fliegen, kranke und verletzte Vögel, die ihre Fähigkeit zu fliegen verloren haben, flugunfähige Vögel, einschließlich Kasuare, Strauße und Kiwis\dots'' ist aufwändig zu entwickeln, zu warten und zu kommunizieren und nach all dem Aufwand immer noch zerbrechlich und fehleranfällig.
 
- xxx
+Obwohl es naheliegend ist, dass Möglichkeiten Unsicherheit darzustellen und zu diskutieren notwendig sind, ist es nicht sofort offensichtlich, dass die Wahrscheinlichkeitsrechnung alle Werkzeuge für Anwendungen künstlicher Intelligenz bereitstellt. Wahrscheinlichkeitsrechnung wurde ursprünglich entwickelt, um die Häufigkeit von Ereignissen zu analysieren. Es ist leicht erkennenbar, wie Wahrscheinlichkeitsrechnung verwendet werden kann, um Ereignisse wie das Ziehen einer bestimmten Hand in einem Pokerspiel zu studieren. Diese Art von Ereignissen sind oft wiederkehrend. Wenn ein Ergebnis die Wahrscheinlichkeit $p$ hat einzutreten, heißt das, dass wenn das Experiment (z.B. eine Hand Karten ziehen) unendlich oft wiederholt würde, dann hätten die Wiederholungen zu dem Anteil $p$ dieses Ergebnis zur Folge. Dieser Denkansatz scheint auf Vorhaben, die nicht wiederholbar sind, nicht anwendbar zu sein. Wenn ein Arzt seinen Patient analysiert und feststellt, dass der Patient eine 40-prozentige Chance besitzt die Grippe zu haben, heißt das etwas sehr unterschiedliches -- der Patient kann nicht unendlich oft repliziert werden, und es gibt keinen Grund zur Annahme, dass unterschiedliche Replikas des Patienten die gleichen Symptome zeigen, aber unterschiedliche zugrundeliegende Krankheiten haben. In dem Fall des Arztes, der den Patient diagnostiziert, steht Wahrscheinlichkeit für den Grad der Vermutung, wobei mit $1$ absolute Sicherheit, dass der Patient die Grippe hat, angegeben wird und mit $0$ absolute Sicherheit, dass der Patient die Grippe nicht hat. Die vorherige Art von Wahrscheinlichkeit, direkt verbunden mit der Häufigkeit, in der Ereignisse eintreten, ist als frequentistische Wahrscheinlichkeit bekannt, während die zweite Art, verbunden mit dem qualitativen Grad der Sicherheit, bekannt ist als Bayessche Wahrscheinlichkeit.
+\cite{goodfellow2016deeplearning}
 
- Note that we do not require p(x) <= 1
+Um die Ausgabes als Wahrscheinlichkeiten interpretieren zu können, muss (auch für neue Daten) garantatiert sein, dass sie nicht-negativ sind und sich zu $1$ addieren. Weiterhin brauchen wir ein Trainingsziel, das das Modell darin unterstützt genaue Wahrscheinlichkeiten zu schätzen. In allen Fällen sollten, wenn ein Classifier $0.5$ ausgibt, die Hälfte dieser Beispiele tatsächlich zu der vorherberechneten Klasse gehören.
+\cite{zhang2020dive}
 
- xxx
+Es wird eine Verlustfunktion benötigt, um die Qualität der vorherberechneten Wahrscheinlichkeiten zu messen. Die Softmax-Funktion gibt einen Vektor $\hat{y}$ aus, der als die geschätzte bedingte Wahrscheinlichkeit jeder Klasse für die gegebene Eingabe $x$ interpretiert werden kann, zum Beispiel $\hat{y}_{1}\ =\ P(y\ =\ cat\ |\ \boldsymbol{x})$. Angenommen, das gesamte Dataset $\{\boldsymbol{X}, \boldsymbol{Y}\}$ entält $n$ Beispiele, wobei das Beispiel mit dem Index $i$ aus einem Featurevektor $\boldsymbol{x}^{(i)}$ und einem One-Hot-Label-Vektor $\boldsymbol{y}^{(i)}$ besteht. Die Schätzungen können mit der Wirklichkeit verglichen werden, indem überprüft wird, wie wahrscheinlich die tatsächliche Klasse für die gegebenen Features gemäß dem Modell ist:
 
-or an example of a PDF corresponding to a specific probability density overa continuous random variable, consider a uniform distribution on an interval ofthe real numbers. We can do this with a functionu(x;a, b), whereaandbare theendpoints of the interval, withb > a. The “;” notation means “parametrized by”;we considerxto be the argument of the function, whileaandbare parametersthat define the function. To ensure that there is no probability mass outside theinterval, we sayu
+\begin{align}
+  P(\boldsymbol{Y}\ |\ \boldsymbol{X})\ =\ \prod_{i=1}^{n}P(\boldsymbol{y}^{(i)}\ |\ \boldsymbol{x}^{(i)}).
+\end{align}
 
-xxx
+Entsprechend der Maximum-Likelihood-Methode wird $P(\boldsymbol{Y}\ |\ \boldsymbol{X})$ maximiert, was equivalent zur Minimierung des negativen Log-Likelihood ist:
 
- Wecan see that this is non-negative everywhere. Additionally, it integrates to 1
+\begin{align}
+  -\log P(\boldsymbol{Y}\ |\ \boldsymbol{X})\ =\ \sum_{i=1}^{n}-\log P(\boldsymbol{y}^{(i)}\ |\ \boldsymbol{x}^{(i)})\ =\ \sum_{i=1}^{n}l(\boldsymbol{y}^{(i)},\boldsymbol{\hat{y}}^{(i)}),
+\end{align}
 
-If we have two separate probability distributionsP(x) andQ(x) over the samerandom variablex, we can measure how different these two distributions are usingthe Kullback-Leibler (KL) divergence:
+wobei für jedes Paar von Label $\boldsymbol{y}$ und Vorhersage des Modells $\boldsymbol{\hat{y}}$ über $q$ Klassen die Verlustfunktion $l$
 
-xxx
+\begin{align}
+  \label{eq:fn_crossentropy}
+  l(\boldsymbol{y}, \boldsymbol{\hat{y}})\ =\ - \sum_{j=1}^{q}y_{j}\log\hat{y}_{j}
+\end{align}
 
-In the case of discrete variables, it is the extra amount of information (measuredin bits if we use the base-2 logarithm, but in machine learning we usually use natsand the natural logarithm) needed to send a message containing symbols drawnfrom probability distributionP, when we use a code that was designed to minimizethe length of messages drawn from probability distribution Q.The KL divergence has many useful properties, most notably being non-negative.The KL divergence is 0 if and only ifPandQare the same distribution in thecase of discrete variables, or equal ``almost everywhere'' in the case of continuousvariables. Because the KL divergence is non-negative and measures the differencebetween two distributions, it is often conceptualized as measuring some sort ofdistance between these distributions. It is not a true distance measure because itis not symmetric:
+ist. Die Verlustfunktion in \eqref{eq:fn_crossentropy} wird gemeinhin als Cross-Entropy-Verlustfunktion bezeichnet. Da $\boldsymbol{y}$ ein One-Hot-Vektor der Länge $q$ ist, verschwindet die Summe über alle seine Koordinaten $j$, bis auf einen Term. Da alle $\hat{y}_j$ vorherberechnete Wahrscheinlichkeiten sind, ist deren Logarithmus niemals größer als $0$. Folglich kann die Verlustfunktion nicht weiter minimiert werden, wenn das tatsächliche Label mit \textit{Sicherheit}, das heißt wenn die vorhergesagte Wahrscheinlichkeit $P(\boldsymbol{y}\ |\ \boldsymbol{x}) = 1$, korrekt vorhergesagt wird.
 
-xxx
+Nehmen wir nun an, dass wir nicht nur ein einziges Ergebnis, sondern eine ganze Verteilung über Ergebnisse beobachten. Wir können dieselbe Darstellung nutzen wie bisher. Der einzige Unterschied ist, dass statt einem Vektor nur aus binären Einträgen wie zum Beispiel $(0, 0, 1)$ jetzt ein allgemeiner Wahrscheinlichkeitsvektor wie zum Beispiel $(0.1, 0.2, 0.7)$ vorliegt. Die bisher verwendete Mathematik um den Versult zu definieren funktioniert noch genauso gut, nur ist die Interpretation etwas allgemeiner. Es ist der Erwartungswert des Verlustes für eine Verteilung über Labels. Dieser Verlust wird Cross-Entropy-Verlust genannt und es eine der meistverbreitet eingesetzten Verlustfunktionen für Klassifizierungsaufgaben.
+\cite{zhang2020dive}
 
- for somePandQ. This asymmetrymeans that there are important consequences to the choice of whether to useDKL(P Q) or DKL(QP ). See figure 3.6 for more detail.72
-CHAPTER 3. PROBABILITY AND INFORMATION THEORY0.0 0.2 0.4 0.6 0.8 1.0p0.00.10.20.30.40.50.60.7Shannon entropy in natsFigure 3.5: Shannon entropy of a binary random variable. This plot shows how distri-butions that are closer to deterministic have low Shannon entropy while distributionsthat are close to uniform have high Shannon entropy. On the horizontal axis, we plotp, the probability of a binary random variable being equal to 1. The entropy is givenby
+Hier ist ein kurzes Beispiel für die Anwendung der Kreuzentropie. Es sei $P$ ein wahre Verteilung mit der Wahrscheinlichkeitsverteilung $p(x)$ und $Q$ die geschätzte Verteilung mit der Wahrscheinlichkeitsverteilung $q(x)$. Angenommen eine Klassifizierungsaufgabe basierend auf $n$ gegebenen Datenbeispielen $\{x_{1}, \dots, x_{n}\}$. Angenommen die positiven und negativen Klassenlabel $y_{i}$ sind als $1$ beziehungsweise $0$ kodiert und ein künstliches neuronales Netz ist parametrisiert durch $\theta$. Wenn es das Ziel ist, das beste $\theta$ zu finden, damit $\hat{y}_{i} = p_{\theta}(y_{i}\ |\ x_{i})$, kann naturgemäß die Maximum-Likelihood-Methode angewendet werden. Konkret ist für die wahren Label $y_{i}$ und die Vorhersagen $\hat{y}_{i} = p_{\theta}(y_{i}\ |\ x_{i})$ die Wahrscheinlichkeit als positiv klassifiziert zu werden $\pi_{i} = p_{\theta}(y_{i} = 1\ |\ x_{i})$. Daher wäre die Log-Likelihood-Funktion
 
-xxx
+\begin{align}
+  l(\theta)\ &=\ \log L(\theta) \\
+  &=\ \log\prod_{i=1}^{n}\pi_{i}^{y_{i}} (1\ -\ \pi_{i})^{1-y_{i}} \tag*{}\\
+  &=\ \sum_{i=1}^{n}y_{i}\log(\pi_{i})\ +\ (1\ -\ y_{i})\log(1\ - \pi_{i}). \tag*{}
+\end{align}
 
-. Whenpis near 0, the distribution is nearly deterministic,because the random variable is nearly always 0. Whenpis near 1, the distribution isnearly deterministic, because the random variable is nearly always 1. Whenp= 0.5, theentropy is maximal, because the distribution is uniform over the two outcomes.A quantity that is closely related to the KL divergence is thecross-entropy
-
-xxx
-
-, which is similar to the KL divergence but lackingthe term on the left:
-
-xxx
-
-)Minimizing the cross-entropy with respect toQis equivalent to minimizing theKL divergence, because Q does not participate in the omitted term
-
+Die Log-Likelihood-Funktion zu maximieren ist identisch mit dem Minimieren von $-l(\theta)$, und daher kann hiermit der beste Wert für $\theta$ gefunden werden.
+\cite{zhang2020dive}
 
 \section{Logistische Regression}
 \label{sec:logreg}
@@ -310,7 +307,7 @@ Da eine Zeichnung fast nie die gesamte verfügbare Breite und Höhe der in dem M
 
 Über die Koordinaten iterierend wird die Handzeichnung dann in das RGB-Bild gezeichnet. Anschließend wird das Bild als JPEG-Datei unter einem eindeutigen Namen gespeichert.
 
-Das Skript endet nachdem alle Zeilen der NDJSON-Eingabedatei verarbeitet oder 5000 Bilddateien erstellt wurden.
+Das Skript endet, nachdem alle Zeilen der NDJSON-Eingabedatei verarbeitet oder 5000 Bilddateien erstellt wurden.
 
 Bei der Verarbeitung in einem Convolutional Neural Network spielt die Bildgröße
 in Bezug auf die Verarbeitungszeit eine wichtige Rolle. Bildformate der Größe 256x256 oder kleiner sind üblich und gut geeignet. Für ein GAN ist es zwar nicht erforderlich, aber sinnvoll, für Ein- und Ausgabedaten dieselben Dimensionen festzulegen. Bei der Bildgenerierung aus Skizzen unterscheiden sich Ein- und Ausgabdedaten natürlich bei die Farbtiefe. Während die Skizzen Graustufenbilder sind, besitzen die generierten Bilder drei Farbkanäle (RGB).
