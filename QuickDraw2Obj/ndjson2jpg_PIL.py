@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw
 
 MAX_JPGS = 5000
 
-dataset = tf.data.TextLineDataset(['../full_simplified_car.ndjson'])
+dataset = tf.data.TextLineDataset(['../table.ndjson'])
 
 for index, line in enumerate(dataset):
     if index % 1000 == 0:
@@ -26,10 +26,10 @@ for index, line in enumerate(dataset):
     for stroke in drawing:
         draw.line(list(zip([x + displacement_x for x in stroke[0]], [y + displacement_y for y in stroke[1]])), fill=0)
 
-    im.save(os.path.join('cars', str(index) + '.jpg'), 'JPEG')
+    im.save(os.path.join('tables', str(index) + '.jpg'), 'JPEG')
 
     with open(os.path.join('json', str(index) + '.json'), 'w') as file:
         file.write(json.dumps(drawing))
 
-    if index == 5000:
+    if index == MAX_JPGS:
         break

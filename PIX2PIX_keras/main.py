@@ -9,6 +9,9 @@ from IPython import display
 
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
+gpus = tf.config.experimental.list_physical_devices('GPU')
+for gpu in gpus:
+    tf.config.experimental.set_memory_growth(gpu, True)
 
 
 def load(image_file):
@@ -355,5 +358,6 @@ if __name__ == '__main__':
     # Run the trained model on a few examples from the test set
     index = 1000
     for inp, tar in test_dataset.take(5):
+        print(f'test image {index}')
         generate_images(generator, inp, tar, index)
         index = index + 1
