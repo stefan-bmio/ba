@@ -304,14 +304,14 @@ if __name__ == '__main__':
     session = InteractiveSession(config=config)
 
     # Adjust this value to the number of training images
-    BUFFER_SIZE = 400
+    BUFFER_SIZE = 874
     # The batch size of 1 produced better results for the U-Net in the original pix2pix experiment
-    BATCH_SIZE = 4
+    BATCH_SIZE = 1
     # Each image is 256x256 in size
     IMG_WIDTH = 256
     IMG_HEIGHT = 256
 
-    PATH = '../PIX2PIX/images/combined/tables/'
+    PATH = '../PIX2PIX/images/combined/cars/'
     train_dataset = tf.data.Dataset.list_files(PATH + 'train/*.png')
     train_dataset = train_dataset.map(load_image_train,
                                       num_parallel_calls=tf.data.AUTOTUNE)
@@ -322,6 +322,7 @@ if __name__ == '__main__':
         test_dataset = tf.data.Dataset.list_files(str(PATH + 'test/*.png'))
     except tf.errors.InvalidArgumentError:
         test_dataset = tf.data.Dataset.list_files(str(PATH + 'val/*.png'))
+
     test_dataset = test_dataset.map(load_image_test)
     test_dataset = test_dataset.batch(BATCH_SIZE)
 
