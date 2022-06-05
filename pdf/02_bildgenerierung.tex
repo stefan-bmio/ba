@@ -405,7 +405,53 @@ Der Adam Optimierer \cite{kingma2017adam} erhält für die Learning-Rate den Wer
 
 \section{Performancebeobachtungen}
 \label{sec:performance}
+Das Training umfasst sinnvollerweise 15000 bis 40000 Iterationen. Die Implementierung sieht vor, dass alle 1000 Iterationen ein Zwichenergebnis in Form dreier Bilder gespeichert wird. Das zu speichernde Beispiel kann dabei zufällig gewählt werden, oder es kann der Fortschritt eines einzelnen Input-Target-Paars über die Iterationen hinweg gezeichnet werden.
 
+\begin{figure}[h]
+	\includegraphics[width=0.8\textwidth]{bilder/pix2pix_progress/394_input.png}
+  \caption[Quadratischer Tisch]{Ein Beispiel eines Tisches, dessen Textur und Form gelernt werden soll}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bilder/pix2pix_progress/progress_tables.png}
+	\caption[Lernfortschritt am Beispiel von Tischen]{Generierte Bilder von Tischen vor dem Training, nach 1000 Iterationen und nach 2000 Iterationen}
+	\label{fig:pix2pix_progress1}
+\end{figure}
+
+In Abbildung \ref{fig:pix2pix_progress1} ist zu erkennen, wie sich innerhalb 2000 Iterationen die Qualität der generierten Bilder von zufälligem Bildrauschen zu einem bereits als Tisch erkennbaren Objekt verbessert. In diesem Trainingsset waren unterschiedlich hohe, unterschiedlich breite und auch im Raum unterschiedlich ausgerichtete Tische. Es ist auch zu erkennen, dass aus der handgezeichneten Skizze bereits ein quadratischer Tisch generiert wird.
+
+Nicht korrekt werden in dieser Phase des Trainings die geraden Linien der Zielbilder erzielt. Auch die Anzahl der Tischbeine stimmt noch nicht.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bilder/pix2pix_progress/progress_tables2.png}
+	\caption[Lernerfolg am Beispiel von Tischen]{Generierte Bilder von Tischen nach 10000, 15000 und 20000 Iterationen}
+	\label{fig:pix2pix_progress2}
+\end{figure}
+
+In Abbildung \ref{fig:pix2pix_progress2} wird der Lernerfolg während der zweiten Hälfte von insgesamt 20000 Iterationen gezeigt. Zunächst ist das Ergebnis noch stellenweise unscharf und die Länge der Tischbeine ist ungleich. Die Kanten sind bereits gerade. Nach 15000 Iterationen ist zu erkennen, dass häufigeres Trainieren nicht unbedingt bessere Ergebnisse bringt. Nach Abschluss des Trainings sieht der generierte Tisch aus wie die Vorgabe im Trainingsset.
+
+Das Modell hat Form und Farbe verschiedener Tische gelernt. Auch die Unregelmäßigkeiten in der Färbung der Tische wurde erlernt. Das war die zweite zu beantwortende Frage in dieser Arbeit. Es ist einem künstlichen neuronalen Netz also möglich Texturen zu erlernen.
 
 \chapter{Diskussion}
 \label{sec:conclusion}
+Bildgenerierung mittels künstlichen neuronalen Netzen wurde bereits in verschiedenen Experimenten und mit teilweise sehr guten Ergebnissen durchgeführt und dokumentiert. Es können Bildteile aus den umliegenden Bildinformationen neu generiert werden, wie es mit Fotobearbeitungssoftware möglich ist. Seit einiger Zeit sind Handschrifterkennungs-Algorithmen verbreitet. Eine Variante der Bildgenerierung ist deren Umkehr, indem zum Beispiel aus einstelligen Zahlen handschriftlich aussehende Ziffern generiert werden. Außerdem kann der Gesamteindurch eines Bildes, auch durch Verwendung eines anderen Bildes verändert und auf diese Art das Bild neu generiert werden.
+
+Die Arbeit mit künstlichen neuronalen Netzen hat gezeigt, dass ein Großteil des Aufwands aus der Erhebung und vorbereitung der Daten besteht. Geeignete Eingabebilder mussten entweder gesammelt oder selbst erstellt werden. Durch Automatisierung konnte der Erstellungsprozess verkürzt werden, machte aber immer noch einen erheblichen Anteil der Arbeit aus. Sowohl gesammelte als auch selbst erstellte Bilder eignen sich nicht ausnahmslos für den gewählten Zweck. Es war deshalb weiterhin erforderlich, die Bilder händisch zu sortieren. Anschließend war noch jeweils die Zuweisung einer Handskizze zu einem Ergebnisbild erforderlich, die ebenfalls manuell erfolgen musste.
+
+Das Training des Modells ist ein weiterer aufwendiger Prozess. Im Laufe eines Trainingdurchlaufes eines künstlichen neuronalen Netzes zeichnet sich bereits ein Endergebnis ab. Es ist daher möglich, anhand weniger Zwischenergebnisse schwerwiegende Fehler zu bemerken und den Durchlauf von vorn zu beginnen. Das Endergebnis ist selbstverständlich erst nach Abschluss des Trainings sichtbar. Wenn es darum geht herauszufinden, wieviele Durchläufe für ein perfektes Ergebnis erforderlich sind, kann es erforderlich sein das Modell mehrere Male hintereinander auf dasselbe Ergebnis zu trainieren.
+
+Künstliche neuronale Netze sind mathematische Konstrukte. Zunächst ist es deshalb erforderlich, die Fachbegriffe der entsprechenden Literatur zu kennen. Die wissenschaftlichen Texte liegen hauptsächlichich auf Englisch vor, sodass man die Begriffe sinnvollerweise auf Deutsch und auf Englisch lernt. Das künstliche neuronale Netz selbst wird als eine Struktur aus Tensoren dargestellt. Abhängig von der Dimensionalität der Ein- und Ausgaben besitzen die Tensoren in der ersten und der letzten Schicht eines künstlichen neuronalen Netzes entsprechend viele Dimensionen. Ein Modell, das RGB-Bilder generiert, hat als letzte Schicht also eine Anzahl Tensoren mit drei Dimensionen.
+
+Die Algorithmen des maschinellen Lernens berechnen üblicherweise aus der Eingabe mehrere weitere Schichten aus Tensoren. Die Dimensionalität der Tensoren ändert sich auf jeder weiteren Schicht. Einige Algorithmenklassen, wie zum Beispiel die U-Net-Architektur, sind benannt nach der Art, auf die sich die Dimensionalität der Tensoren ändert. Für diese Arbeit sind die Generative Adversarial Networks besonders interssant. Mit ihnen werden zwei lernende Komponenten gegeneinander angesetzt. Eine von ihnen lernt die eigentliche Aufgabe zu erfüllen. Die zweite Komponente wird darauf trainiert, die Ergebnisse der ersten zu bewerten und Feedback zu den erzielten Ergebnissen zu geben. Sobald die Bewertungen den Erwartungen entsprechen ist das Trainingsziel der ersten Komponente erreicht.
+
+Die für maschinelles Lernen erforderlichen Berechnungen können auf handelsüblichen PCs ausgeführt werden. Sie sind aber sehr umfangreich, sodass sich unterstützende Hardware günstig auswirkt. Bei Cloud-Angeboten wie Google Colab und Amazon SageMaker, die auf Implementierungen dieser Art spezialisiert sind, können Algorithmen auf Enterprise-Grade-Hardware ausgeführt werden.
+
+Aber auch Grafikkarten für Spiele-PCs sind durch parallele Tensoroperationen für maschinelles Lernen um ein Vielfaches besser geeignet als die CPU. Für diesen Zweck existiert speziell hergestellte Treibersoftware. Die Parallelisierungssoftware für NVIDIA-Grafikkarten heißt CUDA. Auf die Treiber aufbauend wurden und werden Programmierschnittstellen für verschiedene Programmiersprachen entwickelt.
+
+Eine der weit verbreitetsten Machine-Learning-Programmierschnittstellen ist Tensorflow für Python, die auch für diese Arbeit verwendet wurde. Die Einrichtung auf einem Desktopcomputer ist teilweise umständlich, aber für Tensorflow und CUDA gut dokumentiert. Es gibt Anleitungen für Ubuntu Linux, zum Beispiel auch im Windows Subsystem for Linux (WSL). Die Verwendung der Programmierschnittstelle ist ebenfalls gut dokumentiert. Den in dieser Arbeit verwendeten Machine-Learning-Algorithmus Image-To-Image-Translation ist in der Beispielsektion auf \href{https://tensorflow.org}{tensorflow.org} zu finden.
+
+Das Modell muss immer wieder von vorn trainiert werden, bevor erste brauchbare Ergebnisse erzielt werden. Grundsätzlich gilt, dass die Menge der Eingabedaten so groß wie möglich sein sollte, damit ein Lernprozess erfolgreich sein kann. Trotzdem sind weitere Eigenschaften des Datasets wichtig. An dem Beispiel der Tische wurde deutlich, dass die Perspektive, also die Ausrichtung der Tische im Raum, nur bei einem ausreichenden Anteil an schräg ausgerichteten Beispielen erlernt wird. Dafür kann es sogar sinnvoll sein, die Gesamtgröße des Datasets zu reduzieren, damit alle Varianten in genügend großen Anteilen im Dataset vorhanden sind.
+
+Die Anzahl der Trainingsdurchläufe ist eine der wichtigsten Größen beim maschinellen Lernen. In Klassifizierungsalgorithmen gibt es das Phänomen des Overfittings, das die Erfolgsrate bei den Klassifizierungen negativ beeinflusst. Dieses Problem gibt es bei der Bildgenerierung zunächst nicht, solange wie beschrieben die Beispiele im Dataset ausgewogen sind. Trotzdem ist diese Größe selbstverständlich für die Untersuchung und den Einsatz eines ML-Modells aufgrund des Zeitaufwands relevant.
