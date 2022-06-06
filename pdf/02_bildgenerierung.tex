@@ -109,6 +109,15 @@ In einigen künstlichen neuronalen Netzen werden zusätzlich die Eingaben für j
 
 \section{Deep Neural Networks}
 \label{sec:dnn}
+Deep Learning ist ein spezifisches Gebiet des maschinellen Lernens: Ein neuer Ansatz zum Lernen von Repräsentationen von Daten, der den Schwerpunkt auf das Lernen in aufeinanderfolgenden Schichten mit zunehmend aussagekräftigen Repräsentationen legt. Das ``Deep'' in ``Deep Learning'' ist kein Hinweis auf ein durch diesen Ansatz erlangtes tieferes Verständnis, sondern steht für diese Idee von aufeinanderfolgenden Schichten von Repräsentationen.
+
+Die Anzahl der Schichten, aus denen ein Datenmodell zusammengefasst ist, wird Tiefe (engl.: depth) des Modells genannt. Andere passende Namen für dieses Feld hätten ``layered representations learning'' oder ``hierarchical representations learning'' sein können. Modernes Deep Learning umfasst oft mehrere zehn- oder hunderttausend aufeinanderfolgendende Repräsentationsschichten, die alle automatisch durch Verrechnung von Trainingsdaten erlernt werden.
+
+Währenddessen gehen andere Ansätze des maschinellen Lernens eher in die Richtung des ``shallow learning'', beschränken sich also auf eine oder zwei Repräsentationsschichten. Diese Schichten von Repräsentationen werden fast immer durch Modelle erlernt, die neuronale Netze genannt werden. Diese Modelle sind buchstäblich wie aufeinander gestapelte Schichten strukturiert. Der Begriff neuronales Netz ist ein Referenz auf Neurobiologie, doch obwohl die Entwicklung einiger zentraler Deep-Learning-Konzepte teilweise durch unser Verständnis des Gehirns inspiriert war, sind Deep-Learning-Modelle keine Modelle des Gehirns. Es gibt keine Anhaltspunkte darauf, dass das Gehirn etwas vergleichbares wie die Lernmechanismen implementiert, die in modernen Deep-Learning-Modellen verwendet werden. Gelegentlich begegnen einem populärwissenschaftliche Artikel in denen proklamiert wird, dass Deep Learning wie das Gehirn funktioniert oder nach dem Vorbild eines Gehirns modelliert wurde. Das ist aber nicht der Fall. Für Neueinsteiger in das Fachgebiet wäre es verwirrend und kontraproduktiv, Deep Learning als etwas zu betrachten, das mit Neurobiologie in irgend einem Zusammenhang steht. Deep Learning ist ein mathematisches Gerüst zum Lernen von Repräsentationen von Daten.
+
+Wie sehen Repräsentationen aus, die ein Deep-Learning-Algorithmus gelernt hat? Abbildung \ref{todo1.5} zeigt, wie ein mehrere Schichten tiefes Netzwerk ein Bild einer Ziffer transformiert, um zu erkennen welche Ziffer es ist.
+
+Wie in Abbildung \ref{todo1.6} zu sehen ist, transformiert das Netzwerk das Bild der Ziffer in Repräsentationen, die sich zunehmend stark vom Original unterscheiden und zunehmend informativ über das Endergebnis sind. Ein Deep-Learning-Netzwerk ist wie ein mehrstufiger Informations-Destilliations-Vorgang, bei dem Information durch aufeinanderfolgende Filter fließt und zunehmend bereinigt und für einen bestimmten Zweck nutzbar wieder herauskommt. Die Idee hinter Deep Learning ist einfach, kann aber wie Magie anmuten, wenn der simple Mechanismus ausreichend skaliert wird.
 
 \section{Convolutional Neural Networks}
 \label{sec:cnn}
@@ -117,6 +126,16 @@ Für Bilddaten wendet ein CNN diese Operation typischerweise auf zwei dreidimens
 Jede der drei Matrixdimensionen variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs (\cite{goodfellow2016deeplearning}, \cite{Lecun99objectrecognition}, \cite{RFB15a}, \cite{isola2018imagetoimage}) nimmt die Kardinalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten. Beim Pooling werden aus benachbarten Matrixkoeffizienten meist das Maximum, seltener der Durchschnitt oder andere Aggregierungen gebildet. Auf diese Weise wird das neuronale Netz darauf trainiert die relevanten Informationen zu extrahieren. \cite{goodfellow2016deeplearning}
 
 Den konvolutionalen Schichten folgt in einigen Anwendungsfällen eine voll vernetzte Schicht (engl. Fully Connected Layer, FC), in der für jedes Neuron mit jedem Neuron der vorherigen Schicht eine Verbindung besteht. Besonders für die Bilderkennung ist diese Architektur gut geeignet. Die Ausgabe des neuronalen Netzes ist dann ein Vektor, beispielsweise von Wahrscheinlichkeitswerten für das Vorhandensein bestimmter Objekte und gegebenenfalls Bildkoordinaten der erkannten Objekte. Im Fall der Bildgenerierung ist die Ausgabe aber wieder eine Matrix von RGB-Pixelinformationen in der Form $(H\ x\ W\ x\ 3)$.
+
+\section{Batch Normalization}
+Normalisierung ist eine breit gefächerte Kategorie von Methoden, die versuchen verschiedene Eingaben für Modelle des maschinellen Lernens einander ähnlicher aussehen zu lassen. Das soll dem Modell helfen zu lernen und für neue Daten zu verallgemeinern. Die verbreitetste Form von Normalisierung besteht darin die Daten an $0$ zu zentrieren und mit einer Standardabweichung von $<1$ zu versehen, indem der Mittelwert aller Werte von jedem Einzelwert subtrahiert wird und jeder Einzelwert durch die Standardabweichung geteilt wird. Dies geschieht aufgrund der Annahme, dass die Daten normalverteilt sind und stellt sicher, dass diese Verteilung zur Einheitsvarianz (todo: übersetzung unit variance) zentriert und skaliert ist.
+
+Datennormalisierung sollte nach jedem Transformationsschritt durch das künstliche neuronale Netz geschehen. Auch wenn die Daten, die in ein Dense Net oder Convolutional Neural Net eingegeben werden, den Mittelwert $0$ und eine Standardabweichung $< 1$ besitzen, ist ohne weiteres nicht zu erwarten, dass es sich bei den Ausgabedaten genauso verhält.
+
+Batch Normalization ist eine Art von Schicht (BatchNormalization in Keras todo: keras), die 2015 von Ioffe und Szegedy \cite{todo: cite https://arxiv.org/abs/1502.03167.} eingeführt wurde. Sie kann adaptiv die Daten normalisieren, wenn sich Mittelwert und Varianz im Laufe des Trainings verändern. Das erreicht sie, indem sie einen exponentiellen gleitenden Durchschnitt der batchweisen Mittelwerte und Varianzen der Daten während des Trainings vorhält.
+
+Hauptsächlich hilft die Batch Normalization bei der Gradient Propagation (todo: übersetzung) und erlaubt so tiefere Netzwerke. Einige sehr tiefe Netwerke können überhaupt nur trainiert werden, wenn sie mehrere Batch-Normalization-Schichten enthalten. Batch Normalization wird zum Beispiel in vielen fortgeschrittenen ConvNet-Architekturen verwendet, die Keras zur Verfügung stellt, wie ResNet50, Inception v3 und Xception. Eine Batch-Normalisierungs-Schicht wird typischerweise nach einem convolutional oder einer Densely-Connected-Schicht verwendet.
+\cite{chollet2021deep}
 
 \section{U-Net-Architektur}
 \label{sec:unet}
@@ -235,7 +254,7 @@ In \lstinline|random_jitter| wird zunächst \lstinline|resize| aufgerufen, um di
 
 Die beiden Funktionen \lstinline|load_image_train| und \lstinline|load_image_test| laden die Eingabe- und Referenzbilder (Ground Truth), skalieren diese auf 256x256 Pixel und normalisieren die Eingabedaten durch Aufrufe der Funktionen \lstinline|load|, \lstinline|resize| und \lstinline|normalize|. Nur die Funktion zum Laden der Trainingsbilder ruft für die geladenen Bilder \lstinline|random_jitter| auf.
 
-Die Funktion \lstinline|downsample| erzeugt eine Schicht eines CNNs mit optionaler Batch Normalization und der Leaky-ReLU-Aktivierungsfunktion. Diese Schichten werden im Encoder des Generators sowie im Discriminator verwendet. Batch Normalization kommt nur in der jeweils ersten Schicht des Generators und des Diskriminators nicht zum Einsatz.
+Die Funktion \lstinline|downsample| erzeugt eine Schicht eines CNNs mit optionaler Batch Normalization und der Leaky-ReLU-Aktivierungsfunktion. Diese Schichten werden im Encoder des Generators sowie im Discriminator verwendet. Batch Normalization kommt nur in der jeweils ersten Schicht des Generators und des Discriminators nicht zum Einsatz.
 
 In der Funktion \lstinline|upsample| entstehen die übrigen CNN-Schichten des Generators. Der Entfaltung, bei der die Faltung der Funktion \lstinline|downsample| umgekehrt wird (engl. Transposed Convolution \cite{zaccone2018tensorflow}), folgt hier immer die Batch Normalization sowie optional Dropout mit einem Wahrscheinlichkeitswert von $0.5$. Das ist in den ersten drei Schichten des Decoders im Generator der Fall und bedeutet, dass statistisch die Hälfte der Aktivierungen „fallengelassen“ werden, also nicht in das Trainingsergebnis eingehen. Als Aktivierungsfunktion kommt ReLU zum Einsatz.
 
@@ -243,7 +262,7 @@ In \lstinline|build_generator| werden die Schichten des Generators zusammengefü
 
 Der Decoder ruft seinerseits sieben Mal \lstinline|upsample| auf und führt eine weitere Entfaltung durch, wodurch die Dimensionen des bearbeiteten Tensors wieder jeweils dieselbe Form wie in den Eingabebildern annehmen. Schließlich werden die Skip-Connections zwischen den Schichten 1 bis 8 des Encoders und des Decoders hergestellt.
 
-In der Funktion \lstinline|generator_loss| ist die Backpropagation des Generators implementiert. Zuerst wird dafür die Kreuzentropie des Ergebnisses des Discriminators und eines gleich großen Tensors, der mit Einsen initialisiert wird, gebildet. TODO: crossentropy Das Ergebnis ist das GAN-Loss. Anschließend kommt die L1 Loss Function, auch Mean Absolute Error genannt, zum Einsatz:
+In der Funktion \lstinline|generator_loss| ist die Backpropagation des Generators implementiert. Zuerst wird dafür die Kreuzentropie des Ergebnisses des Discriminators und eines gleich großen Tensors, der mit Einsen initialisiert wird, gebildet. Das Ergebnis ist das GAN-Loss. Anschließend kommt die L1 Loss Function, auch Mean Absolute Error genannt, zum Einsatz:
 \begin{align}
   \mathcal{L} _{L1}(G) = \mathbb{E}_{x,y,z}[\|y - G(x,z)\|_1]
 \end{align}
@@ -312,7 +331,7 @@ Das Skript endet, nachdem alle Zeilen der NDJSON-Eingabedatei verarbeitet oder 5
 Bei der Verarbeitung in einem Convolutional Neural Network spielt die Bildgröße
 in Bezug auf die Verarbeitungszeit eine wichtige Rolle. Bildformate der Größe 256x256 oder kleiner sind üblich und gut geeignet. Für ein GAN ist es zwar nicht erforderlich, aber sinnvoll, für Ein- und Ausgabedaten dieselben Dimensionen festzulegen. Bei der Bildgenerierung aus Skizzen unterscheiden sich Ein- und Ausgabdedaten natürlich bei die Farbtiefe. Während die Skizzen Graustufenbilder sind, besitzen die generierten Bilder drei Farbkanäle (RGB).
 
-Sowohl während der Entwicklung als auch zur Laufzeit kann es vorteilhaft sein, Farbwerte statt auf der oft verwendeten Skala von $0$ bis $255$ als Fließkommazahlen im Bereich $0,0$ bis $1,0$ darzustellen. Auch für die Ausgaben der einzelnen Schichten eines künstlichen neuronalen Netzes kann diese Normalisierung durchgeführt werden (TODO: BatchNorm).
+Sowohl während der Entwicklung als auch zur Laufzeit kann es vorteilhaft sein, Farbwerte statt auf der oft verwendeten Skala von $0$ bis $255$ als Fließkommazahlen im Bereich $0,0$ bis $1,0$ darzustellen. Auch für die Ausgaben der einzelnen Schichten eines künstlichen neuronalen Netzes kann diese Normalisierung durchgeführt werden.
 
 Ein ebenso wichtiger wie aufwendiger Vorgang ist die Klassifizierung der Trainingsdaten, also die Zuweisung von Eingaben zu den erlernbaren Ergebnissen. Aufgrund der selbst erstellten Ausgabebilder existieren für diesen Zweck keine vorgefertigten Datasets. Die Sortierung und Zuweisung erfolgt deshalb manuell.
 \pagebreak
@@ -397,7 +416,7 @@ Polygonobjekte sind anfangs immer ungeglättet, das heißt, dass beim Rendern od
 
 \section{Hyperparameter}
 \label{sec:hyperparams}
-Die Pix2Pix-Referenzimplementierung ist bereits für die Übersetzung von Skizzen in Fotos eingestellt. Für das Training waren anfangs mehrere Tausend Epochs, also Trainingsdurchläufe, erfoderlich, um zufriedenstellende Ergebnisse zu sehen. TODO: Diese Zahl konnte durch ... verringert werden.
+Die Pix2Pix-Referenzimplementierung ist bereits für die Übersetzung von Skizzen in Fotos eingestellt. Für das Training waren anfangs $40000$ Trainingsschritte vorgesehen. Je nach Größe des Trainingssets werden also mehrere Wiederholungen mit demselben Trainingsset durchgeführt, um zufriedenstellende Ergebnisse zu erzielen. Nach Abschluss der Experimente könnte die Anzahl der Trainingsschritte auf $30000$ reduziert werden, um die Dauer des Trainings und die Ergebnisse zu optimieren. Dies ist aber wiederum abhängig von der Größe des Trainingssets. Es war auch im Sinne des Experiments, das Modell einige Tausend Schritte mehr durchführen zu lassen als für das optimale Resultat erforderlich gewesen wären.
 
 Die Eingabebilder sind 256x256 Pixel groß und besitzen einen Farbkanal für Graustufen. Sie werden am Anfang des Trainingsprozesses durch sogenanntes Jittering augmentiert. Dabei werden die Bilder zuerst auf 286x268 Pixel vergrößert und anschließend auf einen zufälligen 256x256 Pixel großer Ausschnitt wieder verkleinert. Diese  Pixelgrößen können im Experiment geändert werden.
 
@@ -408,18 +427,22 @@ Der Adam Optimierer \cite{kingma2017adam} erhält für die Learning-Rate den Wer
 Das Training umfasst sinnvollerweise 15000 bis 40000 Iterationen. Die Implementierung sieht vor, dass alle 1000 Iterationen ein Zwichenergebnis in Form dreier Bilder gespeichert wird. Das zu speichernde Beispiel kann dabei zufällig gewählt werden, oder es kann der Fortschritt eines einzelnen Input-Target-Paars über die Iterationen hinweg gezeichnet werden.
 
 \begin{figure}[h]
+  \centering
 	\includegraphics[width=0.8\textwidth]{bilder/pix2pix_progress/394_input.png}
   \caption[Quadratischer Tisch]{Ein Beispiel eines Tisches, dessen Textur und Form gelernt werden soll}
+  \label{fig:trainingexample}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{bilder/pix2pix_progress/progress_tables.png}
 	\caption[Lernfortschritt am Beispiel von Tischen]{Generierte Bilder von Tischen vor dem Training, nach 1000 Iterationen und nach 2000 Iterationen}
-	\label{fig:pix2pix_progress1}
+	\label{fig:pix2pixprogress1}
 \end{figure}
 
-In Abbildung \ref{fig:pix2pix_progress1} ist zu erkennen, wie sich innerhalb 2000 Iterationen die Qualität der generierten Bilder von zufälligem Bildrauschen zu einem bereits als Tisch erkennbaren Objekt verbessert. In diesem Trainingsset waren unterschiedlich hohe, unterschiedlich breite und auch im Raum unterschiedlich ausgerichtete Tische. Es ist auch zu erkennen, dass aus der handgezeichneten Skizze bereits ein quadratischer Tisch generiert wird.
+Abbildung \ref{fig:trainingexample} zeigt beispielhaft eine handgezeichnete Skizze eines Tisches und das erwartete Ergebnis. In diesem Beispiel wird versucht, aus einem vermutlich quadratischen, gänzlich von der Seite gezeichneten Tisch einen quadratischen, von leicht schräg oben betrachteten texturierten Tisch zu generieren.
+
+In Abbildung \ref{fig:pix2pixprogress1} ist zu erkennen, wie sich innerhalb 2000 Iterationen die Qualität der generierten Bilder von zufälligem Bildrauschen zu einem bereits als Tisch erkennbaren Objekt verbessert. In diesem Trainingsset befanden sich unterschiedlich hohe, unterschiedlich breite und auch im Raum unterschiedlich ausgerichtete Tische. Es ist auch zu erkennen, dass aus der handgezeichneten Skizze bereits ein quadratischer Tisch generiert wird.
 
 Nicht korrekt werden in dieser Phase des Trainings die geraden Linien der Zielbilder erzielt. Auch die Anzahl der Tischbeine stimmt noch nicht.
 
@@ -427,12 +450,71 @@ Nicht korrekt werden in dieser Phase des Trainings die geraden Linien der Zielbi
 	\centering
 	\includegraphics[width=1.0\textwidth]{bilder/pix2pix_progress/progress_tables2.png}
 	\caption[Lernerfolg am Beispiel von Tischen]{Generierte Bilder von Tischen nach 10000, 15000 und 20000 Iterationen}
-	\label{fig:pix2pix_progress2}
+	\label{fig:pix2pixprogress2}
 \end{figure}
 
-In Abbildung \ref{fig:pix2pix_progress2} wird der Lernerfolg während der zweiten Hälfte von insgesamt 20000 Iterationen gezeigt. Zunächst ist das Ergebnis noch stellenweise unscharf und die Länge der Tischbeine ist ungleich. Die Kanten sind bereits gerade. Nach 15000 Iterationen ist zu erkennen, dass häufigeres Trainieren nicht unbedingt bessere Ergebnisse bringt. Nach Abschluss des Trainings sieht der generierte Tisch aus wie die Vorgabe im Trainingsset.
+In Abbildung \ref{fig:pix2pixprogress2} wird der Lernerfolg während der zweiten Hälfte von insgesamt 20000 Iterationen gezeigt. Zunächst ist das Ergebnis noch stellenweise unscharf und die Länge der Tischbeine ist ungleich. Die Kanten sind bereits gerade. Nach 15000 Iterationen ist zu erkennen, dass häufigeres Trainieren nicht unbedingt bessere Ergebnisse bringt. Nach Abschluss des Trainings sieht der generierte Tisch aus wie die Vorgabe im Trainingsset.
 
-Das Modell hat Form und Farbe verschiedener Tische gelernt. Auch die Unregelmäßigkeiten in der Färbung der Tische wurde erlernt. Das war die zweite zu beantwortende Frage in dieser Arbeit. Es ist einem künstlichen neuronalen Netz also möglich Texturen zu erlernen.
+Das Modell hat Form und Farbe verschiedener Tische gelernt. Auch die Unregelmäßigkeiten in der Färbung der Tische wurde erlernt. Das ist die zweite Frage, die in dieser Arbeit zu beantworten war. Es ist einem künstlichen neuronalen Netz also möglich Texturen zu erlernen.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.875\textwidth]{bilder/pix2pix_progress/table_result_orientation1.png}
+  \caption[Tisch ausgerichtet]{Korrekt ausgerichteter Tisch mit unregelmäßigen Kanten}
+  \label{fig:pix2pixorientation1}
+
+	\includegraphics[width=0.875\textwidth]{bilder/pix2pix_progress/table_result_orientation2.png}
+	\caption[Qualitativ unterschiedliche generierte Tische]{Tisch mit geraden Kanten, aber falscher Ausrichtung}
+	\label{fig:pix2pixorientation2}
+\end{figure}
+
+In Abbildung \ref{fig:pix2pixorientation1} ist ein Beispielergebnis aus einem Trainingsdurchlauf mit 262 Tischen zu sehen. Der Tisch ist so im Raum ausgerichtet wie im Zielbild vorgesehen. Die Form ist aber ungleichmäßig und das Bild teilweise verschwommen.
+
+Abbildung \ref{fig:pix2pixorientation2} zeigt eines der Ergebnisse aus einem Trainingsdurchlauf mit 960 verschiedenen Tischen. Der Tisch hat gerade und scharfe Kanten, die Tischplatte ist aber parallel zum unteren und oberen Bildrand.
+
+Der Vergleich zeigt, wieviel Bedeutung der Datenqualität des Trainingssets zukommt. Das kleinere Trainingsset war eine Teilmenge des größeren, enthielt aber anteilig mehr schräg im Raum ausgerichtete Tische. Obwohl das mit 960 Bildern trainierte Modell also dieselben schräg ausgerichteten Tische verwendete, generiert es vorzugsweise Bilder von gerade ausgerichteten Tischen.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{bilder/pix2pix_progress/car_small.png}
+	\includegraphics[width=0.9\textwidth]{bilder/pix2pix_progress/car_limo.png}
+	\includegraphics[width=0.9\textwidth]{bilder/pix2pix_progress/car_kombi.png}
+	\caption[Generierte Autos]{Beispiele für generierete Autos}
+	\label{fig:pix2pixcars}
+\end{figure}
+
+Fahrzeuge, wie in Abbildung \ref{fig:pix2pixcars}, sind eine vergleichbar schwierige Aufgabe für ein künstliches neuronales Netz. Aufgrund der Vielfalt an möglichen Fahrzeugen, für die der Begriff ``Auto'' (englisch ``Car'') stehen kann, sind die Unterschiede im Quick!Draw-Dataset nur schwer formal zu beschreiben.
+
+Genauso aufwendig ist es, verschiedene Fahrzeuge zu modellieren, um sie als Zielbilder zu verwenden. Anders als bei vielen Eigenschaften von Tischen, wie die Stärke der Tischplatte und der Tischbeine, lassen sich die Unterschiede von PKWs nicht genauso gut durch Zufallszahlen beschreiben. Auch sind die Autos fast ausschließlich in der Seitenansicht gezeichnet, sodass die meisten der automatisch in verschiedenen Perspektiven gerenderten Blendermodelle der Fahrzeuge nicht nutzbar sind.
+
+Die Handskizzen stellen hauptsächlich PKWs dar und wurden deshalb nur in die drei Kategorien Limousine, Kleinwagen und Kombi unterteilt und entsprechenden Zielbildern zugewiesen.
+
+In den Abbildungen sind unterschiedlich gute Resultate zu sehen. Für einen praktischen Einsatzzweck, wie zum Beispiel ein Lehrmittel in einer Fahrschule, wäre dieses Modell bestenfalls als Grundlage für weiterführende Trainings geeignet.
+
+In Tensorflow wird der Trainingsfortschritt in Zahlen als Diagramm dargestellt. Der Generator und der Discriminator werden gleichzeitig trainiert. Der Verlust des Discriminators nimmt im Verlauf des Trainings ab. Nach $20000$ bis $30000$ Iterationen ist die Abnahme weniger stark.
+
+Der Discriminator wird auf das vom Generator erstellte Bild und auf das Zielbild angewendet. Der Gesamtverlust des Discriminators wird aus diesen beiden Ergebnissen gebildet und bezeichnet den Erfolg beziehungsweise Misserfolg des Discriminators, das durch den Generator erstellte Bild als solches von einem Zielbild zu unterscheiden.
+
+Wie bei cGANs üblich wird der Gesamtverlust des Generators ebenfalls aus zwei verschiedenen Ergebnissen berechnet. Die beiden Faktoren sind in Abbildung \ref{fig:pix2pixprogress4} als gen\_l1\_loss und gen\_gan\_loss bezeichnet.
+
+Einerseits wird der pixelweise Unterschied zwischen dem generierten Bild und dem Zielbild als Verlustindikator herangezogen. Dieser Wert wird 100fach gewichtet, hat also einen entsprechend größeren Einfluss auf das Gesamtergebnis. Er nimmt im Laufe des Trainings sichtbar ab.
+
+Das GAN-Loss berücksichtigt das Ergebnis des Discriminators, also wie gut dieser das generierte Bild von einem Zielbild unterscheiden konnte. Im Diagramm ist zu erkennen, dass sich der Verlust im Verlauf des Trainings sogar erhöht. Die Erklärung dafür ist der immer geringere Verlust des Discriminators, der dadurch generierte Bilder und Zielbilder besser voneinander unterscheiden kann.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_total_loss.png}
+	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/disc_loss.png}
+	\caption[Lernerfolgsdiagramm 1]{Die Tensorboard-Diagramme des Gesamtverlusts jeweils für Generator (gen\_total\_loss) und für Discriminator (disc\_loss) }
+	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_l1_loss.png}
+	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_gan_loss.png}
+	\caption[Lernerfolgsdiagramm 2]{Die Tensorboard-Diagramme der Discriminator-Verluste}
+	\label{fig:pix2pixprogress4}
+\end{figure}
+
+\clearpage
+
+In den Diagrammen ist der Verlauf eines Trainings über $40000$ Iterationen abgebildet. Im Trainingsset befanden sich 262 verschiedene Tische und das Testset enthielt sechs Tische. Trotz des relativ kleinen Trainingssets wurde ein visuell überzeugendes Resultat erzielt. Nach $20000$ bis $30000$ verbesserte sich der Lernerfolg nicht mehr wesentlich. Ein Versuch mit $80000$ Iterationen hat gezeigt, dass eine viel größere Anzahl Iterationen das Resultat eher verschlechtert.
 
 \chapter{Diskussion}
 \label{sec:conclusion}
