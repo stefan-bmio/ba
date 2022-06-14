@@ -11,7 +11,7 @@
 \contentsline {section}{\numberline {5)}Convolutional Neural Networks}{13}{section.2.5}%
 \contentsline {section}{\numberline {6)}Batch Normalization}{13}{section.2.6}%
 \contentsline {section}{\numberline {7)}U-Net-Architektur}{14}{section.2.7}%
-\contentsline {section}{\numberline {8)}Generative Adversarial Networks}{15}{section.2.8}%
+\contentsline {section}{\numberline {8)}Generative Adversarial Networks}{14}{section.2.8}%
 \contentsline {section}{\numberline {9)}Conditional Generative Adversarial Nets}{15}{section.2.9}%
 \contentsline {chapter}{\numberline {3}Implementierung}{17}{chapter.3}%
 \contentsline {section}{\numberline {1)}Ubuntu Linux}{17}{section.3.1}%
@@ -27,7 +27,7 @@
 \contentsline {section}{\numberline {4)}Hyperparameter}{29}{section.4.4}%
 \contentsline {section}{\numberline {5)}Performancebeobachtungen}{30}{section.4.5}%
 \contentsline {chapter}{\numberline {5}Diskussion}{37}{chapter.5}%
-\contentsline {chapter}{\nonumberline Literatur}{39}{chapter*.22}%
+\contentsline {chapter}{\nonumberline Literatur}{41}{chapter*.22}%
 \babel@toc {ngerman}{}
 \babel@toc {ngerman}{}
 \babel@toc {ngerman}{}
@@ -76,12 +76,14 @@
 \babel@toc {ngerman}{}
 \babel@toc {ngerman}{}
 \babel@toc {ngerman}{}
-\contentsline {chapter}{Bildnachweis}{41}{chapter*.23}%
-\contentsline {chapter}{Abbildungsverzeichnis}{43}{chapter*.23}%
-\contentsline {chapter}{Tabellenverzeichnis}{45}{chapter*.24}%
-\contentsline {chapter}{Anhang}{48}{part*.27}%
-\contentsline {chapter}{\numberline {A}Quelltexte}{48}{appendix.A}%
-\contentsline {section}{\numberline {1)}Image-To-Image-Translation main.py}{48}{section.A.1}%
-\contentsline {section}{\numberline {2)}Blender-Python-Script zur Generierung von Tischen}{54}{section.A.2}%
-\contentsline {section}{\numberline {3)}Python-Script zur Generierung von JPEG-Bilddateien aus NDJSON-Informationen}{55}{section.A.3}%
+\babel@toc {ngerman}{}
+\babel@toc {ngerman}{}
+\contentsline {chapter}{Bildnachweis}{43}{chapter*.23}%
+\contentsline {chapter}{Abbildungsverzeichnis}{45}{chapter*.23}%
+\contentsline {chapter}{Tabellenverzeichnis}{47}{chapter*.24}%
+\contentsline {chapter}{Anhang}{50}{part*.27}%
+\contentsline {chapter}{\numberline {A}Quelltexte}{50}{appendix.A}%
+\contentsline {section}{\numberline {1)}Image-To-Image-Translation main.py}{50}{section.A.1}%
+\contentsline {section}{\numberline {2)}Blender-Python-Script zur Generierung von Tischen}{56}{section.A.2}%
+\contentsline {section}{\numberline {3)}Python-Script zur Generierung von JPEG-Bilddateien aus NDJSON-Informationen}{57}{section.A.3}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
