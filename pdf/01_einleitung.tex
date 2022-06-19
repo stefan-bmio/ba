@@ -1,42 +1,12 @@
 \chapter{Einleitung}
 \label{ch:einleitung}
-Obwohl die Idee für eine Maschine, die anhand eingegebener Daten selbständig
-Entscheidungen treffen kann und die ersten praktischen Ansätze für künstliche
-neuronale Netze schon einige Jahrzehnte alt sind, findet der Einsatz derartiger
-Algorithmen erst seit einigen Jahren statt. Viele Erfindungen, die vor 30 bis 50
-Jahren in Filmen und Serien Science Fiction darstellten, sind inzwischen nicht
-nur Realität, sondern auch alltagstauglich. Zu den wichtigsten Beispielen zählen
-verbale Schnittstellen an Computersystemen und auch Armbanduhren, autonome
-Fahrzeuge etwa in Gestalt von Parkassistenten und verschiedene Verfahren zur
-biometrischen Identitätsprüfung.
+Obwohl die Idee für eine Maschine, die anhand eingegebener Daten selbständig Entscheidungen treffen kann und die ersten praktischen Ansätze für künstliche neuronale Netze schon einige Jahrzehnte alt sind, findet der Einsatz derartiger Algorithmen erst seit einigen Jahren statt. Viele Erfindungen, die vor 30 bis 50 Jahren in Filmen und Serien Science Fiction darstellten, sind inzwischen nicht nur Realität, sondern auch alltagstauglich. Zu den wichtigsten Beispielen zählen verbale Schnittstellen an Computersystemen und in Armbanduhren, autonome Fahrzeuge etwa in Gestalt von Parkassistenten und verschiedene Verfahren zur biometrischen Identitätsprüfung.
 
-Andere rasche technologische Fortschritte aus der jüngeren Vergangenheit haben
-nicht immer nur die Lebensqualität der beteiligten Personen erhöht, sondern
-stellten durch Missbrauch gelegentlich sogar Gefahren
-dar. So wie das Internet auch zur Verbreitung von Falschinformationen und
-die sichere Verschlüsselung von gespeicherten Daten auch für Erpressungen genutzt
-werden kann, ist die Generierung von täuschend echten Bildern unter Umständen
-geeignet, persönlichen, finanziellen oder anders gearteten Schaden zu verursachen.
+Andere rasche technologische Fortschritte aus der jüngeren Vergangenheit haben nicht immer nur die Lebensqualität der beteiligten Personen erhöht, sondern stellten durch Missbrauch gelegentlich sogar Gefahren dar. So wie das Internet auch zur Verbreitung von Falschinformationen und die sichere Verschlüsselung von gespeicherten Daten auch zur Verschleierung von Straftaten genutzt werden kann, ist die Generierung von täuschend echten Bildern unter Umständen geeignet, persönlichen, finanziellen oder anders gearteten Schaden zu verursachen.
 
-Weiterhin existieren bei der Auswahl der Trainingsdaten für künstliche neuronale
-Netze rechtliche Grenzen. Bilddaten sind in mehr als ausreichenden Mengen
-vorhanden, berücksichtigen aber zum Beispiel nicht immer das Recht am eigenen
-Bild. Für diese Bachelorarbeit sind die Anforderungen an die Bildqualität außerdem sehr
-hoch, da möglichst auch Texturen und Lichtreflexionen erlernt werden sollen.
-Modellgrafiken mit geeigneten Material- und Beleuchtungseigenschaften
-gibt es zwar auch, aber nur in weitaus geringeren Mengen. Für solche Fremdarbeiten,
-die sehr arbeitsaufwendig sind, wäre auch die Klärung der Nutzungsrechte
-erforderlich geworden. Für Trainingsergebnisse, die das mentale Modell einer
-breiten Nutzergemeinschaft reflektieren, sind grundsätzlich auch Daten aus
-möglichst vielen verschiedenen Quellen erforderlich.
+Weiterhin existieren bei der Auswahl der Trainingsdaten für künstliche neuronale Netze rechtliche Grenzen. Bilddaten sind in mehr als ausreichenden Mengen vorhanden, berücksichtigen aber zum Beispiel nicht immer das Recht am eigenen Bild. Für diese Bachelorarbeit sind die Anforderungen an die Bildqualität außerdem sehr hoch, da möglichst auch Texturen und Lichtreflexionen erlernt werden sollen. Modellgrafiken mit geeigneten Material- und Beleuchtungseigenschaften gibt es zwar auch, aber nur in weitaus geringeren Mengen. Für solche Fremdarbeiten, die sehr arbeitsaufwendig sind, wäre auch die Klärung der Nutzungsrechte erforderlich geworden. Für Trainingsergebnisse, die das mentale Modell einer breiten Nutzergemeinschaft reflektieren, sind grundsätzlich auch Daten aus möglichst vielen verschiedenen Quellen erforderlich.
 
-Es ist deshalb eine Brücke geschlagen worden zwischen Trainingsdaten, die
-zum einen aus zufällig ausgewählte Benutzereingaben bestehen, und solchen, die
-bestimmte Qualitätseigenschaften erfüllen und in beliebiger Menge erstellt werden
-können. Ein künstliches neuronales Netz soll aus Skizzen des
-``Quick, Draw!''-Datasets von Google hochwertig gestaltete Figuren
-generieren. TODO: Hierfür kommen als Ein- und Ausgabedaten sowohl Bilddateien als
-auch die jeweils zugrundeliegenden Dateiformate NDJSON und Wavefront OBJ infrage.
+Es ist deshalb eine Brücke geschlagen worden zwischen Trainingsdaten, die zum einen aus zufällig ausgewählte Benutzereingaben bestehen, und solchen, die bestimmte Qualitätseigenschaften erfüllen und in beliebiger Menge erstellt werden können. Ein künstliches neuronales Netz soll aus Skizzen des ``Quick, Draw!''-Datasets von Google hochwertig gestaltete Figuren generieren.
 
 \section{Ziel der Arbeit}
 \label{sec:ziel}
@@ -46,13 +16,13 @@ Im Zuge der Ausarbeitung des Konzeptes waren zunächst verschiedene Rahmenbeding
 
 Die Entscheidung fiel schließlich auf ein Machine-Learning-Modell, das unter anderem die Ergebnisse der Canny-Edge-Detection \cite{canny1986edge} eines Bildes, also nur die Umrisse des abgebildeten Objekts, in das Originalbild zurückübersetzen kann. Das Modell heißt Image-To-Image-Translation \cite{isola2018imagetoimage} oder kurz Pix2Pix. In meinen Experimenten habe ich das Modell erfolgreich darauf trainiert, handgezeichnete Skizzen in fotorealistische Abbildungen von Alltagsgegenständen zu übersetzen. Der Algorithmus ist in dem \hyperref[sec:pix2pix]{Abschnitt zu Image-To-Image-Translation des Kapitels 2} beschrieben.
 
-Es gibt verschiedene denkbare praktische Anwendungsfälle für diese automatische Übersetzung. Vergleichbar mit Handschrifterkennung oder der Erkennung primitiver geometrischer Formen durch Geräte mit Stift- oder Fingereingabe kann die Erkennung von handgezeichneten Alltagsgegenständen etwa durch Smartboards die Illustration von Alltagssituationen erleichtern. In meinen Experimenten habe ich Skizzen von Autos in fotorealistische Abbildungen übersetzt. Damit ist die Darstellung einer Situation im Straßenverkehr vorstellbar, wie sie in einer Fahrschule vorteilhaft sein könnte. Ein weiterer konkreter Anwendungsfall ist die Inneneinrichtung einer Wohnung mit verschiedenen Möbelstücken.
+Es gibt verschiedene denkbare praktische Anwendungsfälle für diese automatische Übersetzung. Vergleichbar mit Handschrifterkennung oder der Erkennung primitiver geometrischer Formen durch Geräte mit Stift- oder Fingereingabe kann die Erkennung von handgezeichneten Alltagsgegenständen etwa durch Smartboards die Illustration von Alltagssituationen erleichtern. In meinen Experimenten habe ich Skizzen von Autos in fotorealistische Abbildungen übersetzt. Damit ist die Darstellung einer Situation im Straßenverkehr vorstellbar, wie sie in einer Fahrschule vorteilhaft sein könnte. Ein weiterer konkreter Anwendungsfall ist der elektronisch gestützte Entwurf einer Wohnungseinrichtung mit verschiedenen Möbelstücken.
 
 Eine umfangreiche Sammlung an handgezeichneten Eingabebildern ist im Dataset des ``Quick, Draw!''-Minigames von Google zu finden. Ziel des kostenlosen Browser-Spiels ist es, ein vorgebenes Motiv innerhalb 20 Sekunden mittels Maus, Touchpad oder einem vergleichbaren Eingabegerät so zu zeichnen, dass ein zeitgleich aktiver Algorithmus die Zeichnung klassifizieren kann. Das Dataset besteht aus den erstellten Zeichnungen, ist nach Motiven sortiert und ebenfalls kostenlos verfügbar. Somit ist es für meine Experimente bestmöglich geeignet. Die Verwendung des ``Quick, Draw!''-Datasets ist in \hyperref[ch:conduct]{Kapitel 4} beschrieben.
 
 Es ist in begrenztem Maße möglich, die Zahl der vorhandenen Eingabebilder durch Data Augmentation zu erhöhen \cite{chollet2021deep}. Dabei werden die Bilder gespiegelt, gedreht, skaliert oder auf andere Weise verändert oder verfälscht. Es ist außerdem denkbar, die Eingabedaten selbst zu erstellen. Weil der Zusammenhang mit prozeduralen Shadern durch die Aufgabenstellung gegeben ist, habe ich mich dazu entschieden einen wesentlichen Teil der Eingabebilder zu entwerfen und automatisiert zu erstellen. Es sind Bilder verschiedener Alltagsgegegenstände entstanden, die sich in der Form unterscheiden, deren Texturen und Lichtverhältnisse sich aber gleichen. Dadurch war es mir möglich das Modell auf die Übersetzung der handgezeichneten Skizzen in passende, fotorealistische Bilder zu trainieren. Das Erstellen der 3D-Modelle sowie die Automatisierung ist ebenfalls in \hyperref[ch:conduct]{Kapitel 4} beschrieben.
 
-Eingabedaten für das Training der Image-To-Image-Translation sind also zum einen handgezeichnete Skizzen und zum anderen fotorealistische Abbildungen alltäglicher Gegenstände. In der Literatur wird häufig das Bild, das übersetzt werden soll, als Input bezeichnet. Im Gegensatz dazu wird das Bild, in das übersetzt werden soll, Ground Truth oder Target genannt \cite{chollet2021deep}. Ich verwende in diesem Dokument dieselben Bezeichnungen.
+Eingabedaten für das Training der Image-To-Image-Translation sind also zum einen handgezeichnete Skizzen und zum anderen fotorealistische Abbildungen alltäglicher Gegenstände. In der Literatur wird häufig das Bild, das übersetzt werden soll, als Input bezeichnet. Im Gegensatz dazu wird das Bild, in das übersetzt werden soll, Ground Truth oder Target genannt \cite{chollet2021deep}. Ich verwende in diesem Dokument dieselben Bezeichnungen oder die deutschen Übersetzungen Eingabebild für Input und Zielbild für Target.
 
 Im Verlauf der Experimente habe ich den Trainingsfortschritt und -erfolg verschiedener Eingabebilder und Algorithmen betrachtet. Die interessantesten Größen beim maschinellen Lernen sind die Menge der Eingabedaten, die Anzahl der Trainingsdurchläufe und im Zusammenhang damit die Dauer des Trainings. Das tatsächliche Trainingsergebnis habe ich in Augenschein genommen und subjektiv für zufriedenstellend oder nicht zufriedenstellend befunden.
 
@@ -61,7 +31,7 @@ Im Verlauf der Experimente habe ich den Trainingsfortschritt und -erfolg verschi
 	\includegraphics[width=0.3\textwidth]{bilder/0.jpg}
 	\includegraphics[width=0.3\textwidth]{bilder/1.jpg}
 	\includegraphics[width=0.3\textwidth]{bilder/15.jpg}
-	\caption[Verschiedene Trainingsschritte]{Das Modell generiert das Ergebnis schrittweise aus zufälligem Rauschen. Nach 15000 Trainingsschritten ist das Ergebnis zufriedenstellend.}
+	\caption[Verschiedene Trainingsschritte]{Das Modell generiert das Ergebnis in mehreren Tausend Schritten aus zufälligem Rauschen.}
 	\label{fig:trichter}
 \end{figure}
 
@@ -78,24 +48,15 @@ Im Verlauf der Experimente habe ich den Trainingsfortschritt und -erfolg verschi
 
 \section{Bisherige Arbeiten}
 \label{sec:related}
-Künstliche neuronale Netze finden erst seit wenigen Jahren breite Aufmerksamkeit,
-seit auch Heimcomputer in der Lage sind die hohe Anzahl der erforderlichen
-Rechenoperationen in annehmbarer Zeit auszuführen. Seitdem sind wenige,
-englischsprachige Einführungen in die Thematik entstanden. Ein häufig genanntes
-Buch ist ``Deep Learning'', das online kostenfrei zugänglich ist \cite{goodfellow2016deeplearning}.
-Ebenfalls online kostenfrei ist das Buch ``Dive into Deep Learning'' \cite{zhang2020dive}.
-Ein weiteres, praxisorientierteres Buch ist ``Deep Learning with Python'' \cite{chollet2021deep}, dessen
-zweite Auflage bald herausgegeben wird.
+Künstliche neuronale Netze finden erst seit wenigen Jahren breite Aufmerksamkeit, seit auch Heimcomputer in der Lage sind die hohe Anzahl der erforderlichen Rechenoperationen in annehmbarer Zeit auszuführen. Seitdem sind wenige, englischsprachige Einführungen in die Thematik entstanden. Ein häufig genanntes Buch ist ``Deep Learning'', das online kostenfrei zugänglich ist \cite{goodfellow2016deeplearning}. Ebenfalls online und kostenfrei ist das Buch ``Dive into Deep Learning'' \cite{zhang2020dive}. Ein weiteres, praxisorientierteres Buch ist ``Deep Learning with Python'' \cite{chollet2021deep}, das inzwischen in der zweiten Auflage erschienen ist.
 
-Erste Recherchen haben verschiedene Arten und Implementierungen Bilder generierender künstlicher neuronaler Netze herausgestellt. Das Model aus ``DRAW: A Recurrent Neural Network For Image Generation'' \cite{gregor2015draw} kann darauf trainiert werden, handschriftliche Ziffern wie die des MNIST-Datasets zu generieren.
+Erste Recherchen haben verschiedene Arten und Implementierungen Bilder generierender künstlicher neuronaler Netze herausgestellt. Das Model aus ``DRAW: A Recurrent Neural Network For Image Generation'' \cite{gregor2015draw} kann darauf trainiert werden, handschriftliche Ziffern wie die des MNIST-Datasets \cite{deng2012mnist} zu generieren.
 
 Die Schlüsselerkenntnis in ``A Neural Algorithm of Artistic Style'' \cite{gatys2015nst} ist, dass Inhalt und Stil eines Bildes voneinander getrennt werden können. Das Model kann zum Beispiel den Stil eines Künstlers auf das Bild eines anderen übertragen.
 
-In anderen Ansätzen mit rekurrenten neuronalen Netzen wird jedes Eingabebild in eine Sequenz von Pixeln umgeformt. Anschließend wird das künstliche neuronale Netz darauf trainiert, teilweise geschwärzte Bilder wieder zu vervollständigen \cite{chen2020generative}, \cite{oord2016pixel}. Es werden auch Bilder generiert und die Fähigkeit des jeweiligen Models, die Darstellung von Bildern zu lernen, untersucht und mit der anderer Models verglichen. Ein weiterer, ebenfalls rekurrenter Algorithmus generiert Bilder aus textuellen Beschreibungen \cite{ramesh2021zeroshot}.
+In anderen Ansätzen mit rekurrenten neuronalen Netzen wird jedes Eingabebild in eine Sequenz von Pixeln umgeformt. Anschließend wird das künstliche neuronale Netz darauf trainiert, teilweise geschwärzte Bilder wieder zu vervollständigen \cite{chen2020generative}, \cite{oord2016pixel}. Es werden auch Bilder generiert und die Fähigkeit des jeweiligen Modells die Darstellung von Bildern zu lernen untersucht und mit der anderer Modelle verglichen. Ein weiterer, ebenfalls rekurrenter Algorithmus generiert Bilder aus textuellen Beschreibungen \cite{ramesh2021zeroshot}.
 
 Besondere Aufmerksamkeit habe ich den Generative Adversarial Networks \cite{goodfellow2014generative} gegeben. Die Ergebnisse dieser Familie von künstlichen neuronalen Netzen sind teilweise erstaunlich gut, und es gibt bereits einige Beispielanwendungen und frei verfügbaren Quelltext. Je nach Anwendung des Models variiert die Qualität der Resultate.
-
-Die vielseitigste Generierung von Bildern bietet Image-To-Image-Translation with Conditional Adversarial Networks \cite{isola2018imagetoimage}. In der Arbeit werden Labels in Fotos zurückübersetzt, Schwarzweißbilder coloriert und weitere Anwendungsbeispiele gezeigt. Vor allem die Übersetzung ``Kanten nach Foto'' (``Edges to Photo'') ist für mein Vorhaben relevant. Das Dokument enthält dafür mehrere Beispiele und Hinweise für die Anpassung der Hyperparameter. Der Algorithmus setzt auf Generative Adversarial Networks \cite{goodfellow2014generative} und Conditional Generative Adversarial Networks \cite{mirza2014conditional} auf.
 
 In ``Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks'' \cite{radford2016unsupervised} werden ebenfalls
 realitätsnahe Ergebnisse erzielt. Anders als bei den bisher erwähnten Arbeiten
@@ -108,10 +69,13 @@ wird Unsupervised Learning verwendet, um das künstliche neuronale Netz zu train
 	\label{fig:unsupervisedexamples}
 \end{figure}
 
+Die vielseitigste Generierung von Bildern bietet Image-To-Image-Translation with Conditional Adversarial Networks \cite{isola2018imagetoimage}. In der Arbeit werden Labels in Fotos zurückübersetzt, Schwarzweißbilder koloriert und weitere Anwendungsbeispiele gezeigt. Vor allem die Übersetzung ``Kanten nach Foto'' (``Edges to Photo'') ist für mein Vorhaben relevant. Das Dokument enthält dafür mehrere Beispiele und Hinweise für die Anpassung der Hyperparameter. Der Algorithmus setzt auf Generative Adversarial Networks \cite{goodfellow2014generative} und Conditional Generative Adversarial Networks \cite{mirza2014conditional} auf.
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{bilder/mnist_faces.png}
-	\caption[GAN Beispielbilder]{Bildquelle: ``Generative Adversarial Nets'' \cite{goodfellow2014generative} \newline Dieses Dokument zeigt mehrere Beispiele generierter Bilder. Es ist deutlich zu erkennen, wie gut der Algorithmus geeignet ist Bilder zu generieren. Die gelb gerahmten Bilder sind die Ground Truth aus dem jeweiligen Trainingsset.}
+	\caption[GAN Beispielbilder]{Bildquelle: ``Generative Adversarial Nets'' \cite{goodfellow2014generative} \\
+	In den Beispielen generierter Bilder ist deutlich zu erkennen, wie gut der Algorithmus geeignet ist Bilder zu generieren. Die gelb gerahmten Bilder sind die Ground Truth aus dem jeweiligen Trainingsset.}
 	\label{fig:ganexamples}
 \end{figure}
 
@@ -151,4 +115,4 @@ wird Unsupervised Learning verwendet, um das künstliche neuronale Netz zu train
 	\label{fig:myexamples}
 \end{figure}
 
-Blender ist ein 3D-Computergrafikprogramm mit Werkzeugen für die Modellierung und Animation von Objekten und Charakteren und zur Erstellung von Hintergrundszenen. Szenen können als Standbilder hergestellt werden. Animierte Sequenzen können für Videoproduktionen genutzt werden. Modelle und Szenen werden durch Farben und Texturen noch aufgewertet, wodurch brillante realistische Effekte produziert werden. Die Standbilder und Videos können als Kunstwerke oder als architektonisch oder wissenschaftliche Präsentationen Anwendung finden. \cite{blain2020blender}
+Eine für diese Arbeit erforderliche Software heißt Blender. Zur Verwendung der Software gibt es eine große Auswahl an Literatur. Blender ist ein 3D-Computergrafikprogramm mit Werkzeugen für die Modellierung und Animation von Objekten und Charakteren und zur Erstellung von Hintergrundszenen. Szenen können als Standbilder hergestellt werden. Animierte Sequenzen können für Videoproduktionen genutzt werden. Modelle und Szenen werden durch Farben und Texturen noch aufgewertet, wodurch brillante realistische Effekte produziert werden. Die Standbilder und Videos können als Kunstwerke oder als architektonisch oder wissenschaftliche Präsentationen Anwendung finden. \cite{blain2020blender}

@@ -6,8 +6,6 @@ Mehrdimensionale Arrays, in NumPy ndarray (N-Dimensional Array) genannt, werden 
 
 In seinem Kern ist ein Tensor ein Container für numerische Daten. Tensoren sind die Verallgemeinerung der Matrizen für eine beliebige Anzahl Dimensionen. Im Zusammenhang mit Tensoren werden die Dimensionen häufig Achsen gennannt. Die Anzahl der Achsen wird auch als Stufe bezeichnet. Ein Skalar ist ein Tensor nullter Stufe. Ein Vektor ist ein Tensor erster Stufe und eine Matrix ein Tensor zweiter Stufe. \cite{chollet2021deep}
 
-Der Begriff der Dimension, der für Vektoren und Matrizen eindeutig ist, wird für Tensoren in der Literatur unterschiedlich verwendet.  \cite{chollet2021deep} In dieser Arbeit soll die Dimension einer Achse eines Tensors die Anzahl der numerischen Werte entlang dieser Achse bezeichnen.
-
 Bilder erscheinen als Tensoren dritter Stufe, deren Achsen der Höhe, Breite und den Farbkanälen (Rot, Grün und Blau) entsprechen. \cite{zhang2020dive}
 
 Ein Tensor ist durch drei Schlüsselattribute definiert:
@@ -18,7 +16,7 @@ Ein Tensor ist durch drei Schlüsselattribute definiert:
 \end{itemize}
 \cite{chollet2021deep}
 
-Viele in dieser Arbeit verwendeten Tensoren beschreiben RBG-Bilddaten. Sie sind deshalb dritter Stufe, und die enthaltenen Daten sind Ganzzahlen zwischen $0$ und $255$. Die Form der durch das künstliche neuronale Netz generierten Bilder ist $(256, 256, 3)$. Die Dimensionen beschreiben hier also die Breite, Höhe und Farbtiefe der Bilddateien.
+Viele in dieser Arbeit verwendeten Tensoren beschreiben RGB-Bilddaten. Sie sind deshalb dritter Stufe, und die enthaltenen Daten sind Ganzzahlen zwischen $0$ und $255$. Die Form der durch das künstliche neuronale Netz generierten Bilder ist $(256, 256, 3)$. Die Dimensionen beschreiben hier also die Breite, Höhe und Farbtiefe der Bilddateien.
 
 \section{Kreuzentropie}
 In Anwendungen mit künstlicher Intelligenz wird Wahrscheinlichkeitsrechnung auf zwei wesentliche Arten verwendet. Erstens erklären die Regeln der Wahrscheinlichkeit, wie KI-Systeme urteilen sollten, deshalb werden Algorithmen so gestaltet, dass sie vielfältige Ausdrücke mittels Probabilistik berechnen oder annähern. Zweitens können Wahrscheinlichkeitsrechnung und Statistik das Verhalten zu planender KI-Systeme theoretisch analysieren.
@@ -36,15 +34,21 @@ Es gibt drei mögliche Quellen von Unsicherheit:
 
 \end{enumerate}
 
-In vielen Fällen ist es praktikabler, eine einfache aber unsichere Regel statt einer komplexen aber sicheren zu verwenden, selbst wenn die wahre Regel deterministisch ist und ein Modellierungssystem die Genauigkeit besitzt, eine komplexe Regel bereitstellen zu können. Zum Beispiel ist die einfache Regel ``Die meisten Vögel fliegen'' einfach zu entwickeln und weitgehend nützlich, während eine Regel in der Form ``Vögel fliegen, außer sehr junge Vögel, die noch nicht gelernt haben zu fliegen, kranke und verletzte Vögel, die ihre Fähigkeit zu fliegen verloren haben, flugunfähige Vögel, einschließlich Kasuare, Strauße und Kiwis\dots'' ist aufwändig zu entwickeln, zu warten und zu kommunizieren und nach all dem Aufwand immer noch zerbrechlich und fehleranfällig.
+In vielen Fällen ist es praktikabler, eine einfache aber unsichere Regel statt einer komplexen aber sicheren zu verwenden, selbst wenn die wahre Regel deterministisch ist und ein Modellierungssystem die Genauigkeit besitzt, eine komplexe Regel bereitstellen zu können. Zum Beispiel ist die einfache Regel ``Die meisten Vögel fliegen'' einfach zu entwickeln und weitgehend nützlich, während eine Regel in der Form ``Vögel fliegen, außer sehr junge Vögel, die noch nicht gelernt haben zu fliegen, kranke und verletzte Vögel, die ihre Fähigkeit zu fliegen verloren haben, flugunfähige Vögel, einschließlich Kasuare, Strauße und Kiwis\dots'' ist aufwändig zu entwickeln, zu warten und zu kommunizieren und nach all dem Aufwand immer noch fragil und fehleranfällig.
 
-Obwohl es naheliegend ist, dass Möglichkeiten Unsicherheit darzustellen und zu diskutieren notwendig sind, ist es nicht sofort offensichtlich, dass die Wahrscheinlichkeitsrechnung alle Werkzeuge für Anwendungen künstlicher Intelligenz bereitstellt. Wahrscheinlichkeitsrechnung wurde ursprünglich entwickelt, um die Häufigkeit von Ereignissen zu analysieren. Es ist leicht erkennenbar, wie Wahrscheinlichkeitsrechnung verwendet werden kann, um Ereignisse wie das Ziehen einer bestimmten Hand in einem Pokerspiel zu studieren. Diese Art von Ereignissen sind oft wiederkehrend. Wenn ein Ergebnis die Wahrscheinlichkeit $p$ hat einzutreten, heißt das, dass wenn das Experiment (z.B. eine Hand Karten ziehen) unendlich oft wiederholt würde, dann hätten die Wiederholungen zu dem Anteil $p$ dieses Ergebnis zur Folge. Dieser Denkansatz scheint auf Vorhaben, die nicht wiederholbar sind, nicht anwendbar zu sein. Wenn ein Arzt seinen Patient analysiert und feststellt, dass der Patient eine 40-prozentige Chance besitzt die Grippe zu haben, heißt das etwas sehr unterschiedliches -- der Patient kann nicht unendlich oft repliziert werden, und es gibt keinen Grund zur Annahme, dass unterschiedliche Replikas des Patienten die gleichen Symptome zeigen, aber unterschiedliche zugrundeliegende Krankheiten haben. In dem Fall des Arztes, der den Patient diagnostiziert, steht Wahrscheinlichkeit für den Grad der Vermutung, wobei mit $1$ absolute Sicherheit, dass der Patient die Grippe hat, angegeben wird und mit $0$ absolute Sicherheit, dass der Patient die Grippe nicht hat. Die vorherige Art von Wahrscheinlichkeit, direkt verbunden mit der Häufigkeit, in der Ereignisse eintreten, ist als frequentistische Wahrscheinlichkeit bekannt, während die zweite Art, verbunden mit dem qualitativen Grad der Sicherheit, bekannt ist als Bayessche Wahrscheinlichkeit.
+Obwohl es naheliegend ist, dass Möglichkeiten Unsicherheit darzustellen und zu diskutieren notwendig sind, ist es nicht sofort offensichtlich, dass die Wahrscheinlichkeitsrechnung alle Werkzeuge für Anwendungen künstlicher Intelligenz bereitstellt.
+
+Wahrscheinlichkeitsrechnung wurde ursprünglich entwickelt, um die Häufigkeit von Ereignissen zu analysieren. Es ist leicht erkennenbar, wie Wahrscheinlichkeitsrechnung verwendet werden kann, um Ereignisse wie das Ziehen einer bestimmten Hand in einem Pokerspiel zu studieren. Diese Art von Ereignissen sind oft wiederkehrend. Wenn ein Ergebnis die Wahrscheinlichkeit $p$ hat einzutreten, heißt das, dass wenn das Experiment (z.B. eine Hand Karten ziehen) unendlich oft wiederholt würde, dann hätten die Wiederholungen zu dem Anteil $p$ dieses Ergebnis zur Folge.
+
+Dieser Denkansatz scheint auf Vorhaben, die nicht wiederholbar sind, nicht anwendbar zu sein. Wenn ein Arzt seinen Patienten analysiert und feststellt, dass der Patient eine 40-prozentige Chance besitzt die Grippe zu haben, heißt das etwas sehr unterschiedliches -- der Patient kann nicht unendlich oft repliziert werden, und es gibt keinen Grund zur Annahme, dass unterschiedliche Replikas des Patienten die gleichen Symptome zeigen, aber unterschiedliche zugrundeliegende Krankheiten haben. In dem Fall des Arztes, der den Patient diagnostiziert, steht Wahrscheinlichkeit für den Grad der Vermutung, wobei mit $1$ absolute Sicherheit, dass der Patient die Grippe hat, angegeben wird und mit $0$ absolute Sicherheit, dass der Patient die Grippe nicht hat.
+
+Die vorherige Art von Wahrscheinlichkeit, direkt verbunden mit der Häufigkeit, in der Ereignisse eintreten, ist als frequentistische Wahrscheinlichkeit bekannt, während die zweite Art, verbunden mit dem qualitativen Grad der Sicherheit, bekannt ist als Bayessche Wahrscheinlichkeit.
 \cite{goodfellow2016deeplearning}
 
-Um die Ausgabes als Wahrscheinlichkeiten interpretieren zu können, muss (auch für neue Daten) garantatiert sein, dass sie nicht-negativ sind und sich zu $1$ addieren. Weiterhin brauchen wir ein Trainingsziel, das das Modell darin unterstützt genaue Wahrscheinlichkeiten zu schätzen. In allen Fällen sollten, wenn ein Classifier $0.5$ ausgibt, die Hälfte dieser Beispiele tatsächlich zu der vorherberechneten Klasse gehören.
+Um die Ausgaben als Wahrscheinlichkeiten interpretieren zu können, muss (auch für neue Daten) garantatiert sein, dass sie nicht-negativ sind und sich zu $1$ addieren. Weiterhin brauchen wir ein Trainingsziel, das das Modell darin unterstützt genaue Wahrscheinlichkeiten zu schätzen. In allen Fällen sollten, wenn ein Classifier $0.5$ ausgibt, die Hälfte dieser Beispiele tatsächlich zu der vorherberechneten Klasse gehören.
 \cite{zhang2020dive}
 
-Es wird eine Verlustfunktion benötigt, um die Qualität der vorherberechneten Wahrscheinlichkeiten zu messen. Die Softmax-Funktion gibt einen Vektor $\hat{y}$ aus, der als die geschätzte bedingte Wahrscheinlichkeit jeder Klasse für die gegebene Eingabe $x$ interpretiert werden kann, zum Beispiel $\hat{y}_{1}\ =\ P(y\ =\ cat\ |\ \boldsymbol{x})$. Angenommen, das gesamte Dataset $\{\boldsymbol{X}, \boldsymbol{Y}\}$ entält $n$ Beispiele, wobei das Beispiel mit dem Index $i$ aus einem Featurevektor $\boldsymbol{x}^{(i)}$ und einem One-Hot-Label-Vektor $\boldsymbol{y}^{(i)}$ besteht. Die Schätzungen können mit der Wirklichkeit verglichen werden, indem überprüft wird, wie wahrscheinlich die tatsächliche Klasse für die gegebenen Features gemäß dem Modell ist:
+Es wird eine Verlustfunktion benötigt, um die Qualität der vorherberechneten Wahrscheinlichkeiten zu messen. Die Softmax-Funktion gibt einen Vektor $\hat{y}$ aus, der als die geschätzte bedingte Wahrscheinlichkeit jeder Klasse für die gegebene Eingabe $x$ interpretiert werden kann, zum Beispiel $\hat{y}_{1}\ =\ P(y\ =\ cat\ |\ \boldsymbol{x})$. Angenommen, das gesamte Dataset $\{\boldsymbol{X}, \boldsymbol{Y}\}$ enthält $n$ Beispiele, wobei das Beispiel mit dem Index $i$ aus einem Featurevektor $\boldsymbol{x}^{(i)}$ und einem One-Hot-Label-Vektor $\boldsymbol{y}^{(i)}$ besteht. Die Schätzungen können mit der Wirklichkeit verglichen werden, indem überprüft wird, wie wahrscheinlich die tatsächliche Klasse für die gegebenen Features gemäß dem Modell ist:
 
 \begin{align}
   P(\boldsymbol{Y}\ |\ \boldsymbol{X})\ =\ \prod_{i=1}^{n}P(\boldsymbol{y}^{(i)}\ |\ \boldsymbol{x}^{(i)}).
@@ -68,7 +72,10 @@ ist. Die Verlustfunktion in \eqref{eq:fn_crossentropy} wird gemeinhin als Cross-
 Nehmen wir nun an, dass wir nicht nur ein einziges Ergebnis, sondern eine ganze Verteilung über Ergebnisse beobachten. Wir können dieselbe Darstellung nutzen wie bisher. Der einzige Unterschied ist, dass statt einem Vektor nur aus binären Einträgen wie zum Beispiel $(0, 0, 1)$ jetzt ein allgemeiner Wahrscheinlichkeitsvektor wie zum Beispiel $(0.1, 0.2, 0.7)$ vorliegt. Die bisher verwendete Mathematik um den Versult zu definieren funktioniert noch genauso gut, nur ist die Interpretation etwas allgemeiner. Es ist der Erwartungswert des Verlustes für eine Verteilung über Labels. Dieser Verlust wird Cross-Entropy-Verlust genannt und es eine der meistverbreitet eingesetzten Verlustfunktionen für Klassifizierungsaufgaben.
 \cite{zhang2020dive}
 
-Hier ist ein kurzes Beispiel für die Anwendung der Kreuzentropie. Es sei $P$ ein wahre Verteilung mit der Wahrscheinlichkeitsverteilung $p(x)$ und $Q$ die geschätzte Verteilung mit der Wahrscheinlichkeitsverteilung $q(x)$. Angenommen eine Klassifizierungsaufgabe basierend auf $n$ gegebenen Datenbeispielen $\{x_{1}, \dots, x_{n}\}$. Angenommen die positiven und negativen Klassenlabel $y_{i}$ sind als $1$ beziehungsweise $0$ kodiert und ein künstliches neuronales Netz ist parametrisiert durch $\theta$. Wenn es das Ziel ist, das beste $\theta$ zu finden, damit $\hat{y}_{i} = p_{\theta}(y_{i}\ |\ x_{i})$, kann naturgemäß die Maximum-Likelihood-Methode angewendet werden. Konkret ist für die wahren Label $y_{i}$ und die Vorhersagen $\hat{y}_{i} = p_{\theta}(y_{i}\ |\ x_{i})$ die Wahrscheinlichkeit als positiv klassifiziert zu werden $\pi_{i} = p_{\theta}(y_{i} = 1\ |\ x_{i})$. Daher wäre die Log-Likelihood-Funktion
+Hier ist ein kurzes Beispiel für die Anwendung der Kreuzentropie. Es sei $P$ ein wahre Verteilung mit der Wahrscheinlichkeitsverteilung $p(x)$ und $Q$ die geschätzte Verteilung mit der Wahrscheinlichkeitsverteilung $q(x)$. Angenommen eine Klassifizierungsaufgabe basierend auf $n$ gegebenen Datenbeispielen $\{x_{1}, \dots, x_{n}\}$. Angenommen die positiven und negativen Klassenlabel $y_{i}$ sind als $1$ beziehungsweise $0$ kodiert und ein künstliches neuronales Netz ist parametrisiert durch $\theta$. Wenn es das Ziel ist, das beste $\theta$ zu finden, damit $\hat{y}_{i} = p_{\theta}(y_{i}\ |\ x_{i})$, kann naturgemäß die Maximum-Likelihood-Methode angewendet werden. Konkret ist für die wahren Label $y_{i}$ und die Vorhersagen $\hat{y}_{i} = p_{\theta}(y_{i}\ |\ x_{i})$ die Wahrscheinlichkeit als positiv klassifiziert zu werden $\pi_{i} = p_{\theta}(y_{i} = 1\ |\ x_{i})$.
+
+\pagebreak
+Daher wäre die Log-Likelihood-Funktion
 
 \begin{align}
   l(\theta)\ &=\ \log L(\theta) \\
@@ -109,6 +116,15 @@ In einigen künstlichen neuronalen Netzen werden zusätzlich die Eingaben für j
 
 \section{Deep Neural Networks}
 \label{sec:dnn}
+Deep Learning ist ein spezifisches Gebiet des maschinellen Lernens: Ein neuer Ansatz zum Lernen von Repräsentationen von Daten, der den Schwerpunkt auf das Lernen in aufeinanderfolgenden Schichten mit zunehmend aussagekräftigen Repräsentationen legt. Das ``Deep'' in ``Deep Learning'' ist kein Hinweis auf ein durch diesen Ansatz erlangtes tieferes Verständnis, sondern steht für diese Idee von aufeinanderfolgenden Schichten von Repräsentationen.
+
+Die Anzahl der Schichten, aus denen ein Datenmodell zusammengefasst ist, wird Tiefe (engl.: depth) des Modells genannt. Andere passende Namen für dieses Feld hätten ``layered representations learning'' oder ``hierarchical representations learning'' sein können. Modernes Deep Learning umfasst oft mehrere zehn- oder hunderttausend aufeinanderfolgendende Repräsentationsschichten, die alle automatisch durch Verrechnung von Trainingsdaten erlernt werden.
+
+Währenddessen gehen andere Ansätze des maschinellen Lernens eher in die Richtung des ``shallow learning'', beschränken sich also auf eine oder zwei Repräsentationsschichten. Diese Schichten von Repräsentationen werden fast immer durch Modelle erlernt, die neuronale Netze genannt werden. Diese Modelle sind buchstäblich wie aufeinander gestapelte Schichten strukturiert. Der Begriff neuronales Netz ist ein Referenz auf Neurobiologie, doch obwohl die Entwicklung einiger zentraler Deep-Learning-Konzepte teilweise durch unser Verständnis des Gehirns inspiriert war, sind Deep-Learning-Modelle keine Modelle des Gehirns. Es gibt keine Anhaltspunkte darauf, dass das Gehirn etwas vergleichbares wie die Lernmechanismen implementiert, die in modernen Deep-Learning-Modellen verwendet werden. Gelegentlich begegnen einem populärwissenschaftliche Artikel in denen proklamiert wird, dass Deep Learning wie das Gehirn funktioniert oder nach dem Vorbild eines Gehirns modelliert wurde. Das ist aber nicht der Fall. Für Neueinsteiger in das Fachgebiet wäre es verwirrend und kontraproduktiv, Deep Learning als etwas zu betrachten, das mit Neurobiologie in irgend einem Zusammenhang steht. Deep Learning ist ein mathematisches Gerüst zum Lernen von Repräsentationen von Daten.
+
+Wie sehen Repräsentationen aus, die ein Deep-Learning-Algorithmus gelernt hat? Abbildung \ref{todo1.5} zeigt, wie ein mehrere Schichten tiefes Netzwerk ein Bild einer Ziffer transformiert, um zu erkennen welche Ziffer es ist.
+
+Wie in Abbildung \ref{todo1.6} zu sehen ist, transformiert das Netzwerk das Bild der Ziffer in Repräsentationen, die sich zunehmend stark vom Original unterscheiden und zunehmend informativ über das Endergebnis sind. Ein Deep-Learning-Netzwerk ist wie ein mehrstufiger Informations-Destilliations-Vorgang, bei dem Information durch aufeinanderfolgende Filter fließt und zunehmend bereinigt und für einen bestimmten Zweck nutzbar wieder herauskommt. Die Idee hinter Deep Learning ist einfach, kann aber wie Magie anmuten, wenn der simple Mechanismus ausreichend skaliert wird.
 
 \section{Convolutional Neural Networks}
 \label{sec:cnn}
@@ -116,7 +132,17 @@ Für Bilddaten wendet ein CNN diese Operation typischerweise auf zwei dreidimens
 
 Jede der drei Matrixdimensionen variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs (\cite{goodfellow2016deeplearning}, \cite{Lecun99objectrecognition}, \cite{RFB15a}, \cite{isola2018imagetoimage}) nimmt die Kardinalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten. Beim Pooling werden aus benachbarten Matrixkoeffizienten meist das Maximum, seltener der Durchschnitt oder andere Aggregierungen gebildet. Auf diese Weise wird das neuronale Netz darauf trainiert die relevanten Informationen zu extrahieren. \cite{goodfellow2016deeplearning}
 
-Den konvolutionalen Schichten folgt in einigen Anwendungsfällen eine voll vernetzte Schicht (engl. Fully Connected Layer, FC), in der für jedes Neuron mit jedem Neuron der vorherigen Schicht eine Verbindung besteht. Besonders für die Bilderkennung ist diese Architektur gut geeignet. Die Ausgabe des neuronalen Netzes ist dann ein Vektor, beispielsweise von Wahrscheinlichkeitswerten für das Vorhandensein bestimmter Objekte und gegebenenfalls Bildkoordinaten der erkannten Objekte. Im Fall der Bildgenerierung ist die Ausgabe aber wieder eine Matrix von RGB-Pixelinformationen in der Form $(H\ x\ W\ x\ 3)$.
+Den konvolutionalen Schichten folgt in einigen Anwendungsfällen eine voll vernetzte Schicht (engl. Fully Connected Layer, FC), in der für jedes Neuron mit jedem Neuron der vorherigen Schicht eine Verbindung besteht. Besonders für die Bilderkennung wird diese Architektur gelegentlich erfolgreich eingesetzt. Die Ausgabe des neuronalen Netzes ist dann ein Vektor, beispielsweise von Wahrscheinlichkeitswerten für das Vorhandensein bestimmter Objekte und gegebenenfalls Bildkoordinaten der erkannten Objekte. Im Fall der Bildgenerierung kann die Ausgabe aber auch wieder eine Matrix von RGB-Pixelinformationen in der Form $(H\ x\ W\ x\ 3)$ sein.
+
+\section{Batch Normalization}
+Normalisierung ist eine breit gefächerte Kategorie von Methoden, die versuchen verschiedene Eingaben für Modelle des maschinellen Lernens einander ähnlicher aussehen zu lassen. Das soll dem Modell helfen zu lernen und für neue Daten zu verallgemeinern. Die verbreitetste Form von Normalisierung besteht darin die Daten an $0$ zu zentrieren und mit einer Standardabweichung von $<1$ zu versehen, indem der Mittelwert aller Werte von jedem Einzelwert subtrahiert wird und jeder Einzelwert durch die Standardabweichung geteilt wird. Dies geschieht aufgrund der Annahme, dass die Daten normalverteilt sind und stellt sicher, dass diese Verteilung zu einer einheitlichen Varianz zentriert und skaliert ist.
+
+Datennormalisierung sollte nach jedem Transformationsschritt durch das künstliche neuronale Netz geschehen. Auch wenn die Daten, die in ein Dense Net oder Convolutional Neural Net eingegeben werden, den Mittelwert $0$ und eine Standardabweichung $< 1$ besitzen, ist ohne weiteres nicht zu erwarten, dass es sich bei den Ausgabedaten genauso verhält.
+
+Batch Normalization ist eine Art von Schicht (BatchNormalization in Keras todo: keras), die 2015 von Ioffe und Szegedy \cite{todo: cite https://arxiv.org/abs/1502.03167.} eingeführt wurde. Sie kann adaptiv die Daten normalisieren, wenn sich Mittelwert und Varianz im Laufe des Trainings verändern. Das erreicht sie, indem sie einen exponentiellen gleitenden Durchschnitt der batchweisen Mittelwerte und Varianzen der Daten während des Trainings vorhält.
+
+Hauptsächlich hilft die Batch Normalization bei der Backpropagation und erlaubt so tiefere Netzwerke. Einige sehr tiefe Netwerke können überhaupt nur trainiert werden, wenn sie mehrere Batch-Normalization-Schichten enthalten. Batch Normalization wird zum Beispiel in vielen fortgeschrittenen ConvNet-Architekturen verwendet, die Keras zur Verfügung stellt, wie ResNet50, Inception v3 und Xception. Eine Batch-Normalisierungs-Schicht wird typischerweise nach einem convolutional oder einer Densely-Connected-Schicht verwendet.
+\cite{chollet2021deep}
 
 \section{U-Net-Architektur}
 \label{sec:unet}
@@ -126,12 +152,9 @@ Ein U-Net ist eine spezielle Form eines ResNets. Es hat eine annähernd symmetri
 
 \section{Generative Adversarial Networks}
 \label{gan}
-Generative adversarial networks are based on a game theoretic scenario inwhich the generator network must compete against an adversary. The generatornetwork directly produces samples
-xxxx
+Generative Adversarial Networks basieren auf einem spieltheoretischen Szenario, in dem das Generator-Netzwerk gegen einen Kontrahenten antreten muss. Das Generator-Netzwerk produziert Proben $\boldsymbol{x}=g(\boldsymbol{z}; \boldsymbol{\theta}^{(g)})$. Sein Kontrahent, das Discriminator-Netzwerk, versucht zwischen den Proben aus den Trainingsdaten und den vom Generator erstellten Proben zu unterscheiden. Der Discriminator gibt einen Wahrscheinlichkeitswert aus, der durch $d(\boldsymbol{x}; \boldsymbol{\theta}^{(d)})$ gegeben ist und der die Wahrscheinlichkeit angibt, dass $\boldsymbol{x}$ ein echtes Trainingsexemplar ist und keine Täuschung, die durch das Modell erstellt wurde.  \cite{goodfellow2016deeplearning}
 
-. Its adversary, thediscriminatornetwork, attempts to distinguish between samples drawn from the training dataand samples drawn from the generator. The discriminator emits a probability valuegiven byd(x;$\theta$(d)), indicating the probability thatxis a real training examplerather than a fake sample drawn from the model. \cite{goodfellow2016deeplearning}
-
-Ein Generative Adversarial Network (GAN)besteht zunächst aus einem Generator und einem Discriminator \cite{goodfellow2014generative}. Der Generator lernt während des
+Ein Generative Adversarial Network (GAN) besteht zunächst aus einem Generator und einem Discriminator \cite{goodfellow2014generative}. Der Generator lernt während des
 Trainings täuschend echt aussehende Bilddaten zu generieren. Der Discriminator
 wird dagegen darauf trainiert, echte von generierte Bildern zu unterscheiden.
 Anschließend können beide Modelle ``gegeneinander antreten''. Deswegen wird es
@@ -144,20 +167,20 @@ GANs unterscheiden sich von anderen Modellen durch ihren Aufbau und in Bezug auf
 
 Eine Erweiterung des GANs ist das Conditional Generative Adversarial Net (cGAN). In cGANs erhält der Generator zusätzliche Eingabedaten ($y$, ``Ground Truth''), die Hinweise für die Generierung enthalten. Der Discriminator erhält diese zusätzlichen Daten ebenfalls, um die Erkennung während des Trainings zu optimieren.
 
-Dieses Modell kann Ziffern des MNIST-Datasets anhand von Klassenlabels generieren. Es kan auch verwendet werden, um multimodales Bild-Tagging durchzuführen. Dabei kann ein Bild beispielsweise nicht nur durch ein darauf erkennbares Objekt, sondern auch durch Aufzählung mehrerer unterschiedlicher Objekte und noch durch weitere Beschreibungen, wie erkennbare Jahreszeiten, Vorgänge oder Emotionen beschrieben werden.
+Dieses Modell kann Ziffern des MNIST-Datasets anhand von Klassenlabels generieren. Es kann auch verwendet werden, um multimodales Bild-Tagging durchzuführen. Dabei kann ein Bild beispielsweise nicht nur durch ein darauf erkennbares Objekt, sondern auch durch Aufzählung mehrerer unterschiedlicher Objekte und noch durch weitere Beschreibungen, wie erkennbare Jahreszeiten, Vorgänge oder Emotionen beschrieben werden.
 
 In einem generativen Modell ohne Konditionen ist keine Steuerung der Art und Weise (Modalitäten) möglich, in der die Ergebnisse generiert werden. Dagegen ist es in einem cGAN möglich, die Generierung zu lenken. Diese Lenkung könnte aufgrund von Klassenlabels oder auch verschiedensten anderen Modalitäten erfolgen.
 
 Um die Verteilung $p_g$ eines Generators über die Daten $x$ zu lernen, implementiert der Generator $G(z;\theta_g)$ eine Mapping-Funktion von anfänglichem Rauschen $p_z(z)$ zum Ergebnisraum. Der Discriminator $D(x;\theta_d)$ gibt einen einzelnen skalaren Wahrscheinlichkeitswert dafür, dass $x$ aus den Trainingsdaten statt aus $p_g$ stammt, aus.
 
-$G$ und $D$ werden simultan trainiert. Die Parameter für G werden angepasst, um $\log(-D(G(z)))$ zu minimieren und die Parameter für $D$ werden angepasst, um $\log D(x)$ zu minimieren, so als würden beide ein Zweispieler-Min-Max-Spiel mit der Wertfunktion (? TODO: MinMax, Spieltheorie) durchführen:
+$G$ und $D$ werden simultan trainiert. Die Parameter für G werden angepasst, um $\log(-D(G(z)))$ zu minimieren und die Parameter für $D$ werden angepasst, um $\log D(x)$ zu minimieren, so als würden beide ein Zweispieler-Min-Max-Spiel mit der Wertfunktion durchführen:
 \begin{align}
 \min_{G}\max_{D} V(D,G) = \mathbb{E}_{x\sim p_{data}(x)}[\log{D(x)}]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D(G(z)))].
 \end{align}
 
 Im Generator werden das anfängliche Rauschen $p_z(z)$ und $y$ kombiniert in verbundenen Hidden Layers repräsentiert. Das gegnerische Trainingsframework erlaubt eine flexible Zusammensetzung dieser Repräsentation.
 
-Im Discriminator werden paarweise $x$ und $y$ sowie $x$ und $G(z|y)$ als Eingaben verwendet. Die Objective Function (TODO: Übersetzung) des Zweispieler-Min-Max-Spiels ist dann:
+Im Discriminator werden paarweise $x$ und $y$ sowie $x$ und $G(z|y)$ als Eingaben verwendet. Die Funktion, die das Ziel dieses Zweispieler-Min-Max-Spiels beschreibt ist dann:
 \begin{align}
 \min_{G}\max_{D} V(D,G) = \mathbb{E}_{x\sim p_{data}(x)}[\log{D(x|y)}]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D(G(z|y)))].
 \end{align}
@@ -235,7 +258,7 @@ In \lstinline|random_jitter| wird zunächst \lstinline|resize| aufgerufen, um di
 
 Die beiden Funktionen \lstinline|load_image_train| und \lstinline|load_image_test| laden die Eingabe- und Referenzbilder (Ground Truth), skalieren diese auf 256x256 Pixel und normalisieren die Eingabedaten durch Aufrufe der Funktionen \lstinline|load|, \lstinline|resize| und \lstinline|normalize|. Nur die Funktion zum Laden der Trainingsbilder ruft für die geladenen Bilder \lstinline|random_jitter| auf.
 
-Die Funktion \lstinline|downsample| erzeugt eine Schicht eines CNNs mit optionaler Batch Normalization und der Leaky-ReLU-Aktivierungsfunktion. Diese Schichten werden im Encoder des Generators sowie im Discriminator verwendet. Batch Normalization kommt nur in der jeweils ersten Schicht des Generators und des Diskriminators nicht zum Einsatz.
+Die Funktion \lstinline|downsample| erzeugt eine Schicht eines CNNs mit optionaler Batch Normalization und der Leaky-ReLU-Aktivierungsfunktion. Diese Schichten werden im Encoder des Generators sowie im Discriminator verwendet. Batch Normalization kommt nur in der jeweils ersten Schicht des Generators und des Discriminators nicht zum Einsatz.
 
 In der Funktion \lstinline|upsample| entstehen die übrigen CNN-Schichten des Generators. Der Entfaltung, bei der die Faltung der Funktion \lstinline|downsample| umgekehrt wird (engl. Transposed Convolution \cite{zaccone2018tensorflow}), folgt hier immer die Batch Normalization sowie optional Dropout mit einem Wahrscheinlichkeitswert von $0.5$. Das ist in den ersten drei Schichten des Decoders im Generator der Fall und bedeutet, dass statistisch die Hälfte der Aktivierungen „fallengelassen“ werden, also nicht in das Trainingsergebnis eingehen. Als Aktivierungsfunktion kommt ReLU zum Einsatz.
 
@@ -243,7 +266,7 @@ In \lstinline|build_generator| werden die Schichten des Generators zusammengefü
 
 Der Decoder ruft seinerseits sieben Mal \lstinline|upsample| auf und führt eine weitere Entfaltung durch, wodurch die Dimensionen des bearbeiteten Tensors wieder jeweils dieselbe Form wie in den Eingabebildern annehmen. Schließlich werden die Skip-Connections zwischen den Schichten 1 bis 8 des Encoders und des Decoders hergestellt.
 
-In der Funktion \lstinline|generator_loss| ist die Backpropagation des Generators implementiert. Zuerst wird dafür die Kreuzentropie des Ergebnisses des Discriminators und eines gleich großen Tensors, der mit Einsen initialisiert wird, gebildet. TODO: crossentropy Das Ergebnis ist das GAN-Loss. Anschließend kommt die L1 Loss Function, auch Mean Absolute Error genannt, zum Einsatz:
+In der Funktion \lstinline|generator_loss| ist die Backpropagation des Generators implementiert. Zuerst wird dafür die Kreuzentropie des Ergebnisses des Discriminators und eines gleich großen Tensors, der mit Einsen initialisiert wird, gebildet. Das Ergebnis ist das GAN-Loss. Anschließend kommt die L1 Loss Function, auch Mean Absolute Error genannt, zum Einsatz:
 \begin{align}
   \mathcal{L} _{L1}(G) = \mathbb{E}_{x,y,z}[\|y - G(x,z)\|_1]
 \end{align}
@@ -312,7 +335,7 @@ Das Skript endet, nachdem alle Zeilen der NDJSON-Eingabedatei verarbeitet oder 5
 Bei der Verarbeitung in einem Convolutional Neural Network spielt die Bildgröße
 in Bezug auf die Verarbeitungszeit eine wichtige Rolle. Bildformate der Größe 256x256 oder kleiner sind üblich und gut geeignet. Für ein GAN ist es zwar nicht erforderlich, aber sinnvoll, für Ein- und Ausgabedaten dieselben Dimensionen festzulegen. Bei der Bildgenerierung aus Skizzen unterscheiden sich Ein- und Ausgabdedaten natürlich bei die Farbtiefe. Während die Skizzen Graustufenbilder sind, besitzen die generierten Bilder drei Farbkanäle (RGB).
 
-Sowohl während der Entwicklung als auch zur Laufzeit kann es vorteilhaft sein, Farbwerte statt auf der oft verwendeten Skala von $0$ bis $255$ als Fließkommazahlen im Bereich $0,0$ bis $1,0$ darzustellen. Auch für die Ausgaben der einzelnen Schichten eines künstlichen neuronalen Netzes kann diese Normalisierung durchgeführt werden (TODO: BatchNorm).
+Sowohl während der Entwicklung als auch zur Laufzeit kann es vorteilhaft sein, Farbwerte statt auf der oft verwendeten Skala von $0$ bis $255$ als Fließkommazahlen im Bereich $0,0$ bis $1,0$ darzustellen. Auch für die Ausgaben der einzelnen Schichten eines künstlichen neuronalen Netzes kann diese Normalisierung durchgeführt werden.
 
 Ein ebenso wichtiger wie aufwendiger Vorgang ist die Klassifizierung der Trainingsdaten, also die Zuweisung von Eingaben zu den erlernbaren Ergebnissen. Aufgrund der selbst erstellten Ausgabebilder existieren für diesen Zweck keine vorgefertigten Datasets. Die Sortierung und Zuweisung erfolgt deshalb manuell.
 \pagebreak
@@ -348,9 +371,7 @@ Die Vorteile, die selbst erstellte Eingabedaten bieten, rechtfertigen in dieser 
 
 3D-Modellierungsprogramme haben prinzipiell ungewohnte Benutzeroberflächen. Das Navigieren in einer dreidimensionalen Szene erfordert Eingaben, die mittels Maus und Tastatur nicht gleichzeitig intuitiv und effizient ausgeführt werden können.
 
-Für das Modellieren ist aber exaktes Arbeiten nötig. Ein 3D-Modellierungsprogramm muss deshalb in der Lage sein, präzise Änderungen im dreidimensionalen Raum nach den Eingaben des Benutzers durchzuführen. Blender besitzt dafür vielfältigste Funktionen. Insbesondere gibt es neben der freien Navigation im Raum verschiedene vordefinierte Perspektiven wie zum Beispiel Draufsicht und Seitenansicht. Es gibt Orientierungslinien in der Szene, an denen ein geometrisches Objekt ausgerichtet werden kann und auch sollte, um korrekt modellieren zu können
-
-Todo: Textur (Holzoptik)
+Für das Modellieren ist aber exaktes Arbeiten nötig. Ein 3D-Modellierungsprogramm muss deshalb in der Lage sein, präzise Änderungen im dreidimensionalen Raum nach den Eingaben des Benutzers durchzuführen. Blender besitzt dafür vielfältigste Funktionen. Insbesondere gibt es neben der freien Navigation im Raum verschiedene vordefinierte Perspektiven wie zum Beispiel Draufsicht und Seitenansicht. Es gibt Orientierungslinien in der Szene, an denen ein geometrisches Objekt ausgerichtet werden kann und auch sollte, um korrekt modellieren zu können.
 
 \begin{figure}[h]
 	\centering
@@ -397,7 +418,7 @@ Polygonobjekte sind anfangs immer ungeglättet, das heißt, dass beim Rendern od
 
 \section{Hyperparameter}
 \label{sec:hyperparams}
-Die Pix2Pix-Referenzimplementierung ist bereits für die Übersetzung von Skizzen in Fotos eingestellt. Für das Training waren anfangs mehrere Tausend Epochs, also Trainingsdurchläufe, erfoderlich, um zufriedenstellende Ergebnisse zu sehen. TODO: Diese Zahl konnte durch ... verringert werden.
+Die Pix2Pix-Referenzimplementierung ist bereits für die Übersetzung von Skizzen in Fotos eingestellt. Für das Training waren anfangs $40000$ Trainingsschritte vorgesehen. Je nach Größe des Trainingssets werden also mehrere Wiederholungen mit demselben Trainingsset durchgeführt, um zufriedenstellende Ergebnisse zu erzielen. Nach Abschluss der Experimente könnte die Anzahl der Trainingsschritte auf $30000$ reduziert werden, um die Dauer des Trainings und die Ergebnisse zu optimieren. Dies ist aber wiederum abhängig von der Größe des Trainingssets. Es war auch im Sinne des Experiments, das Modell einige Tausend Schritte mehr durchführen zu lassen als für das optimale Resultat erforderlich gewesen wären.
 
 Die Eingabebilder sind 256x256 Pixel groß und besitzen einen Farbkanal für Graustufen. Sie werden am Anfang des Trainingsprozesses durch sogenanntes Jittering augmentiert. Dabei werden die Bilder zuerst auf 286x268 Pixel vergrößert und anschließend auf einen zufälligen 256x256 Pixel großer Ausschnitt wieder verkleinert. Diese  Pixelgrößen können im Experiment geändert werden.
 
@@ -408,18 +429,22 @@ Der Adam Optimierer \cite{kingma2017adam} erhält für die Learning-Rate den Wer
 Das Training umfasst sinnvollerweise 15000 bis 40000 Iterationen. Die Implementierung sieht vor, dass alle 1000 Iterationen ein Zwichenergebnis in Form dreier Bilder gespeichert wird. Das zu speichernde Beispiel kann dabei zufällig gewählt werden, oder es kann der Fortschritt eines einzelnen Input-Target-Paars über die Iterationen hinweg gezeichnet werden.
 
 \begin{figure}[h]
+  \centering
 	\includegraphics[width=0.8\textwidth]{bilder/pix2pix_progress/394_input.png}
   \caption[Quadratischer Tisch]{Ein Beispiel eines Tisches, dessen Textur und Form gelernt werden soll}
+  \label{fig:trainingexample}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{bilder/pix2pix_progress/progress_tables.png}
 	\caption[Lernfortschritt am Beispiel von Tischen]{Generierte Bilder von Tischen vor dem Training, nach 1000 Iterationen und nach 2000 Iterationen}
-	\label{fig:pix2pix_progress1}
+	\label{fig:pix2pixprogress1}
 \end{figure}
 
-In Abbildung \ref{fig:pix2pix_progress1} ist zu erkennen, wie sich innerhalb 2000 Iterationen die Qualität der generierten Bilder von zufälligem Bildrauschen zu einem bereits als Tisch erkennbaren Objekt verbessert. In diesem Trainingsset waren unterschiedlich hohe, unterschiedlich breite und auch im Raum unterschiedlich ausgerichtete Tische. Es ist auch zu erkennen, dass aus der handgezeichneten Skizze bereits ein quadratischer Tisch generiert wird.
+Abbildung \ref{fig:trainingexample} zeigt beispielhaft eine handgezeichnete Skizze eines Tisches und das erwartete Ergebnis. In diesem Beispiel wird versucht, aus einem vermutlich quadratischen, gänzlich von der Seite gezeichneten Tisch einen quadratischen, von leicht schräg oben betrachteten texturierten Tisch zu generieren.
+
+In Abbildung \ref{fig:pix2pixprogress1} ist zu erkennen, wie sich innerhalb 2000 Iterationen die Qualität der generierten Bilder von zufälligem Bildrauschen zu einem bereits als Tisch erkennbaren Objekt verbessert. In diesem Trainingsset befanden sich unterschiedlich hohe, unterschiedlich breite und auch im Raum unterschiedlich ausgerichtete Tische. Es ist auch zu erkennen, dass aus der handgezeichneten Skizze bereits ein quadratischer Tisch generiert wird.
 
 Nicht korrekt werden in dieser Phase des Trainings die geraden Linien der Zielbilder erzielt. Auch die Anzahl der Tischbeine stimmt noch nicht.
 
@@ -427,22 +452,81 @@ Nicht korrekt werden in dieser Phase des Trainings die geraden Linien der Zielbi
 	\centering
 	\includegraphics[width=1.0\textwidth]{bilder/pix2pix_progress/progress_tables2.png}
 	\caption[Lernerfolg am Beispiel von Tischen]{Generierte Bilder von Tischen nach 10000, 15000 und 20000 Iterationen}
-	\label{fig:pix2pix_progress2}
+	\label{fig:pix2pixprogress2}
 \end{figure}
 
-In Abbildung \ref{fig:pix2pix_progress2} wird der Lernerfolg während der zweiten Hälfte von insgesamt 20000 Iterationen gezeigt. Zunächst ist das Ergebnis noch stellenweise unscharf und die Länge der Tischbeine ist ungleich. Die Kanten sind bereits gerade. Nach 15000 Iterationen ist zu erkennen, dass häufigeres Trainieren nicht unbedingt bessere Ergebnisse bringt. Nach Abschluss des Trainings sieht der generierte Tisch aus wie die Vorgabe im Trainingsset.
+In Abbildung \ref{fig:pix2pixprogress2} wird der Lernerfolg während der zweiten Hälfte von insgesamt 20000 Iterationen gezeigt. Zunächst ist das Ergebnis noch stellenweise unscharf und die Länge der Tischbeine ist ungleich. Die Kanten sind bereits gerade. Nach 15000 Iterationen ist zu erkennen, dass häufigeres Trainieren nicht unbedingt bessere Ergebnisse bringt. Nach Abschluss des Trainings sieht der generierte Tisch aus wie die Vorgabe im Trainingsset.
 
-Das Modell hat Form und Farbe verschiedener Tische gelernt. Auch die Unregelmäßigkeiten in der Färbung der Tische wurde erlernt. Das war die zweite zu beantwortende Frage in dieser Arbeit. Es ist einem künstlichen neuronalen Netz also möglich Texturen zu erlernen.
+Das Modell hat Form und Farbe verschiedener Tische gelernt. Auch die Unregelmäßigkeiten in der Färbung der Tische wurde erlernt. Das ist die zweite Frage, die in dieser Arbeit zu beantworten war. Es ist einem künstlichen neuronalen Netz also möglich Texturen zu erlernen.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.875\textwidth]{bilder/pix2pix_progress/table_result_orientation1.png}
+  \caption[Tisch ausgerichtet]{Korrekt ausgerichteter Tisch mit unregelmäßigen Kanten}
+  \label{fig:pix2pixorientation1}
+
+	\includegraphics[width=0.875\textwidth]{bilder/pix2pix_progress/table_result_orientation2.png}
+	\caption[Qualitativ unterschiedliche generierte Tische]{Tisch mit geraden Kanten, aber falscher Ausrichtung}
+	\label{fig:pix2pixorientation2}
+\end{figure}
+
+In Abbildung \ref{fig:pix2pixorientation1} ist ein Beispielergebnis aus einem Trainingsdurchlauf mit 262 Tischen zu sehen. Der Tisch ist so im Raum ausgerichtet wie im Zielbild vorgesehen. Die Form ist aber ungleichmäßig und das Bild teilweise verschwommen.
+
+Abbildung \ref{fig:pix2pixorientation2} zeigt eines der Ergebnisse aus einem Trainingsdurchlauf mit 960 verschiedenen Tischen. Der Tisch hat gerade und scharfe Kanten, die Tischplatte ist aber parallel zum unteren und oberen Bildrand.
+
+Der Vergleich zeigt, wieviel Bedeutung der Datenqualität des Trainingssets zukommt. Das kleinere Trainingsset war eine Teilmenge des größeren, enthielt aber anteilig mehr schräg im Raum ausgerichtete Tische. Obwohl das mit 960 Bildern trainierte Modell also dieselben schräg ausgerichteten Tische verwendete, generiert es vorzugsweise Bilder von gerade ausgerichteten Tischen.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{bilder/pix2pix_progress/car_small.png}
+	\includegraphics[width=0.9\textwidth]{bilder/pix2pix_progress/car_limo.png}
+	\includegraphics[width=0.9\textwidth]{bilder/pix2pix_progress/car_kombi.png}
+	\caption[Generierte Autos]{Beispiele für generierete Autos}
+	\label{fig:pix2pixcars}
+\end{figure}
+
+Fahrzeuge, wie in Abbildung \ref{fig:pix2pixcars}, sind eine vergleichbar schwierige Aufgabe für ein künstliches neuronales Netz. Aufgrund der Vielfalt an möglichen Fahrzeugen, für die der Begriff ``Auto'' (englisch ``Car'') stehen kann, sind die Unterschiede im Quick!Draw-Dataset nur schwer formal zu beschreiben.
+
+Genauso aufwendig ist es, verschiedene Fahrzeuge zu modellieren, um sie als Zielbilder zu verwenden. Anders als bei vielen Eigenschaften von Tischen, wie die Stärke der Tischplatte und der Tischbeine, lassen sich die Unterschiede von PKWs nicht genauso gut durch Zufallszahlen beschreiben. Auch sind die Autos fast ausschließlich in der Seitenansicht gezeichnet, sodass die meisten der automatisch in verschiedenen Perspektiven gerenderten Blendermodelle der Fahrzeuge nicht nutzbar sind.
+
+Die Handskizzen stellen hauptsächlich PKWs dar und wurden deshalb nur in die drei Kategorien Limousine, Kleinwagen und Kombi unterteilt und entsprechenden Zielbildern zugewiesen.
+
+In den Abbildungen sind unterschiedlich gute Resultate zu sehen. Für einen praktischen Einsatzzweck, wie zum Beispiel ein Lehrmittel in einer Fahrschule, wäre dieses Modell bestenfalls als Grundlage für weiterführende Trainings geeignet.
+
+In Tensorflow wird der Trainingsfortschritt in Zahlen als Diagramm dargestellt. Der Generator und der Discriminator werden gleichzeitig trainiert. Der Verlust des Discriminators nimmt im Verlauf des Trainings ab. Nach $20000$ bis $30000$ Iterationen ist die Abnahme weniger stark.
+
+Der Discriminator wird auf das vom Generator erstellte Bild und auf das Zielbild angewendet. Der Gesamtverlust des Discriminators wird aus diesen beiden Ergebnissen gebildet und bezeichnet den Erfolg beziehungsweise Misserfolg des Discriminators, das durch den Generator erstellte Bild als solches von einem Zielbild zu unterscheiden.
+
+Wie bei cGANs üblich wird der Gesamtverlust des Generators ebenfalls aus zwei verschiedenen Ergebnissen berechnet. Die beiden Faktoren sind in Abbildung \ref{fig:pix2pixprogress4} als gen\_l1\_loss und gen\_gan\_loss bezeichnet.
+
+Einerseits wird der pixelweise Unterschied zwischen dem generierten Bild und dem Zielbild als Verlustindikator herangezogen. Dieser Wert wird 100fach gewichtet, hat also einen entsprechend größeren Einfluss auf das Gesamtergebnis. Er nimmt im Laufe des Trainings sichtbar ab.
+
+Das GAN-Loss berücksichtigt das Ergebnis des Discriminators, also wie gut dieser das generierte Bild von einem Zielbild unterscheiden konnte. Im Diagramm ist zu erkennen, dass sich der Verlust im Verlauf des Trainings sogar erhöht. Die Erklärung dafür ist der immer geringere Verlust des Discriminators, der dadurch generierte Bilder und Zielbilder besser voneinander unterscheiden kann.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_total_loss.png}
+	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/disc_loss.png}
+	\caption[Lernerfolgsdiagramm 1]{Die Tensorboard-Diagramme des Gesamtverlusts jeweils für Generator (gen\_total\_loss) und für Discriminator (disc\_loss) }
+	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_l1_loss.png}
+	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_gan_loss.png}
+	\caption[Lernerfolgsdiagramm 2]{Die Tensorboard-Diagramme der Discriminator-Verluste}
+	\label{fig:pix2pixprogress4}
+\end{figure}
+
+\clearpage
+
+In den Diagrammen ist der Verlauf eines Trainings über $40000$ Iterationen abgebildet. Im Trainingsset befanden sich 262 verschiedene Tische und das Testset enthielt sechs Tische. Trotz des relativ kleinen Trainingssets wurde ein visuell überzeugendes Resultat erzielt. Nach $20000$ bis $30000$ verbesserte sich der Lernerfolg nicht mehr wesentlich. Ein Versuch mit $80000$ Iterationen hat gezeigt, dass eine viel größere Anzahl Iterationen das Resultat eher verschlechtert.
 
 \chapter{Diskussion}
 \label{sec:conclusion}
-Bildgenerierung mittels künstlichen neuronalen Netzen wurde bereits in verschiedenen Experimenten und mit teilweise sehr guten Ergebnissen durchgeführt und dokumentiert. Es können Bildteile aus den umliegenden Bildinformationen neu generiert werden, wie es mit Fotobearbeitungssoftware möglich ist. Seit einiger Zeit sind Handschrifterkennungs-Algorithmen verbreitet. Eine Variante der Bildgenerierung ist deren Umkehr, indem zum Beispiel aus einstelligen Zahlen handschriftlich aussehende Ziffern generiert werden. Außerdem kann der Gesamteindurch eines Bildes, auch durch Verwendung eines anderen Bildes verändert und auf diese Art das Bild neu generiert werden.
+Bildgenerierung mittels künstlichen neuronalen Netzen wurde bereits in verschiedenen Experimenten und mit teilweise sehr guten Ergebnissen durchgeführt und dokumentiert. Es können Bildteile aus den umliegenden Bildinformationen neu generiert werden, wie es mit Fotobearbeitungssoftware möglich ist. Seit einiger Zeit sind Handschrifterkennungs-Algorithmen verbreitet. Eine Variante der Bildgenerierung ist deren Umkehr, indem zum Beispiel aus einstelligen Zahlen handschriftlich aussehende Ziffern generiert werden. Außerdem kann der Gesamteindruck eines vorhandenen Bildes, auch durch Verwendung eines weiteren Bildes, verändert und auf diese Art ein neues Bild generiert werden.
 
 Die Arbeit mit künstlichen neuronalen Netzen hat gezeigt, dass ein Großteil des Aufwands aus der Erhebung und vorbereitung der Daten besteht. Geeignete Eingabebilder mussten entweder gesammelt oder selbst erstellt werden. Durch Automatisierung konnte der Erstellungsprozess verkürzt werden, machte aber immer noch einen erheblichen Anteil der Arbeit aus. Sowohl gesammelte als auch selbst erstellte Bilder eignen sich nicht ausnahmslos für den gewählten Zweck. Es war deshalb weiterhin erforderlich, die Bilder händisch zu sortieren. Anschließend war noch jeweils die Zuweisung einer Handskizze zu einem Ergebnisbild erforderlich, die ebenfalls manuell erfolgen musste.
 
 Das Training des Modells ist ein weiterer aufwendiger Prozess. Im Laufe eines Trainingdurchlaufes eines künstlichen neuronalen Netzes zeichnet sich bereits ein Endergebnis ab. Es ist daher möglich, anhand weniger Zwischenergebnisse schwerwiegende Fehler zu bemerken und den Durchlauf von vorn zu beginnen. Das Endergebnis ist selbstverständlich erst nach Abschluss des Trainings sichtbar. Wenn es darum geht herauszufinden, wieviele Durchläufe für ein perfektes Ergebnis erforderlich sind, kann es erforderlich sein das Modell mehrere Male hintereinander auf dasselbe Ergebnis zu trainieren.
 
-Künstliche neuronale Netze sind mathematische Konstrukte. Zunächst ist es deshalb erforderlich, die Fachbegriffe der entsprechenden Literatur zu kennen. Die wissenschaftlichen Texte liegen hauptsächlichich auf Englisch vor, sodass man die Begriffe sinnvollerweise auf Deutsch und auf Englisch lernt. Das künstliche neuronale Netz selbst wird als eine Struktur aus Tensoren dargestellt. Abhängig von der Dimensionalität der Ein- und Ausgaben besitzen die Tensoren in der ersten und der letzten Schicht eines künstlichen neuronalen Netzes entsprechend viele Dimensionen. Ein Modell, das RGB-Bilder generiert, hat als letzte Schicht also eine Anzahl Tensoren mit drei Dimensionen.
+Künstliche neuronale Netze sind mathematische Konstrukte. Zunächst ist es deshalb erforderlich, die Fachbegriffe der entsprechenden Literatur zu kennen. Die wissenschaftlichen Texte liegen hauptsächlichich auf Englisch vor, sodass man die Begriffe sinnvollerweise auf Deutsch und auf Englisch lernt. Das künstliche neuronale Netz selbst wird als eine Struktur aus Tensoren dargestellt. Abhängig von der Dimensionalität der Ein- und Ausgaben besitzen die Tensoren in der ersten und der letzten Schicht eines künstlichen neuronalen Netzes entsprechend viele Dimensionen. Die Ausgabe eines Modells, dessen letzte Schicht eine Anzahl Tensoren mit drei Dimensionen besitzt, kann also als RGB-Werte interpretiert werden.
 
 Die Algorithmen des maschinellen Lernens berechnen üblicherweise aus der Eingabe mehrere weitere Schichten aus Tensoren. Die Dimensionalität der Tensoren ändert sich auf jeder weiteren Schicht. Einige Algorithmenklassen, wie zum Beispiel die U-Net-Architektur, sind benannt nach der Art, auf die sich die Dimensionalität der Tensoren ändert. Für diese Arbeit sind die Generative Adversarial Networks besonders interssant. Mit ihnen werden zwei lernende Komponenten gegeneinander angesetzt. Eine von ihnen lernt die eigentliche Aufgabe zu erfüllen. Die zweite Komponente wird darauf trainiert, die Ergebnisse der ersten zu bewerten und Feedback zu den erzielten Ergebnissen zu geben. Sobald die Bewertungen den Erwartungen entsprechen ist das Trainingsziel der ersten Komponente erreicht.
 
@@ -455,3 +539,17 @@ Eine der weit verbreitetsten Machine-Learning-Programmierschnittstellen ist Tens
 Das Modell muss immer wieder von vorn trainiert werden, bevor erste brauchbare Ergebnisse erzielt werden. Grundsätzlich gilt, dass die Menge der Eingabedaten so groß wie möglich sein sollte, damit ein Lernprozess erfolgreich sein kann. Trotzdem sind weitere Eigenschaften des Datasets wichtig. An dem Beispiel der Tische wurde deutlich, dass die Perspektive, also die Ausrichtung der Tische im Raum, nur bei einem ausreichenden Anteil an schräg ausgerichteten Beispielen erlernt wird. Dafür kann es sogar sinnvoll sein, die Gesamtgröße des Datasets zu reduzieren, damit alle Varianten in genügend großen Anteilen im Dataset vorhanden sind.
 
 Die Anzahl der Trainingsdurchläufe ist eine der wichtigsten Größen beim maschinellen Lernen. In Klassifizierungsalgorithmen gibt es das Phänomen des Overfittings, das die Erfolgsrate bei den Klassifizierungen negativ beeinflusst. Dieses Problem gibt es bei der Bildgenerierung zunächst nicht, solange wie beschrieben die Beispiele im Dataset ausgewogen sind. Trotzdem ist diese Größe selbstverständlich für die Untersuchung und den Einsatz eines ML-Modells aufgrund des Zeitaufwands relevant.
+
+Während der Versuchreihen wurde erkennbar, welche Bildinformationen durch ein künstliches neuronales Netz erlernt werden können, um eigenständig Bilder zu generieren. Die Möglichkeit Bilder überhaupt mittels künstlichen neuronalen Netzen generieren zu können war die erste und wichtigste Frage, die mit dieser Arbeit beantwortet werden sollte. Die Frage wurde recherchiert, und es standen mehrere Methoden zur Auswahl.
+
+Die konkreten Einsatzmöglichkeiten für Deep Learning sind, abgesehen von einigen nicht praxisorientierten Anwendungsbeispielen, ausschließlich in wissenschaftlichen Artikeln zu finden. Diese Artikel setzen beim Leser üblicherweise ein Verständnis der Grundlagen voraus und verweisen bestenfalls auf vorherige Arbeiten. Für die grundlegenden Prinzipien des maschinellen Lernens und verschiedene Arten von künstlichen neuronalen Netzen wie CNNs und RNNs gibt es auch Literatur in Form von Büchern. Die Bücher liegen größtenteils in englischer Sprache vor. Es gibt nur wenig deutsche Literatur. Wissenschaftliche Artikel zu dem Thema gibt es ausschließlich auf Englisch.
+
+Die besonders vielseitig einsetzbare Methode namens Image-To-Image-Translation ist in der Lage fehlende Bildinformationen zu generieren, neu zu generieren oder den umgekehrten Vorgang durchzuführen. Zum Beispiel können Schwarz-Weiß-Bilder koloriert, Luftaufnahmen in Karten übersetzt oder Straßenbilder nur aus Informationen zu Verkehrsteilnehmern und Straßenverläufen generiert werden, beziehungsweise jeweils auch umgekehrt. Mit dieser Bildübersetzung ist es auch möglich, aus handgezeichneten Gesichtern Portraitfotos oder Portraits, die wie von einem Künstler gemalt aussehen, zu generieren. Das kommt dem Generieren von Bildern aus handgezeichneten Skizzen am nächsten, anhand dessen in dieser Arbeit diese Fähigkeit künstlicher neuronaler Netze gezeigt werden sollte.
+
+In dem Artikel zu Image-To-Image-Translation wird die zugrundliegende Situation beschrieben, in der von einem Eingabebild zum Ausgabebild Pixel für Pixel übersetzt wird. Dies trifft etwa auf die Übersetzung eines Umrisses auf ein Foto desselben Objekts zu. Der Algorithmus lernt dann dem Objekt eine Textur zu geben. Die Frage, ob ein künstiches neuronales Netz lernen kann Texturen zu generieren, war die zweite Frage, die in dieser Arbeit zu beantworten war. Die Ergebnisse zu den entsprechenden Versuchen waren größtenteils sehr gut. Die Holztextur für die Tische und auch der Helligkeitsverlauf der brennenden Kerzen wurden sehr gut gelernt.
+
+Eine Schwäche bei der Generierung von Bildern aus Handskizzen scheinen die unregelmäßigen und fast nie geraden Umrisse der skizzierten Objekte zu sein. Auch in den Trainingsergebnissen mit vielen einwandfrei generierten Bildern fanden sich häufig noch Bilder mit unsauberen Stellen. Besonders die scharfen Übergänge wie zum Beispiel vom Rad eines Autos zur Karosserie oder einfach die Kanten des Objektes waren oft verschwommen. Die Flammen auf den Zielbildern der Kerzen waren von einen Lichtschein umgeben. Der wurde zwar gelernt, aber das Ergebnis ist optisch nicht ansprechend. Tische waren im Trainingsset immer mit genau vier Beinen vorgegeben. Auf den Ergebnisbildern waren oft andere Anzahlen der Tischbeine zu sehen.
+
+Einige der Schwierigkeiten könnten gemindert werden, indem die Eingabedaten noch stärker vorbereitet werden. Zum Beispiel könnten die Maße und die Ausrichtung in den Skizzen der Tische ermittelt werden und diese Werte für die Generierung der Ergebnisbilder verwendet werden. Der Lichtschein um die Flamme einer Kerze könnte auch auf eine andere Weise als durch ein künstliches neuronales Netz dem Ergebnisbild nachträglich hinzugefügt werden.
+
+Die praktische Anwendung dieser Methode in einem Anwendungsprogramm zur Innenraumgestaltung ist sehr gut vorstellbar. Dafür müssten nur noch einige weitere Objekte zur Auswahl stehen, wie Möbelstücke, Lampen, Teppiche und so weiter. Ein Classifier wäre dann vorteilhaft, um die Generierung der richtigen Einrichtungsgegenstände sicherzustellen. Auch eine Anwendung in einem Smartboard für die Verkehrserziehung oder in einer Fahrschule ist nach den in dieser Arbeit gezeigten Ergebnissen vorstellbar. Um Fahrzeuge aus verschiedenen Perspektiven generieren zu können sind entsprechende Eingabebilder, sowohl Ergebnisbilder als auch handgezeichnete Skizzen, zu erstellen.
