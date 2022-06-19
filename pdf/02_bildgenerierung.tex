@@ -2,11 +2,11 @@
 \label{ch:model}
 
 \section{Tensoren}
-Mehrdimensionale Arrays, in NumPy ndarray (N-Dimensional Array) genannt, werden auch Tensoren genannt. Generell verwenden alle derzeitigen Systeme für Maschinelles Lernen Tensoren als zugrundeliegende Datenstruktur. Tensoren sind elementar für dieses Fachgebiet. \cite{chollet2021deep}
+In der Literatur zur Funktionsweise künstlicher neuronaler Netze wird ausnahmlos auch der Begriff Tensor verwendet. Ein Tensor ist ein vielgestaltiges mathematisches Konstrukt. Beispielsweise sind Vektoren und Matrizen Tensoren. In ``Deep Learning with Python'' \cite{chollet2021deep} findet sich die folgende Beschreibung.
 
-In seinem Kern ist ein Tensor ein Container für numerische Daten. Tensoren sind die Verallgemeinerung der Matrizen für eine beliebige Anzahl Dimensionen. Im Zusammenhang mit Tensoren werden die Dimensionen häufig Achsen gennannt. Die Anzahl der Achsen wird auch als Stufe bezeichnet. Ein Skalar ist ein Tensor nullter Stufe. Ein Vektor ist ein Tensor erster Stufe und eine Matrix ein Tensor zweiter Stufe. \cite{chollet2021deep}
+Mehrdimensionale Arrays, in NumPy ndarray (N-Dimensional Array) genannt, werden auch Tensoren genannt. Generell verwenden alle derzeitigen Systeme für Maschinelles Lernen Tensoren als zugrundeliegende Datenstruktur. Tensoren sind elementar für dieses Fachgebiet.
 
-Bilder erscheinen als Tensoren dritter Stufe, deren Achsen der Höhe, Breite und den Farbkanälen (Rot, Grün und Blau) entsprechen. \cite{zhang2020dive}
+In seinem Kern ist ein Tensor ein Container für numerische Daten. Tensoren sind die Verallgemeinerung der Matrizen für eine beliebige Anzahl Dimensionen. Im Zusammenhang mit Tensoren werden die Dimensionen häufig Achsen gennannt. Die Anzahl der Achsen wird auch als Stufe bezeichnet. Ein Skalar ist ein Tensor nullter Stufe. Ein Vektor ist ein Tensor erster Stufe und eine Matrix ein Tensor zweiter Stufe.
 
 Ein Tensor ist durch drei Schlüsselattribute definiert:
 \begin{itemize}
@@ -16,11 +16,14 @@ Ein Tensor ist durch drei Schlüsselattribute definiert:
 \end{itemize}
 \cite{chollet2021deep}
 
+Bilder erscheinen als Tensoren dritter Stufe, deren Achsen der Höhe, Breite und den Farbkanälen (Rot, Grün und Blau) entsprechen. \cite{zhang2020dive}
+
 Viele in dieser Arbeit verwendeten Tensoren beschreiben RGB-Bilddaten. Sie sind deshalb dritter Stufe, und die enthaltenen Daten sind Ganzzahlen zwischen $0$ und $255$. Die Form der durch das künstliche neuronale Netz generierten Bilder ist $(256, 256, 3)$. Die Dimensionen beschreiben hier also die Breite, Höhe und Farbtiefe der Bilddateien.
 
 \section{Kreuzentropie}
+Kreuzentropie ist ein Begriff aus der Wahrscheinlichkeitsrechnung. In dem Buch Deep Learning von Ian Goodfellow et al. \cite{goodfellow2016deeplearning} wird auf Wahrscheinlichkeitsrechnung wie folgt eingegangen.
+
 In Anwendungen mit künstlicher Intelligenz wird Wahrscheinlichkeitsrechnung auf zwei wesentliche Arten verwendet. Erstens erklären die Regeln der Wahrscheinlichkeit, wie KI-Systeme urteilen sollten, deshalb werden Algorithmen so gestaltet, dass sie vielfältige Ausdrücke mittels Probabilistik berechnen oder annähern. Zweitens können Wahrscheinlichkeitsrechnung und Statistik das Verhalten zu planender KI-Systeme theoretisch analysieren.
-\cite{goodfellow2016deeplearning}
 
 Es gibt drei mögliche Quellen von Unsicherheit:
 
@@ -34,21 +37,30 @@ Es gibt drei mögliche Quellen von Unsicherheit:
 
 \end{enumerate}
 
-In vielen Fällen ist es praktikabler, eine einfache aber unsichere Regel statt einer komplexen aber sicheren zu verwenden, selbst wenn die wahre Regel deterministisch ist und ein Modellierungssystem die Genauigkeit besitzt, eine komplexe Regel bereitstellen zu können. Zum Beispiel ist die einfache Regel ``Die meisten Vögel fliegen'' einfach zu entwickeln und weitgehend nützlich, während eine Regel in der Form ``Vögel fliegen, außer sehr junge Vögel, die noch nicht gelernt haben zu fliegen, kranke und verletzte Vögel, die ihre Fähigkeit zu fliegen verloren haben, flugunfähige Vögel, einschließlich Kasuare, Strauße und Kiwis\dots'' ist aufwändig zu entwickeln, zu warten und zu kommunizieren und nach all dem Aufwand immer noch fragil und fehleranfällig.
+In vielen Fällen ist es praktikabler, eine einfache aber unsichere Regel statt einer komplexen aber sicheren zu verwenden, selbst wenn die wahre Regel deterministisch ist und ein Modellierungssystem die Genauigkeit besitzt, eine komplexe Regel bereitstellen zu können.
+
+Zum Beispiel ist die einfache Regel ``Die meisten Vögel fliegen'' einfach zu entwickeln und weitgehend nützlich, während eine Regel in der Form ``Vögel fliegen, außer sehr junge Vögel, die noch nicht gelernt haben zu fliegen, kranke und verletzte Vögel, die ihre Fähigkeit zu fliegen verloren haben, flugunfähige Vögel, einschließlich Kasuare, Strauße und Kiwis\dots'' ist aufwändig zu entwickeln, zu warten und zu kommunizieren und nach all dem Aufwand immer noch fragil und fehleranfällig.
 
 Obwohl es naheliegend ist, dass Möglichkeiten Unsicherheit darzustellen und zu diskutieren notwendig sind, ist es nicht sofort offensichtlich, dass die Wahrscheinlichkeitsrechnung alle Werkzeuge für Anwendungen künstlicher Intelligenz bereitstellt.
 
-Wahrscheinlichkeitsrechnung wurde ursprünglich entwickelt, um die Häufigkeit von Ereignissen zu analysieren. Es ist leicht erkennenbar, wie Wahrscheinlichkeitsrechnung verwendet werden kann, um Ereignisse wie das Ziehen einer bestimmten Hand in einem Pokerspiel zu studieren. Diese Art von Ereignissen sind oft wiederkehrend. Wenn ein Ergebnis die Wahrscheinlichkeit $p$ hat einzutreten, heißt das, dass wenn das Experiment (z.B. eine Hand Karten ziehen) unendlich oft wiederholt würde, dann hätten die Wiederholungen zu dem Anteil $p$ dieses Ergebnis zur Folge.
+Wahrscheinlichkeitsrechnung wurde ursprünglich entwickelt, um die Häufigkeit von Ereignissen zu analysieren. Es ist leicht erkennenbar, wie Wahrscheinlichkeitsrechnung verwendet werden kann, um Ereignisse wie das Ziehen einer bestimmten Hand in einem Pokerspiel zu studieren. Diese Art von Ereignissen sind oft wiederkehrend.
 
-Dieser Denkansatz scheint auf Vorhaben, die nicht wiederholbar sind, nicht anwendbar zu sein. Wenn ein Arzt seinen Patienten analysiert und feststellt, dass der Patient eine 40-prozentige Chance besitzt die Grippe zu haben, heißt das etwas sehr unterschiedliches -- der Patient kann nicht unendlich oft repliziert werden, und es gibt keinen Grund zur Annahme, dass unterschiedliche Replikas des Patienten die gleichen Symptome zeigen, aber unterschiedliche zugrundeliegende Krankheiten haben. In dem Fall des Arztes, der den Patient diagnostiziert, steht Wahrscheinlichkeit für den Grad der Vermutung, wobei mit $1$ absolute Sicherheit, dass der Patient die Grippe hat, angegeben wird und mit $0$ absolute Sicherheit, dass der Patient die Grippe nicht hat.
+Wenn ein Ergebnis die Wahrscheinlichkeit $p$ hat einzutreten, heißt das, dass wenn das Experiment (z.B. eine Hand Karten ziehen) unendlich oft wiederholt würde, dann hätten die Wiederholungen zu dem Anteil $p$ dieses Ergebnis zur Folge.
+
+Dieser Denkansatz scheint auf Vorhaben, die nicht wiederholbar sind, nicht anwendbar zu sein. Wenn ein Arzt seinen Patienten analysiert und feststellt, dass der Patient eine 40\=/prozentige Chance besitzt die Grippe zu haben, heißt das etwas sehr unterschiedliches -- der Patient kann nicht unendlich oft repliziert werden, und es gibt keinen Grund zur Annahme, dass unterschiedliche Replikas des Patienten die gleichen Symptome zeigen, aber unterschiedliche zugrundeliegende Krankheiten haben.
+
+In dem Fall des Arztes, der den Patient diagnostiziert, steht Wahrscheinlichkeit für den Grad der Vermutung, wobei mit $1$ absolute Sicherheit, dass der Patient die Grippe hat, angegeben wird und mit $0$ absolute Sicherheit, dass der Patient die Grippe nicht hat.
 
 Die vorherige Art von Wahrscheinlichkeit, direkt verbunden mit der Häufigkeit, in der Ereignisse eintreten, ist als frequentistische Wahrscheinlichkeit bekannt, während die zweite Art, verbunden mit dem qualitativen Grad der Sicherheit, bekannt ist als Bayessche Wahrscheinlichkeit.
 \cite{goodfellow2016deeplearning}
 
-Um die Ausgaben als Wahrscheinlichkeiten interpretieren zu können, muss (auch für neue Daten) garantatiert sein, dass sie nicht-negativ sind und sich zu $1$ addieren. Weiterhin brauchen wir ein Trainingsziel, das das Modell darin unterstützt genaue Wahrscheinlichkeiten zu schätzen. In allen Fällen sollten, wenn ein Classifier $0.5$ ausgibt, die Hälfte dieser Beispiele tatsächlich zu der vorherberechneten Klasse gehören.
-\cite{zhang2020dive}
+Das Buch Dive into Deep Learning von Aston Zhang et al. \cite{zhang2020dive} nähert sich der Kreuzentropie wie folgt.
 
-Es wird eine Verlustfunktion benötigt, um die Qualität der vorherberechneten Wahrscheinlichkeiten zu messen. Die Softmax-Funktion gibt einen Vektor $\hat{y}$ aus, der als die geschätzte bedingte Wahrscheinlichkeit jeder Klasse für die gegebene Eingabe $x$ interpretiert werden kann, zum Beispiel $\hat{y}_{1}\ =\ P(y\ =\ cat\ |\ \boldsymbol{x})$. Angenommen, das gesamte Dataset $\{\boldsymbol{X}, \boldsymbol{Y}\}$ enthält $n$ Beispiele, wobei das Beispiel mit dem Index $i$ aus einem Featurevektor $\boldsymbol{x}^{(i)}$ und einem One-Hot-Label-Vektor $\boldsymbol{y}^{(i)}$ besteht. Die Schätzungen können mit der Wirklichkeit verglichen werden, indem überprüft wird, wie wahrscheinlich die tatsächliche Klasse für die gegebenen Features gemäß dem Modell ist:
+Um die Ausgaben als Wahrscheinlichkeiten interpretieren zu können, muss (auch für neue Daten) garantiert sein, dass sie nicht-negativ sind und sich zu $1$ addieren. Weiterhin brauchen wir ein Trainingsziel, das das Modell darin unterstützt genaue Wahrscheinlichkeiten zu schätzen. In allen Fällen sollten, wenn ein Classifier $0.5$ ausgibt, die Hälfte dieser Beispiele tatsächlich zu der vorherberechneten Klasse gehören.
+
+Es wird eine Verlustfunktion benötigt, um die Qualität der vorherberechneten Wahrscheinlichkeiten zu messen. Die Softmax-Funktion gibt einen Vektor $\hat{y}$ aus, der als die geschätzte bedingte Wahrscheinlichkeit jeder Klasse für die gegebene Eingabe $x$ interpretiert werden kann, zum Beispiel $\hat{y}_{1}\ =\ P(y\ =\ cat\ |\ \boldsymbol{x})$.
+
+Angenommen, das gesamte Dataset $\{\boldsymbol{X}, \boldsymbol{Y}\}$ enthält $n$ Beispiele, wobei das Beispiel mit dem Index $i$ aus einem Featurevektor $\boldsymbol{x}^{(i)}$ und einem One-Hot-Label-Vektor $\boldsymbol{y}^{(i)}$ besteht. Die Schätzungen können mit der Wirklichkeit verglichen werden, indem überprüft wird, wie wahrscheinlich die tatsächliche Klasse für die gegebenen Features gemäß dem Modell ist:
 
 \begin{align}
   P(\boldsymbol{Y}\ |\ \boldsymbol{X})\ =\ \prod_{i=1}^{n}P(\boldsymbol{y}^{(i)}\ |\ \boldsymbol{x}^{(i)}).
@@ -70,11 +82,9 @@ wobei für jedes Paar von Label $\boldsymbol{y}$ und Vorhersage des Modells $\bo
 ist. Die Verlustfunktion in \eqref{eq:fn_crossentropy} wird gemeinhin als Cross-Entropy-Verlustfunktion bezeichnet. Da $\boldsymbol{y}$ ein One-Hot-Vektor der Länge $q$ ist, verschwindet die Summe über alle seine Koordinaten $j$, bis auf einen Term. Da alle $\hat{y}_j$ vorherberechnete Wahrscheinlichkeiten sind, ist deren Logarithmus niemals größer als $0$. Folglich kann die Verlustfunktion nicht weiter minimiert werden, wenn das tatsächliche Label mit \textit{Sicherheit}, das heißt wenn die vorhergesagte Wahrscheinlichkeit $P(\boldsymbol{y}\ |\ \boldsymbol{x}) = 1$, korrekt vorhergesagt wird.
 
 Nehmen wir nun an, dass wir nicht nur ein einziges Ergebnis, sondern eine ganze Verteilung über Ergebnisse beobachten. Wir können dieselbe Darstellung nutzen wie bisher. Der einzige Unterschied ist, dass statt einem Vektor nur aus binären Einträgen wie zum Beispiel $(0, 0, 1)$ jetzt ein allgemeiner Wahrscheinlichkeitsvektor wie zum Beispiel $(0.1, 0.2, 0.7)$ vorliegt. Die bisher verwendete Mathematik um den Versult zu definieren funktioniert noch genauso gut, nur ist die Interpretation etwas allgemeiner. Es ist der Erwartungswert des Verlustes für eine Verteilung über Labels. Dieser Verlust wird Cross-Entropy-Verlust genannt und es eine der meistverbreitet eingesetzten Verlustfunktionen für Klassifizierungsaufgaben.
-\cite{zhang2020dive}
 
 Hier ist ein kurzes Beispiel für die Anwendung der Kreuzentropie. Es sei $P$ ein wahre Verteilung mit der Wahrscheinlichkeitsverteilung $p(x)$ und $Q$ die geschätzte Verteilung mit der Wahrscheinlichkeitsverteilung $q(x)$. Angenommen eine Klassifizierungsaufgabe basierend auf $n$ gegebenen Datenbeispielen $\{x_{1}, \dots, x_{n}\}$. Angenommen die positiven und negativen Klassenlabel $y_{i}$ sind als $1$ beziehungsweise $0$ kodiert und ein künstliches neuronales Netz ist parametrisiert durch $\theta$. Wenn es das Ziel ist, das beste $\theta$ zu finden, damit $\hat{y}_{i} = p_{\theta}(y_{i}\ |\ x_{i})$, kann naturgemäß die Maximum-Likelihood-Methode angewendet werden. Konkret ist für die wahren Label $y_{i}$ und die Vorhersagen $\hat{y}_{i} = p_{\theta}(y_{i}\ |\ x_{i})$ die Wahrscheinlichkeit als positiv klassifiziert zu werden $\pi_{i} = p_{\theta}(y_{i} = 1\ |\ x_{i})$.
 
-\pagebreak
 Daher wäre die Log-Likelihood-Funktion
 
 \begin{align}
@@ -116,30 +126,56 @@ In einigen künstlichen neuronalen Netzen werden zusätzlich die Eingaben für j
 
 \section{Deep Neural Networks}
 \label{sec:dnn}
+
+Die nachfolgende Beschreibung zu Deep Neural Networks ist in dem Buch ``Deep Learning with Python'' \cite{chollet2021deep} zu finden.
+
 Deep Learning ist ein spezifisches Gebiet des maschinellen Lernens: Ein neuer Ansatz zum Lernen von Repräsentationen von Daten, der den Schwerpunkt auf das Lernen in aufeinanderfolgenden Schichten mit zunehmend aussagekräftigen Repräsentationen legt. Das ``Deep'' in ``Deep Learning'' ist kein Hinweis auf ein durch diesen Ansatz erlangtes tieferes Verständnis, sondern steht für diese Idee von aufeinanderfolgenden Schichten von Repräsentationen.
 
 Die Anzahl der Schichten, aus denen ein Datenmodell zusammengefasst ist, wird Tiefe (engl.: depth) des Modells genannt. Andere passende Namen für dieses Feld hätten ``layered representations learning'' oder ``hierarchical representations learning'' sein können. Modernes Deep Learning umfasst oft mehrere zehn- oder hunderttausend aufeinanderfolgendende Repräsentationsschichten, die alle automatisch durch Verrechnung von Trainingsdaten erlernt werden.
 
-Währenddessen gehen andere Ansätze des maschinellen Lernens eher in die Richtung des ``shallow learning'', beschränken sich also auf eine oder zwei Repräsentationsschichten. Diese Schichten von Repräsentationen werden fast immer durch Modelle erlernt, die neuronale Netze genannt werden. Diese Modelle sind buchstäblich wie aufeinander gestapelte Schichten strukturiert. Der Begriff neuronales Netz ist ein Referenz auf Neurobiologie, doch obwohl die Entwicklung einiger zentraler Deep-Learning-Konzepte teilweise durch unser Verständnis des Gehirns inspiriert war, sind Deep-Learning-Modelle keine Modelle des Gehirns. Es gibt keine Anhaltspunkte darauf, dass das Gehirn etwas vergleichbares wie die Lernmechanismen implementiert, die in modernen Deep-Learning-Modellen verwendet werden. Gelegentlich begegnen einem populärwissenschaftliche Artikel in denen proklamiert wird, dass Deep Learning wie das Gehirn funktioniert oder nach dem Vorbild eines Gehirns modelliert wurde. Das ist aber nicht der Fall. Für Neueinsteiger in das Fachgebiet wäre es verwirrend und kontraproduktiv, Deep Learning als etwas zu betrachten, das mit Neurobiologie in irgend einem Zusammenhang steht. Deep Learning ist ein mathematisches Gerüst zum Lernen von Repräsentationen von Daten.
+Währenddessen gehen andere Ansätze des maschinellen Lernens eher in die Richtung des ``shallow learning'', beschränken sich also auf eine oder zwei Repräsentationsschichten. Diese Schichten von Repräsentationen werden fast immer durch Modelle erlernt, die neuronale Netze genannt werden. Diese Modelle sind buchstäblich wie aufeinander gestapelte Schichten strukturiert.
 
-Wie sehen Repräsentationen aus, die ein Deep-Learning-Algorithmus gelernt hat? Abbildung \ref{todo1.5} zeigt, wie ein mehrere Schichten tiefes Netzwerk ein Bild einer Ziffer transformiert, um zu erkennen welche Ziffer es ist.
+Der Begriff neuronales Netz ist ein Referenz auf Neurobiologie, doch obwohl die Entwicklung einiger zentraler Deep-Learning-Konzepte teilweise durch unser Verständnis des Gehirns inspiriert war, sind Deep-Learning-Modelle keine Modelle des Gehirns. Es gibt keine Anhaltspunkte darauf, dass das Gehirn etwas vergleichbares wie die Lernmechanismen implementiert, die in modernen Deep-Learning-Modellen verwendet werden. Gelegentlich begegnen einem populärwissenschaftliche Artikel in denen proklamiert wird, dass Deep Learning wie das Gehirn funktioniert oder nach dem Vorbild eines Gehirns modelliert wurde. Das ist aber nicht der Fall. Für Neueinsteiger in das Fachgebiet wäre es verwirrend und kontraproduktiv, Deep Learning als etwas zu betrachten, das mit Neurobiologie in irgend einem Zusammenhang steht. Deep Learning ist ein mathematisches Gerüst zum Lernen von Repräsentationen von Daten.
 
-Wie in Abbildung \ref{todo1.6} zu sehen ist, transformiert das Netzwerk das Bild der Ziffer in Repräsentationen, die sich zunehmend stark vom Original unterscheiden und zunehmend informativ über das Endergebnis sind. Ein Deep-Learning-Netzwerk ist wie ein mehrstufiger Informations-Destilliations-Vorgang, bei dem Information durch aufeinanderfolgende Filter fließt und zunehmend bereinigt und für einen bestimmten Zweck nutzbar wieder herauskommt. Die Idee hinter Deep Learning ist einfach, kann aber wie Magie anmuten, wenn der simple Mechanismus ausreichend skaliert wird.
+Wie sehen Repräsentationen aus, die ein Deep-Learning-Algorithmus gelernt hat? Abbildung \ref{fig:neuralnet} zeigt, wie ein mehrere Schichten tiefes Netzwerk ein Bild einer Ziffer transformiert, um zu erkennen welche Ziffer es ist.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bilder/neuralnet.png}
+	\caption[Neuronales Netz]{Ein Deep-Learning-Netzwerk zur Ziffernerkennung}
+	\label{fig:neuralnet}
+\end{figure}
+
+Wie in Abbildung \ref{fig:datarepresentation} zu sehen ist, transformiert das Netzwerk das Bild der Ziffer in Repräsentationen, die sich zunehmend stark vom Original unterscheiden und zunehmend informativ über das Endergebnis sind. Ein Deep-Learning-Netzwerk ist wie ein mehrstufiger Informations-Destilliations-Vorgang, bei dem Information durch aufeinanderfolgende Filter fließt und zunehmend bereinigt und für einen bestimmten Zweck nutzbar wieder herauskommt.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bilder/datarepresentations.png}
+	\caption[Repräsentationen innerhalb eines Netzwerks]{Repräsentation der Daten, wie sie durch ein Ziffern-Klassifizierungs-Modell gelern werden}
+	\label{fig:datarepresentation}
+\end{figure}
+
+Die Idee hinter Deep Learning ist einfach, kann aber wie Magie anmuten, wenn der simple Mechanismus ausreichend skaliert wird.
+\cite{chollet2021deep}
 
 \section{Convolutional Neural Networks}
 \label{sec:cnn}
-Für Bilddaten wendet ein CNN diese Operation typischerweise auf zwei dreidimensionale Matrizen an, nämlich einerseits auf die Eingabedaten und andererseits auf einen sogenannten Filter oder auch Kernel. Die Eingabedaten sind in der ersten Schicht des Netzes die RGB-Pixelinformationen und in allen weiteren konvolutionalen Schichten die Ausgabe der vorherigen Schicht. Ein Filter ist eine Anzahl von trainierbaren Parametern, in diesem Fall auch eine . Beide Matrizen haben also die Form $(H\ x\ W\ x\ C)$, wobei $H$ die Höhe, $W$ die Breite und $C$ die RGB-Farbwerte repräsentiert.
+Für Bilddaten verarbeitet ein Convolutional Neural Network, kurz CNN, typischerweise Paare von Tensoren dritter, nämlich einerseits auf die Eingabedaten und andererseits auf einen sogenannten Filter oder auch Kernel. Die Eingabedaten sind in der ersten Schicht des Netzes die RGB-Pixelinformationen und in allen weiteren konvolutionalen Schichten die Ausgabe der vorherigen Schicht. Ein Filter ist eine Anzahl von trainierbaren Parametern, enthalten in einem Tensor.
 
-Jede der drei Matrixdimensionen variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs (\cite{goodfellow2016deeplearning}, \cite{Lecun99objectrecognition}, \cite{RFB15a}, \cite{isola2018imagetoimage}) nimmt die Kardinalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten. Beim Pooling werden aus benachbarten Matrixkoeffizienten meist das Maximum, seltener der Durchschnitt oder andere Aggregierungen gebildet. Auf diese Weise wird das neuronale Netz darauf trainiert die relevanten Informationen zu extrahieren. \cite{goodfellow2016deeplearning}
+Die Form der Tensoren variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs (\cite{goodfellow2016deeplearning}, \cite{Lecun99objectrecognition}, \cite{RFB15a}, \cite{isola2018imagetoimage}) nimmt die Kardinalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten.
 
-Den konvolutionalen Schichten folgt in einigen Anwendungsfällen eine voll vernetzte Schicht (engl. Fully Connected Layer, FC), in der für jedes Neuron mit jedem Neuron der vorherigen Schicht eine Verbindung besteht. Besonders für die Bilderkennung wird diese Architektur gelegentlich erfolgreich eingesetzt. Die Ausgabe des neuronalen Netzes ist dann ein Vektor, beispielsweise von Wahrscheinlichkeitswerten für das Vorhandensein bestimmter Objekte und gegebenenfalls Bildkoordinaten der erkannten Objekte. Im Fall der Bildgenerierung kann die Ausgabe aber auch wieder eine Matrix von RGB-Pixelinformationen in der Form $(H\ x\ W\ x\ 3)$ sein.
+Beim Pooling werden aus benachbarten Matrixkoeffizienten meist das Maximum, seltener der Durchschnitt oder andere Aggregierungen gebildet. Auf diese Weise wird das neuronale Netz darauf trainiert die relevanten Informationen zu extrahieren. \cite{goodfellow2016deeplearning}
+
+Den konvolutionalen Schichten folgt in einigen Anwendungsfällen eine voll vernetzte Schicht (engl. Fully Connected Layer, FC), in der für jedes Neuron mit jedem Neuron der vorherigen Schicht eine Verbindung besteht. Besonders für die Bilderkennung wird diese Architektur gelegentlich erfolgreich eingesetzt. Die Ausgabe des neuronalen Netzes ist dann ein Vektor, beispielsweise von Wahrscheinlichkeitswerten für das Vorhandensein bestimmter Objekte und gegebenenfalls Bildkoordinaten der erkannten Objekte. Im Fall der Bildgenerierung kann die Ausgabe aber auch wieder ein Tensor mit RGB-Pixelinformationen in der Form $(H\ x\ W\ x\ 3)$ sein.
 
 \section{Batch Normalization}
+In ``Deep Learning with Python`` \cite{chollet2021deep} ist Batch Normalization wie folgt beschrieben.
+
 Normalisierung ist eine breit gefächerte Kategorie von Methoden, die versuchen verschiedene Eingaben für Modelle des maschinellen Lernens einander ähnlicher aussehen zu lassen. Das soll dem Modell helfen zu lernen und für neue Daten zu verallgemeinern. Die verbreitetste Form von Normalisierung besteht darin die Daten an $0$ zu zentrieren und mit einer Standardabweichung von $<1$ zu versehen, indem der Mittelwert aller Werte von jedem Einzelwert subtrahiert wird und jeder Einzelwert durch die Standardabweichung geteilt wird. Dies geschieht aufgrund der Annahme, dass die Daten normalverteilt sind und stellt sicher, dass diese Verteilung zu einer einheitlichen Varianz zentriert und skaliert ist.
 
 Datennormalisierung sollte nach jedem Transformationsschritt durch das künstliche neuronale Netz geschehen. Auch wenn die Daten, die in ein Dense Net oder Convolutional Neural Net eingegeben werden, den Mittelwert $0$ und eine Standardabweichung $< 1$ besitzen, ist ohne weiteres nicht zu erwarten, dass es sich bei den Ausgabedaten genauso verhält.
 
-Batch Normalization ist eine Art von Schicht (BatchNormalization in Keras todo: keras), die 2015 von Ioffe und Szegedy \cite{todo: cite https://arxiv.org/abs/1502.03167.} eingeführt wurde. Sie kann adaptiv die Daten normalisieren, wenn sich Mittelwert und Varianz im Laufe des Trainings verändern. Das erreicht sie, indem sie einen exponentiellen gleitenden Durchschnitt der batchweisen Mittelwerte und Varianzen der Daten während des Trainings vorhält.
+Batch Normalization ist eine Art von Schicht, die 2015 von Ioffe und Szegedy \cite{ioffe2015batchnorm} eingeführt wurde. Sie kann adaptiv die Daten normalisieren, wenn sich Mittelwert und Varianz im Laufe des Trainings verändern. Das erreicht sie, indem sie einen exponentiellen gleitenden Durchschnitt der batchweisen Mittelwerte und Varianzen der Daten während des Trainings vorhält.
 
 Hauptsächlich hilft die Batch Normalization bei der Backpropagation und erlaubt so tiefere Netzwerke. Einige sehr tiefe Netwerke können überhaupt nur trainiert werden, wenn sie mehrere Batch-Normalization-Schichten enthalten. Batch Normalization wird zum Beispiel in vielen fortgeschrittenen ConvNet-Architekturen verwendet, die Keras zur Verfügung stellt, wie ResNet50, Inception v3 und Xception. Eine Batch-Normalisierungs-Schicht wird typischerweise nach einem convolutional oder einer Densely-Connected-Schicht verwendet.
 \cite{chollet2021deep}
@@ -148,22 +184,22 @@ Hauptsächlich hilft die Batch Normalization bei der Backpropagation und erlaubt
 \label{sec:unet}
 Die bis hierhin beschriebenen neuronalen Netze besitzen eine gradlinige Struktur, in der die Ausgabe einer Schicht nur an die nächste Schicht übergeben wird. Bei zunehmender Anzahl der Schichten verbessert sich die Performance neuronaler Netze mit diesem Aufbau zunächst, aber verschlechtert sich bei zu vielen Schichten wieder. In einem Residual Neural Network (ResNet) verhindern zusätzliche Verbindungen zwischen nicht direkt aufeinanderfolgenden Schichten diesen Performanceverlust.
 
-Ein U-Net ist eine spezielle Form eines ResNets. Es hat eine annähernd symmetrische Struktur, in der sich die Kardinalitäten der Matrizen zuerst verringern und anschließend wieder erhöhen. U-Nets erzielen selbst mit wenigen Trainingsdaten gute Ergebnisse und benötigen dafür vergleichsweise wenig Rechenleistung. \cite{he2015deep}
+Ein U-Net ist eine spezielle Form eines ResNets. Es hat eine annähernd symmetrische Struktur, in der sich die Tensoren zunächst zunehmend verformen und anschließend wieder annähernd ihre ursprüngliche Form annehmen.
+
+U-Nets erzielen selbst mit wenigen Trainingsdaten gute Ergebnisse und benötigen dafür vergleichsweise wenig Rechenleistung \cite{he2015deep}.
 
 \section{Generative Adversarial Networks}
 \label{gan}
-Generative Adversarial Networks basieren auf einem spieltheoretischen Szenario, in dem das Generator-Netzwerk gegen einen Kontrahenten antreten muss. Das Generator-Netzwerk produziert Proben $\boldsymbol{x}=g(\boldsymbol{z}; \boldsymbol{\theta}^{(g)})$. Sein Kontrahent, das Discriminator-Netzwerk, versucht zwischen den Proben aus den Trainingsdaten und den vom Generator erstellten Proben zu unterscheiden. Der Discriminator gibt einen Wahrscheinlichkeitswert aus, der durch $d(\boldsymbol{x}; \boldsymbol{\theta}^{(d)})$ gegeben ist und der die Wahrscheinlichkeit angibt, dass $\boldsymbol{x}$ ein echtes Trainingsexemplar ist und keine Täuschung, die durch das Modell erstellt wurde.  \cite{goodfellow2016deeplearning}
+Ein Generative Adversarial Network (GAN) besteht zunächst aus einem Generator und einem Discriminator. Der Generator lernt während des Trainings täuschend echt aussehende Bilddaten zu generieren. Der Discriminator wird dagegen darauf trainiert, echte von generierten Bildern zu unterscheiden. Anschließend können beide Modelle ``gegeneinander antreten''. Deswegen wird es Generative \textit{Adversarial} Network genannt.
 
-Ein Generative Adversarial Network (GAN) besteht zunächst aus einem Generator und einem Discriminator \cite{goodfellow2014generative}. Der Generator lernt während des
-Trainings täuschend echt aussehende Bilddaten zu generieren. Der Discriminator
-wird dagegen darauf trainiert, echte von generierte Bildern zu unterscheiden.
-Anschließend können beide Modelle ``gegeneinander antreten''. Deswegen wird es
-Generative \textit{Adversarial} Network genannt.
+Generative Adversarial Networks basieren auf einem spieltheoretischen Szenario, in dem das Generator-Netzwerk gegen einen Kontrahenten antreten muss. Das Generator-Netzwerk produziert Proben $\boldsymbol{x}=g(\boldsymbol{z}; \boldsymbol{\theta}^{(g)})$. Sein Kontrahent, das Discriminator-Netzwerk, versucht zwischen den Proben aus den Trainingsdaten und den vom Generator erstellten Proben zu unterscheiden. Der Discriminator gibt einen Wahrscheinlichkeitswert aus, der durch $d(\boldsymbol{x}; \boldsymbol{\theta}^{(d)})$ gegeben ist und der die Wahrscheinlichkeit angibt, dass $\boldsymbol{x}$ ein echtes Trainingsexemplar ist und keine Täuschung, die durch das Modell erstellt wurde. \cite{goodfellow2016deeplearning}
 
 GANs unterscheiden sich von anderen Modellen durch ihren Aufbau und in Bezug auf das Trainingsziel. Künstliche neuronale Netze ermitteln häufig einen skalaren Wert wie beispielsweise einen Wahrscheinlichkeitswert und minimieren zu diesem Zweck eine Verlustfunktion. In einem GAN sind zwei CNNs im Einsatz. Das erste, der Generator, erstellt Tensoren n-ter Klasse. In diesem Beispiel sind das RGB-Bildinformationen. Das zweite CNN wird Discriminator genannt und bekommt als Eingabe die Ausgabe des ersten CNNs. Der Discriminator wird darauf trainiert, generierte Bilder von Bildern aus dem Trainingsset zu unterscheiden. Er minimiert also eine Verlustfunktion. Der Generator wird darauf trainiert, diese Verlustfunktion zu maximieren. Dieser Vorgang heißt auch Min-Max-Spiel. \cite{goodfellow2014generative}
 
 \section{Conditional Generative Adversarial Nets}
 \label{cgan}
+
+Mehdi Mirza beschreibt in seinem Artikel ``Conditional Generative Adversarial Nets'' \cite{mirza2014conditional} eine Klasse von künstlichen neuronalen Netzen, die gegenüber Generative Adversarial Networks noch weitere Vorteile bieten.
 
 Eine Erweiterung des GANs ist das Conditional Generative Adversarial Net (cGAN). In cGANs erhält der Generator zusätzliche Eingabedaten ($y$, ``Ground Truth''), die Hinweise für die Generierung enthalten. Der Discriminator erhält diese zusätzlichen Daten ebenfalls, um die Erkennung während des Trainings zu optimieren.
 
@@ -184,11 +220,13 @@ Im Discriminator werden paarweise $x$ und $y$ sowie $x$ und $G(z|y)$ als Eingabe
 \begin{align}
 \min_{G}\max_{D} V(D,G) = \mathbb{E}_{x\sim p_{data}(x)}[\log{D(x|y)}]+\mathbb{E}_{z\sim p_z(z)}[\log(1-D(G(z|y)))].
 \end{align}
+\cite{mirza2014conditional}
 
 \chapter{Implementierung}
+\label{ch:imple}
 
 \section{Ubuntu Linux}
-\label{subsec:ubuntu}
+\label{sec:ubuntu}
 Ubuntu ist eine der bekanntesten Linux-Distributionen. Es ist kostenlos und in verschiedenen Editionen für unterschiedliche Zwecke erhältich. Es kann beispielsweise für Server oder für Desktop-Computer verwendet werden.
 
 Die Wahl des Betriebssystems fiel für dieses Projekt auf Ubuntu, weil die Integration mit der NVidia-Grafikkartenerweiterung CUDA mit Abstand am besten dokumentiert ist. Es gibt sowohl für Ubuntu als auch für CUDA eine lebendige Community. Dadurch besteht bei eventuell auftretenden Schwierigkeiten stets die Möglichkeit, auf die Erfahrungen anderer Nutzer zurückzugreifen.
@@ -199,7 +237,7 @@ Der Software-Assistent des Installationsprogramms hat eine leicht zu bedienende 
 
 Es ist auch möglich, Ubuntu unter Windows innerhalb der WSL (Windows Subsystem for Linux) zu installieren. Auch dort besteht die Möglichkeit, die Hardwareunterstützung zu nutzen. Ubuntu unter WSL ist dann in der Lage, mittels CUDA die GPU für das Training neuronaler Netze zu verwenden.
 
-Für diese Arbeit wurde Ubuntu als Hauptbetriebssystem genutzt. Die Schritte zur Einrichtung einer Entwicklungsumgebung für maschinelles Lernen sind auf \href{https://ubuntu.com/tutorials/enabling-gpu-acceleration-on-ubuntu-on-wsl2-with-the-nvidia-cuda-platform#1-overview}{ubuntu.com} beschrieben.
+Für diese Arbeit wurde Ubuntu als Hauptbetriebssystem genutzt. Die Schritte zur Einrichtung einer Entwicklungsumgebung für maschinelles Lernen sind auf ubuntu.com\footnote{https://ubuntu.com/tutorials/enabling-gpu-acceleration-on-ubuntu-on-wsl2-with-the-nvidia-cuda-platform/} beschrieben.
 
 % \begin{figure}[h]
 % 	\centering
@@ -210,14 +248,14 @@ Für diese Arbeit wurde Ubuntu als Hauptbetriebssystem genutzt. Die Schritte zur
 
 
 \section{Python}
-\label{subsec:python}
-Die Programmiersprache Python ist eine beliebte Wahl für Software-Projekte im Bereich des maschinellen Lernens. Ein wichtiger Grund dafür sind die verschiedenen verfügbaren Bilbiotheken, die zum Beispiel Bausteine für künstliche neuronale Netze und sogar häufig Algorithmen bereitstellen. Zwei der berühmtesten Bibliotheken dieser Art sind TensorFlow und Keras.
+\label{sec:python}
+Die Programmiersprache Python ist eine beliebte Wahl für Software-Projekte im Bereich des maschinellen Lernens. Ein wichtiger Grund dafür sind die verschiedenen verfügbaren Bilbiotheken, die zum Beispiel Bausteine für künstliche neuronale Netze und sogar häufig Algorithmen bereitstellen. Zwei der berühmtesten Bibliotheken dieser Art sind TensorFlow und Keras. In dem O'Reilly-Buch ``Python'' von Mark Lutz \cite{lutz2013python} wird Python wie folgt beschrieben.
 
-Python ist eine beliebte, quelloffene Programmiersprache sowohl für eigenständige Programme als auch für Anwendungs-Skripte in vielen verschiedenen Bereichen. Es ist kostenlos, portabel sowie relativ einfach und wird  mit bemerkenswertem Enthusiasmus verwendet. \cite{lutz2013python}
+Python ist eine beliebte, quelloffene Programmiersprache sowohl für eigenständige Programme als auch für Anwendungs-Skripte in vielen verschiedenen Bereichen. Es ist kostenlos, portabel sowie relativ einfach und wird  mit bemerkenswertem Enthusiasmus verwendet.
 
-Version 3.0 war die erste in einer Reihe der aufstrebenden und nicht abwärtskompatiblen Abwandelung der Sprache die allgemein als 3.X bezeichnet wird. Version 2.6 behielt die Abwärtskompatibilität zu einer zahllosen Menge bestehenden Python-Quelltextes bei und war die letzte der gemeinhin als 2.X bekannten Reihe.  \cite{lutz2013python}
+Version 3.0 war die erste in einer Reihe der aufstrebenden und nicht abwärtskompatiblen Abwandelung der Sprache die allgemein als 3.X bezeichnet wird. Version 2.6 behielt die Abwärtskompatibilität zu einer zahllosen Menge bestehenden Python-Quelltextes bei und war die letzte der gemeinhin als 2.X bekannten Reihe.
 
-Für viele hebt sich Python durch seinen Fokus auf Lesbarkeit, Stimmigkeit und Softwarequalität insgesamt aus anderen Tools der Skripting-Welt hervor. Python-Quelltext ist gemacht, um lesbar und dadurch wiederverwendbar und wartbar zu sein -- noch viel mehr als traditionelle Skriptsprachen. Die Gleichförmigkeit von Python-Quelltext macht ihn leicht verständlich, selbst wenn man ihn nicht selbst gegschrieben hat. Zusätzlich unterstützt Python fortgeschrittene Mechanismen für wiederverwendbare Software, wie objektorienterte (OO) und funktionale Programmierung.
+Für viele hebt sich Python durch seinen Fokus auf Lesbarkeit, Stimmigkeit und Softwarequalität insgesamt aus anderen Tools der Skripting-Welt hervor. Python-Quelltext ist gemacht, um lesbar und dadurch wiederverwendbar und wartbar zu sein -- noch viel mehr als traditionelle Skriptsprachen. Die Gleichförmigkeit von Python-Quelltext macht ihn leicht verständlich, selbst wenn man ihn nicht selbst gegschrieben hat. Zusätzlich unterstützt Python fortgeschrittene Mechanismen für wiederverwendbare Software, wie objektorienterte und funktionale Programmierung.
 
 Python erhöht die Entwicklerprodutkivität um einiges mehr als kompilierte oder statisch typisierte Sprachen wie C, C++ und Java. Die Größe von Pythoncode ist typischerweise ein Drittel bis ein Fünftel von der equivalenten C++- oder Java-Quelltexts. Das heißt es gibt weniger zu tippen, weniger zu debuggen und schließlich weniger zu warten. Python-Programme sind auch unmittelbar ausführbar, ohne die langwierigen Kompilier- und Linkschritte, die für manche anderen Tools erforderlich sind, und erhöht die Programmierergeschwindigkeit somit noch weiter.
 
@@ -227,16 +265,13 @@ Python enthält eine große Sammlung vorgefertigter und portabler Funktionalitä
 
 Pythonskripte können leicht mit anderen Teilen einer Anwendung kommunizieren, indem sie eine Vielzahl integrierter Mechanismen nutzen. Solche Integrationen erlauben es, Python als Produktanpassungs- und Produkterweiterungstool zu verwenden. Pythoncode kann heute C- und C++-Bibliotheken aufrufen, von C- und C++-Programmen aufgerufen werden, in Java- und .NET-Komponenten integriert werden, mittels Frameworks wie COM und Silverlight kommunizieren, sich mit Geräten via serieller Schnittstelle verbinden und über Netzwerke mit Schnittstellen wie SOAP, XML-RPC und CORBA interagieren. Es ist kein alleinstehendes Tool. \cite{lutz2013python}
 
-\section{Tensorflow}
-\label{subsec:tensorflow}
-
 \section{CUDA}
-\label{subsec:cuda}
-Cuda ist eine NVIDIA-proprietäre Hardware- und Software-Architektur.
+\label{sec:cuda}
+Cuda ist eine NVIDIA-proprietäre Hardware- und Software-Architektur. Auch zu CUDA existiert ein Buch. Es heißt ``CUDA by Example: An Introduction to General-Purpose GPU Programming'' \cite{sanders2010cuda} und enthält die folgende Beschreibung.
 
-Es ist das Schema, nach dem NVIDIA-Grafikkarten gebaut wurden, die sowohl traditionelle Grafik-Rendering-Aufgaben als auch allgemeine Aufgaben durchführen können. Zum Programmieren der CUDA GPUs wird die Sprache CUDA C verwendet. CUDA C ist im Wesentlichen die Programmiersprache C mit einer Handvoll Erweiterungen, welche die Programmierung hoch parallelisierter Maschinen wie NVIDIA GPUs ermöglichen. \cite{sanders2010cuda}
+Die CUDA-Architektur ist das Schema, nach dem NVIDIA-Grafikkarten gebaut wurden, die sowohl traditionelle Grafik-Rendering-Aufgaben als auch allgemeine Aufgaben durchführen können. Zum Programmieren der CUDA GPUs wird die Sprache CUDA C verwendet. CUDA C ist im Wesentlichen die Programmiersprache C mit einer Handvoll Erweiterungen, welche die Programmierung hoch parallelisierter Maschinen wie NVIDIA GPUs ermöglichen.
 
-Anders als frühere GPU-Generationen, die Rechenressourcen in Vertex- und Pixelshader aufteilten, enthält die CUDA-Architektur eine einheitliche Shader-Pipeline, welche die Zuordnung allgemeiner Berechnungen zu jeder arithmetisch-logischen Einheit (ALU) auf dem Chip durch ein Programm erlaubt. Diese ALUs wurden mit einem Befehlssatz entworfen, der für allgemeine Berechnungen statt für spezielle Grafikberechnungen zugeschnitten ist. Weiterhin wurde den Execution Units auf der GPU freier Lese- und Schreibzugriff auf den Speicher sowie Zugriff auf einen softwaregesteuerten Cache, genannt Shared Memory, gegeben. \cite{sanders2010cuda}
+Anders als frühere GPU-Generationen, die Rechenressourcen in Vertex- und Pixelshader aufteilten, enthält die CUDA-Architektur eine einheitliche Shader-Pipeline, welche die Zuordnung allgemeiner Berechnungen zu jeder arithmetisch-logischen Einheit (ALU) auf dem Chip durch ein Programm erlaubt. Diese ALUs wurden mit einem Befehlssatz entworfen, der für allgemeine Berechnungen statt für spezielle Grafikberechnungen zugeschnitten ist. Weiterhin wurde den Execution Units auf der GPU freier Lese- und Schreibzugriff auf den Speicher sowie Zugriff auf einen softwaregesteuerten Cache, genannt Shared Memory, gegeben.
 
 Zusätzlich zu der Sprache für das Schreiben von Code für die GPU stellt NVIDIA einen spezialisierten Hardwaretreiber zur Verfügung, der die hohe Rechenleistung der CUDA-Architektur ausschöpft. Kenntnis der OpenGL- oder DirectX-Programmierschnittstellen ist nicht länger erforderlich. \cite{sanders2010cuda}
 
@@ -244,13 +279,13 @@ Zusätzlich zu der Sprache für das Schreiben von Code für die GPU stellt NVIDI
 \label{sec:pix2pix}
 Der Image-To-Image-Translation-Algorithmus oder kurz Pix2Pix-Algorithmus verwendet ein GAN, um Bilder in Bilder zu übersetzen. Dafür kommen zwei CNNs zum Einsatz, nämlich eins für den Generator und eins für den Discriminator. \cite{isola2018imagetoimage}
 
-Die Datei \hyperref[pix2pixpy]{main.py} befindet sich im Anhang und ist die Implementierung, die für diese Arbeit hauptsächlich verwendet wurde.
+Die Datei \hyperref[pix2pixpy]{main.py} befindet sich im Anhang. Es ist eine Beispielimplementierung zum Artikel ``Image-to-Image Translation with Conditional Adversarial Networks'' \cite{isola2018imagetoimage} und ist im Github-Repository tensorflow/docs\footnote{\href{https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb}{https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb}} zu finden. Für meine Experimente habe ich hauptsächlich diese Implementation verwendet. Sie wurde für die erste Hauptversion von Tensorflow geschrieben und war zunächst mit meinem Setup nicht ausführbar. Deshalb folgen den Import-Anweisungen am Anfang des Python-Skripts weitere Imports und Konfigurationen, um die Kompatibilität herzustellen. Im Verlauf des Programmes wird dann die erste Tensorflow-Version genutzt.
 
 Die erste Funktion namens \lstinline|load| öffnet eine Datei und liest diese als JPEG-Bilddatei. Sie wird verwendet, um die Trainingsdaten zu laden. Weil die Trainingsdaten aus zwei Bildern pro Datei bestehen, nämlich jeweils einem Eingabebild und dem erwarteten Ergebnis (Ground Truth), extrahiert die Funktion zusätzlich die beiden Bilder und gibt jede in einer eigenen Variablen zurück.
 
 Die Funktion \lstinline|resize| ist ebenfalls für die Verarbeitung zweier Bilder vorgesehen und skaliert beide auf die übergebene Breite und Höhe.
 
-Die Funktion \lstinline|random_crop| stellt einen zufälligen Ausschnitt der zwei Eingabebilder frei. Sie wird aufgerufen, nachdem die Eingabebilder hochskaliert wurden. In der Referenzimplementierung wie auch in dieser Arbeit beträgt die Bildgröße vorher $286x286$ Pixel und $256x256$ Pixel nach dem Freistellen. Die zurückgegebenen Bilder haben dann wieder die gleichen Abmessungen wie die Eingabedaten.
+Die Funktion \lstinline|random_crop| stellt einen zufälligen Ausschnitt der zwei Eingabebilder frei. Sie wird aufgerufen, nachdem die Eingabebilder hochskaliert wurden. In der Beispielimplementierung wie auch in dieser Arbeit beträgt die Bildgröße vorher $286x286$ Pixel und $256x256$ Pixel nach dem Freistellen. Die zurückgegebenen Bilder haben dann wieder die gleichen Abmessungen wie die Eingabedaten.
 
 In der Funktion \lstinline|normalize| werden die RGB-Werte der beiden Eingabebilder normalisiert. Dadurch sollen zu große Schritte auf dem Gradienten verhindert werden, die das Konvergieren verhindern könnten. \cite{chollet2021deep} Die RGB-Werte sind zunächst als Ganzzahlen im Bereich von 0 bis 255 gegeben und werden in Fließkommazahlen im Bereich -1 bis 1 umgerechnet.
 
@@ -302,6 +337,7 @@ Im Ausführungsstrang wird zunächst eine Option des GPU-Speichermanagements gew
 Es werden auch einige Parameter wie die Bildgröße und die Größe des Trainingssets und Hyperparameter wie die Batchgröße gesetzt. Das Trainings- und das Testset werden eingelesen, der Generator und die Discriminator erstellt und der Adam-Optimizer initialisiert. Nachdem anschließend das Schreiben der Checkpoints und der Zusammenfassung vorbereitet wurde, erfolgt das Training durch Aufruf von \lstinline|fit|. Im letzten Schritt wird das Modell mit 5 Beispielbildern aus dem Testset aufgerufen.
 
 \section{Image-To-Image-Translation in Python}
+\label{sec:pix2pixpy}
 Es besteht eine Auswahl an Beispielimplementierungen für Image-To-Image-Translation. Das Original-Paper verweist auf ein GitHub-Repository, das eine Lua-Implementierung zur Verfügung stellt. Wegen der besseren Eignung für Experimente auf einem lokalen Rechner durch CUDA-Unterstützung mit Tensorflow wird in dieser Arbeit Python verwendet.
 
 Die verwendete Beispielimplementierung ist zum Zeitpunkt der Erstellung dieses Dokumentes unter https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb zu finden. Eine an die aktuelle Version von Tensorflow und die Anforderungen dieser Arbeit angepasste Version befindet sich im Anhang.
@@ -315,6 +351,8 @@ Die wichtigste Änderung ist das selbst erstellte Dataset, das statt der im Beis
 \label{sec:preparation}
 Die Trainingsdaten liegen für das ``Quick, Draw!''-Dataset im NDJSON-Format und als Blender-Dateien beziehungsweise
 Wavefront OBJ-Dateien vor. Die effizienteste Möglichkeit, die Skizzen und 3D-Modelle für die Verarbeitung in einem CNN vorzubereiten, ist das Rendern und  Speichern als Bilddateien. Als Dateiformat kommen JPEG oder PNG infrage. Beide Formate können leicht als Trainingsset mit Tensorflow geladen werden.
+
+Das ``Quick, Draw!''-Dataset steht unter der Creative-Commons-Lizenz CC BY 4.0. Eine Zusammenfassung der Lizenz ist auf creativecommons.org\footnote{\href{https://creativecommons.org/licenses/by/4.0/}{https://creativecommons.org/licenses/by/4.0/}} nachzulesen. Der Urheber ist Google, Inc. und das Material kann dem Github-Repository googlecreativelab/quickdraw-dataset\footnote{\href{https://github.com/googlecreativelab/quickdraw-dataset}{https://github.com/googlecreativelab/quickdraw-dataset}} entnommen werden. An dem Material in dem Dataset wurden durch mich keine Änderungen durchgeführt. Die Lizenz erfordert, dass diese Informationen genannt werden, was somit geschehen ist.
 
 NDJSON steht für Newline Delimited JavaScript Object Notation. In einer solchen Datei sind also zeilenweise JSON-Objekte gespeichert. Für jede Zeichnung sind Angaben zu Motiv, Ort und Zeit enthalten. Außerdem ist angegeben, ob die künstliche Intelligenz des Minispiels das Motiv in der Zeichnung korrekt klassifiziert, also erkannt hat. Jede Zeichnung hat weiterhin eine eindeutige ID.
 
@@ -341,6 +379,7 @@ Ein ebenso wichtiger wie aufwendiger Vorgang ist die Klassifizierung der Trainin
 \pagebreak
 
 \section{Erstellung eigener Eingabedaten}
+\label{sec:inputdata}
 
 Die Vorteile, die selbst erstellte Eingabedaten bieten, rechtfertigen in dieser Arbeit das Erstellen vieler eigener Eingabebilder. Dafür ist es nicht erforderlich, jedes Bild einzeln von Hand zu erzeugen. Blender verfügt über eine Python-Schnittstelle. Mit ihr ist es möglich, etwa die Ausrichtung eines dreidimensionalen Objekts automatisiert mehrmals zu ändern und jeweils ein Bild zu erstellen, sodass aus einem einzigen Modell mehrere Eingabebilder entstehen. Bei einigen Modellen wie zum Beispiel Tischen konnte sogar die Form aus zufälligen Werten für Höhe, Breite und Tiefe generiert werden.
 
@@ -420,9 +459,9 @@ Polygonobjekte sind anfangs immer ungeglättet, das heißt, dass beim Rendern od
 \label{sec:hyperparams}
 Die Pix2Pix-Referenzimplementierung ist bereits für die Übersetzung von Skizzen in Fotos eingestellt. Für das Training waren anfangs $40000$ Trainingsschritte vorgesehen. Je nach Größe des Trainingssets werden also mehrere Wiederholungen mit demselben Trainingsset durchgeführt, um zufriedenstellende Ergebnisse zu erzielen. Nach Abschluss der Experimente könnte die Anzahl der Trainingsschritte auf $30000$ reduziert werden, um die Dauer des Trainings und die Ergebnisse zu optimieren. Dies ist aber wiederum abhängig von der Größe des Trainingssets. Es war auch im Sinne des Experiments, das Modell einige Tausend Schritte mehr durchführen zu lassen als für das optimale Resultat erforderlich gewesen wären.
 
-Die Eingabebilder sind 256x256 Pixel groß und besitzen einen Farbkanal für Graustufen. Sie werden am Anfang des Trainingsprozesses durch sogenanntes Jittering augmentiert. Dabei werden die Bilder zuerst auf 286x268 Pixel vergrößert und anschließend auf einen zufälligen 256x256 Pixel großer Ausschnitt wieder verkleinert. Diese  Pixelgrößen können im Experiment geändert werden.
+Die Eingabebilder sind 256x256 Pixel groß und besitzen einen Farbkanal für Graustufen. Sie werden am Anfang des Trainingsprozesses durch sogenanntes Jittering augmentiert. Dabei werden die Bilder zuerst auf 286x268 Pixel vergrößert und anschließend auf einen zufälligen 256x256 Pixel großer Ausschnitt wieder verkleinert. Änderungen an diesen Pixelgrößen haben im Experiment keine nennenswerte Verbesserung bewirkt.
 
-Der Adam Optimierer \cite{kingma2017adam} erhält für die Learning-Rate den Wert $0,0002$. Das Momentum ist auf $0,9$ voreingestellt. Diese beiden Werte beinflussen die Lerngeschwindigkeit und sind in begrenztem Maße anpassbar.
+Der Adam Optimierer \cite{kingma2017adam} erhält für die Learning-Rate den Wert $0,0002$. Das Momentum ist auf $0,9$ voreingestellt. Diese beiden Werte beinflussen die Lerngeschwindigkeit und sind in begrenztem Maße anpassbar, sind aber bereits für meinen Zwecke optimal eingestellt.
 
 \section{Performancebeobachtungen}
 \label{sec:performance}
@@ -534,7 +573,7 @@ Die für maschinelles Lernen erforderlichen Berechnungen können auf handelsübl
 
 Aber auch Grafikkarten für Spiele-PCs sind durch parallele Tensoroperationen für maschinelles Lernen um ein Vielfaches besser geeignet als die CPU. Für diesen Zweck existiert speziell hergestellte Treibersoftware. Die Parallelisierungssoftware für NVIDIA-Grafikkarten heißt CUDA. Auf die Treiber aufbauend wurden und werden Programmierschnittstellen für verschiedene Programmiersprachen entwickelt.
 
-Eine der weit verbreitetsten Machine-Learning-Programmierschnittstellen ist Tensorflow für Python, die auch für diese Arbeit verwendet wurde. Die Einrichtung auf einem Desktopcomputer ist teilweise umständlich, aber für Tensorflow und CUDA gut dokumentiert. Es gibt Anleitungen für Ubuntu Linux, zum Beispiel auch im Windows Subsystem for Linux (WSL). Die Verwendung der Programmierschnittstelle ist ebenfalls gut dokumentiert. Den in dieser Arbeit verwendeten Machine-Learning-Algorithmus Image-To-Image-Translation ist in der Beispielsektion auf \href{https://tensorflow.org}{tensorflow.org} zu finden.
+Eine der weit verbreitetsten Machine-Learning-Programmierschnittstellen ist Tensorflow für Python, die auch für diese Arbeit verwendet wurde. Die Einrichtung auf einem Desktopcomputer ist teilweise umständlich, aber für Tensorflow und CUDA gut dokumentiert. Es gibt Anleitungen für Ubuntu Linux, zum Beispiel auch im Windows Subsystem for Linux (WSL). Die Verwendung der Programmierschnittstelle ist ebenfalls gut dokumentiert. Den in dieser Arbeit verwendeten Machine-Learning-Algorithmus Image-To-Image-Translation ist in der Beispielsektion auf tensorflow.org\footnote{\href{https://tensorflow.org}{https://tensorflow.org}} zu finden.
 
 Das Modell muss immer wieder von vorn trainiert werden, bevor erste brauchbare Ergebnisse erzielt werden. Grundsätzlich gilt, dass die Menge der Eingabedaten so groß wie möglich sein sollte, damit ein Lernprozess erfolgreich sein kann. Trotzdem sind weitere Eigenschaften des Datasets wichtig. An dem Beispiel der Tische wurde deutlich, dass die Perspektive, also die Ausrichtung der Tische im Raum, nur bei einem ausreichenden Anteil an schräg ausgerichteten Beispielen erlernt wird. Dafür kann es sogar sinnvoll sein, die Gesamtgröße des Datasets zu reduzieren, damit alle Varianten in genügend großen Anteilen im Dataset vorhanden sind.
 
