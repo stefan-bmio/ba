@@ -2,7 +2,7 @@
 \label{ch:model}
 
 \section{Tensoren}
-In der Literatur zur Funktionsweise künstlicher neuronaler Netze wird ausnahmlos auch der Begriff Tensor verwendet. Ein Tensor ist ein vielgestaltiges mathematisches Konstrukt. Beispielsweise sind Vektoren und Matrizen Tensoren. In ``Deep Learning with Python'' \cite{chollet2021deep} findet sich die folgende Beschreibung.
+In der Literatur zur Funktionsweise künstlicher neuronaler Netze wird ausnahmlos auch der Begriff Tensor verwendet. Ein Tensor ist ein vielgestaltiges mathematisches Konstrukt. Beispielsweise sind Vektoren und Matrizen Tensoren. In ``Deep Learning with Python'' \cite{chollet2021deep} findet sich die folgende Beschreibung:
 
 Mehrdimensionale Arrays, in NumPy ndarray (N-Dimensional Array) genannt, werden auch Tensoren genannt. Generell verwenden alle derzeitigen Systeme für Maschinelles Lernen Tensoren als zugrundeliegende Datenstruktur. Tensoren sind elementar für dieses Fachgebiet.
 
@@ -21,7 +21,7 @@ Bilder erscheinen als Tensoren dritter Stufe, deren Achsen der Höhe, Breite und
 Viele in dieser Arbeit verwendeten Tensoren beschreiben RGB-Bilddaten. Sie sind deshalb dritter Stufe, und die enthaltenen Daten sind Ganzzahlen zwischen $0$ und $255$. Die Form der durch das künstliche neuronale Netz generierten Bilder ist $(256, 256, 3)$. Die Dimensionen beschreiben hier also die Breite, Höhe und Farbtiefe der Bilddateien.
 
 \section{Kreuzentropie}
-Kreuzentropie ist ein Begriff aus der Wahrscheinlichkeitsrechnung. In dem Buch Deep Learning von Ian Goodfellow et al. \cite{goodfellow2016deeplearning} wird auf Wahrscheinlichkeitsrechnung wie folgt eingegangen.
+Kreuzentropie ist ein Begriff aus der Wahrscheinlichkeitsrechnung. In dem Buch Deep Learning von Ian Goodfellow et al. \cite{goodfellow2016deeplearning} wird auf Wahrscheinlichkeitsrechnung wie folgt eingegangen:
 
 In Anwendungen mit künstlicher Intelligenz wird Wahrscheinlichkeitsrechnung auf zwei wesentliche Arten verwendet. Erstens erklären die Regeln der Wahrscheinlichkeit, wie KI-Systeme urteilen sollten, deshalb werden Algorithmen so gestaltet, dass sie vielfältige Ausdrücke mittels Probabilistik berechnen oder annähern. Zweitens können Wahrscheinlichkeitsrechnung und Statistik das Verhalten zu planender KI-Systeme theoretisch analysieren.
 
@@ -54,7 +54,7 @@ In dem Fall des Arztes, der den Patient diagnostiziert, steht Wahrscheinlichkeit
 Die vorherige Art von Wahrscheinlichkeit, direkt verbunden mit der Häufigkeit, in der Ereignisse eintreten, ist als frequentistische Wahrscheinlichkeit bekannt, während die zweite Art, verbunden mit dem qualitativen Grad der Sicherheit, bekannt ist als Bayessche Wahrscheinlichkeit.
 \cite{goodfellow2016deeplearning}
 
-Das Buch Dive into Deep Learning von Aston Zhang et al. \cite{zhang2020dive} nähert sich der Kreuzentropie wie folgt.
+Das Buch Dive into Deep Learning von Aston Zhang et al. \cite{zhang2020dive} nähert sich der Kreuzentropie wie folgt:
 
 Um die Ausgaben als Wahrscheinlichkeiten interpretieren zu können, muss (auch für neue Daten) garantiert sein, dass sie nicht-negativ sind und sich zu $1$ addieren. Weiterhin brauchen wir ein Trainingsziel, das das Modell darin unterstützt genaue Wahrscheinlichkeiten zu schätzen. In allen Fällen sollten, wenn ein Classifier $0.5$ ausgibt, die Hälfte dieser Beispiele tatsächlich zu der vorherberechneten Klasse gehören.
 
@@ -102,7 +102,14 @@ Ein vergleichsweise einfacher Algorithmus des Maschinellen Lernens ist Logistic 
 
 Bei der Multiclass Logistic Regression werden die Eingaben in mehr als zwei Klassen unterteilt. Es lassen sich damit beispielsweise in einem Bild  verschiedene Arten von Fahrzeugen, Gegenständen oder Tieren unterteilen.
 
-Diagramm: Ein-Schicht-NN (Die Ausgabeschicht wird nicht mitgezählt) Logistic Regeression kann mit einer einzelnen oder mehreren neuronalen Schichten imlementiert sein. Das künstliche neuronale Netz in Abb. x besitzt eine einzelne aus drei Einheiten bestehende Schicht. Eine Einheit besteht zunächst aus einer differenzierbaren Funktion. Oft ist das eine Multiplikation der Eingaben $X$ mit einer Anzahl lernbaren Parametern $W$ und eine anschließende Addition mit Bias-Werten $b$. Die Ausgabe einer Schicht wird oft mit $\hat{y}$ bezeichnet:
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\textwidth]{bilder/singlelayernn.png}
+	\caption[Ein-Schicht-NN]{Ein-Schicht-NN (Die Ausgabeschicht wird nicht mitgezählt)}
+	\label{fig:singlelayernn}
+\end{figure}
+
+Logistic Regression kann mit einer einzelnen oder mehreren neuronalen Schichten imlementiert sein. Das künstliche neuronale Netz in \ref{fig:singlelayernn} besitzt eine einzelne aus drei Einheiten bestehende Schicht. Eine Einheit besteht zunächst aus einer differenzierbaren Funktion. Oft ist das eine Multiplikation der Eingaben $X$ mit einer Anzahl lernbaren Parametern $W$ und eine anschließende Addition mit Bias-Werten $b$. Die Ausgabe einer Schicht wird oft mit $\hat{y}$ bezeichnet:
 \begin{align}
 \hat{y} = WX+b
 \end{align}
@@ -127,7 +134,7 @@ In einigen künstlichen neuronalen Netzen werden zusätzlich die Eingaben für j
 \section{Deep Neural Networks}
 \label{sec:dnn}
 
-Die nachfolgende Beschreibung zu Deep Neural Networks ist in dem Buch ``Deep Learning with Python'' \cite{chollet2021deep} zu finden.
+Die nachfolgende Beschreibung zu Deep Neural Networks ist in dem Buch ``Deep Learning with Python'' \cite{chollet2021deep} zu finden:
 
 Deep Learning ist ein spezifisches Gebiet des maschinellen Lernens: Ein neuer Ansatz zum Lernen von Repräsentationen von Daten, der den Schwerpunkt auf das Lernen in aufeinanderfolgenden Schichten mit zunehmend aussagekräftigen Repräsentationen legt. Das ``Deep'' in ``Deep Learning'' ist kein Hinweis auf ein durch diesen Ansatz erlangtes tieferes Verständnis, sondern steht für diese Idee von aufeinanderfolgenden Schichten von Repräsentationen.
 
@@ -137,39 +144,21 @@ Währenddessen gehen andere Ansätze des maschinellen Lernens eher in die Richtu
 
 Der Begriff neuronales Netz ist ein Referenz auf Neurobiologie, doch obwohl die Entwicklung einiger zentraler Deep-Learning-Konzepte teilweise durch unser Verständnis des Gehirns inspiriert war, sind Deep-Learning-Modelle keine Modelle des Gehirns. Es gibt keine Anhaltspunkte darauf, dass das Gehirn etwas vergleichbares wie die Lernmechanismen implementiert, die in modernen Deep-Learning-Modellen verwendet werden. Gelegentlich begegnen einem populärwissenschaftliche Artikel in denen proklamiert wird, dass Deep Learning wie das Gehirn funktioniert oder nach dem Vorbild eines Gehirns modelliert wurde. Das ist aber nicht der Fall. Für Neueinsteiger in das Fachgebiet wäre es verwirrend und kontraproduktiv, Deep Learning als etwas zu betrachten, das mit Neurobiologie in irgend einem Zusammenhang steht. Deep Learning ist ein mathematisches Gerüst zum Lernen von Repräsentationen von Daten.
 
-Wie sehen Repräsentationen aus, die ein Deep-Learning-Algorithmus gelernt hat? Abbildung \ref{fig:neuralnet} zeigt, wie ein mehrere Schichten tiefes Netzwerk ein Bild einer Ziffer transformiert, um zu erkennen welche Ziffer es ist.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{bilder/neuralnet.png}
-	\caption[Neuronales Netz]{Ein Deep-Learning-Netzwerk zur Ziffernerkennung}
-	\label{fig:neuralnet}
-\end{figure}
-
-Wie in Abbildung \ref{fig:datarepresentation} zu sehen ist, transformiert das Netzwerk das Bild der Ziffer in Repräsentationen, die sich zunehmend stark vom Original unterscheiden und zunehmend informativ über das Endergebnis sind. Ein Deep-Learning-Netzwerk ist wie ein mehrstufiger Informations-Destilliations-Vorgang, bei dem Information durch aufeinanderfolgende Filter fließt und zunehmend bereinigt und für einen bestimmten Zweck nutzbar wieder herauskommt.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{bilder/datarepresentations.png}
-	\caption[Repräsentationen innerhalb eines Netzwerks]{Repräsentation der Daten, wie sie durch ein Ziffern-Klassifizierungs-Modell gelern werden}
-	\label{fig:datarepresentation}
-\end{figure}
-
-Die Idee hinter Deep Learning ist einfach, kann aber wie Magie anmuten, wenn der simple Mechanismus ausreichend skaliert wird.
+Ein Deep-Learning-Netzwerk ist wie ein mehrstufiger Informations-Destilliations-Vorgang, bei dem Information durch aufeinanderfolgende Filter fließt und zunehmend bereinigt und für einen bestimmten Zweck nutzbar wieder herauskommt. Die Idee hinter Deep Learning ist einfach, kann aber wie Magie anmuten, wenn der simple Mechanismus ausreichend skaliert wird.
 \cite{chollet2021deep}
 
 \section{Convolutional Neural Networks}
 \label{sec:cnn}
-Für Bilddaten verarbeitet ein Convolutional Neural Network, kurz CNN, typischerweise Paare von Tensoren dritter, nämlich einerseits auf die Eingabedaten und andererseits auf einen sogenannten Filter oder auch Kernel. Die Eingabedaten sind in der ersten Schicht des Netzes die RGB-Pixelinformationen und in allen weiteren konvolutionalen Schichten die Ausgabe der vorherigen Schicht. Ein Filter ist eine Anzahl von trainierbaren Parametern, enthalten in einem Tensor.
+Für Bilddaten verarbeitet ein Convolutional Neural Network, kurz CNN, typischerweise Paare von Tensoren dritter Stufe, nämlich einerseits auf die Eingabedaten und andererseits auf einen sogenannten Filter oder auch Kernel. Die Eingabedaten sind in der ersten Schicht des Netzes die RGB-Pixelinformationen und in allen weiteren konvolutionalen Schichten die Ausgabe der vorherigen Schicht. Ein Filter ist eine Anzahl von trainierbaren Parametern, enthalten in einem Tensor.
 
-Die Form der Tensoren variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs (\cite{goodfellow2016deeplearning}, \cite{Lecun99objectrecognition}, \cite{RFB15a}, \cite{isola2018imagetoimage}) nimmt die Kardinalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten.
+Die Form der Tensoren variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs ( \cite{isola2018imagetoimage}, \cite{goodfellow2016deeplearning}, \cite{Lecun99objectrecognition}, \cite{RFB15a}) nimmt die Dimensionalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten.
 
 Beim Pooling werden aus benachbarten Matrixkoeffizienten meist das Maximum, seltener der Durchschnitt oder andere Aggregierungen gebildet. Auf diese Weise wird das neuronale Netz darauf trainiert die relevanten Informationen zu extrahieren. \cite{goodfellow2016deeplearning}
 
-Den konvolutionalen Schichten folgt in einigen Anwendungsfällen eine voll vernetzte Schicht (engl. Fully Connected Layer, FC), in der für jedes Neuron mit jedem Neuron der vorherigen Schicht eine Verbindung besteht. Besonders für die Bilderkennung wird diese Architektur gelegentlich erfolgreich eingesetzt. Die Ausgabe des neuronalen Netzes ist dann ein Vektor, beispielsweise von Wahrscheinlichkeitswerten für das Vorhandensein bestimmter Objekte und gegebenenfalls Bildkoordinaten der erkannten Objekte. Im Fall der Bildgenerierung kann die Ausgabe aber auch wieder ein Tensor mit RGB-Pixelinformationen in der Form $(H\ x\ W\ x\ 3)$ sein.
+Den konvolutionalen Schichten folgt in einigen Anwendungsfällen eine voll vernetzte Schicht (engl. Fully Connected Layer, FC), in der für jede Einheit mit jeder Einheit der vorherigen Schicht eine Verbindung besteht. Besonders für die Bilderkennung wird diese Architektur gelegentlich erfolgreich eingesetzt. Die Ausgabe des neuronalen Netzes ist dann ein Vektor, beispielsweise von Wahrscheinlichkeitswerten für das Vorhandensein bestimmter Objekte und gegebenenfalls Bildkoordinaten der erkannten Objekte. Im Fall der Bildgenerierung kann die Ausgabe aber auch wieder ein Tensor mit RGB-Pixelinformationen in der Form $(H\ x\ B\ x\ 3)$ sein.
 
 \section{Batch Normalization}
-In ``Deep Learning with Python`` \cite{chollet2021deep} ist Batch Normalization wie folgt beschrieben.
+In ``Deep Learning with Python`` \cite{chollet2021deep} ist Batch Normalization wie folgt beschrieben:
 
 Normalisierung ist eine breit gefächerte Kategorie von Methoden, die versuchen verschiedene Eingaben für Modelle des maschinellen Lernens einander ähnlicher aussehen zu lassen. Das soll dem Modell helfen zu lernen und für neue Daten zu verallgemeinern. Die verbreitetste Form von Normalisierung besteht darin die Daten an $0$ zu zentrieren und mit einer Standardabweichung von $<1$ zu versehen, indem der Mittelwert aller Werte von jedem Einzelwert subtrahiert wird und jeder Einzelwert durch die Standardabweichung geteilt wird. Dies geschieht aufgrund der Annahme, dass die Daten normalverteilt sind und stellt sicher, dass diese Verteilung zu einer einheitlichen Varianz zentriert und skaliert ist.
 
@@ -199,7 +188,7 @@ GANs unterscheiden sich von anderen Modellen durch ihren Aufbau und in Bezug auf
 \section{Conditional Generative Adversarial Nets}
 \label{cgan}
 
-Mehdi Mirza beschreibt in seinem Artikel ``Conditional Generative Adversarial Nets'' \cite{mirza2014conditional} eine Klasse von künstlichen neuronalen Netzen, die gegenüber Generative Adversarial Networks noch weitere Vorteile bieten.
+Mehdi Mirza beschreibt in seinem Artikel ``Conditional Generative Adversarial Nets'' \cite{mirza2014conditional} eine Klasse von künstlichen neuronalen Netzen, die gegenüber Generative Adversarial Networks noch weitere Vorteile bieten:
 
 Eine Erweiterung des GANs ist das Conditional Generative Adversarial Net (cGAN). In cGANs erhält der Generator zusätzliche Eingabedaten ($y$, ``Ground Truth''), die Hinweise für die Generierung enthalten. Der Discriminator erhält diese zusätzlichen Daten ebenfalls, um die Erkennung während des Trainings zu optimieren.
 
@@ -229,7 +218,7 @@ Im Discriminator werden paarweise $x$ und $y$ sowie $x$ und $G(z|y)$ als Eingabe
 \label{sec:ubuntu}
 Ubuntu ist eine der bekanntesten Linux-Distributionen. Es ist kostenlos und in verschiedenen Editionen für unterschiedliche Zwecke erhältich. Es kann beispielsweise für Server oder für Desktop-Computer verwendet werden.
 
-Die Wahl des Betriebssystems fiel für dieses Projekt auf Ubuntu, weil die Integration mit der NVidia-Grafikkartenerweiterung CUDA mit Abstand am besten dokumentiert ist. Es gibt sowohl für Ubuntu als auch für CUDA eine lebendige Community. Dadurch besteht bei eventuell auftretenden Schwierigkeiten stets die Möglichkeit, auf die Erfahrungen anderer Nutzer zurückzugreifen.
+Die Wahl des Betriebssystems fiel für dieses Projekt auf Ubuntu, weil die Integration mit der NVIDIA-Grafikkartenerweiterung CUDA mit Abstand am besten dokumentiert ist. Es gibt sowohl für Ubuntu als auch für CUDA eine lebendige Community. Dadurch besteht bei eventuell auftretenden Schwierigkeiten stets die Möglichkeit, auf die Erfahrungen anderer Nutzer zurückzugreifen.
 
 Die Installation des Betriebssystems ist vergleichsweise einfach. Ein Volume-Image im ISO-Dateiformat (ISO 9660) kann vom Ubuntu-eigenen Server heruntergeladen und anschließend entweder auf eine CD oder DVD gebrannt oder auf einen bootfähigen USB-Stick kopiert werden.
 
@@ -239,17 +228,9 @@ Es ist auch möglich, Ubuntu unter Windows innerhalb der WSL (Windows Subsystem 
 
 Für diese Arbeit wurde Ubuntu als Hauptbetriebssystem genutzt. Die Schritte zur Einrichtung einer Entwicklungsumgebung für maschinelles Lernen sind auf ubuntu.com\footnote{https://ubuntu.com/tutorials/enabling-gpu-acceleration-on-ubuntu-on-wsl2-with-the-nvidia-cuda-platform/} beschrieben.
 
-% \begin{figure}[h]
-% 	\centering
-% 	\includegraphics[width=0.5\textwidth]{bilder/ubuntu-tutorial.png}
-% 	\caption[Ubuntu Tutorial]{Bildquelle: \href{https://ubuntu.com}{ubuntu.com} \newline Auf \href{https://ubuntu.com}{ubuntu.com} findet sich eine umfassende Sammlung von Anleitungen, unter anderem für die Einrichtung eines Machine-Learning-Setups.}
-% 	\label{fig:unsupervisedexamples}
-% \end{figure}
-
-
 \section{Python}
 \label{sec:python}
-Die Programmiersprache Python ist eine beliebte Wahl für Software-Projekte im Bereich des maschinellen Lernens. Ein wichtiger Grund dafür sind die verschiedenen verfügbaren Bilbiotheken, die zum Beispiel Bausteine für künstliche neuronale Netze und sogar häufig Algorithmen bereitstellen. Zwei der berühmtesten Bibliotheken dieser Art sind TensorFlow und Keras. In dem O'Reilly-Buch ``Python'' von Mark Lutz \cite{lutz2013python} wird Python wie folgt beschrieben.
+Die Programmiersprache Python ist eine beliebte Wahl für Software-Projekte im Bereich des maschinellen Lernens. Ein wichtiger Grund dafür sind die verschiedenen verfügbaren Bilbiotheken, die zum Beispiel Bausteine für künstliche neuronale Netze und sogar häufig Algorithmen bereitstellen. Zwei der berühmtesten Bibliotheken dieser Art sind TensorFlow und Keras. In dem O'Reilly-Buch ``Python'' von Mark Lutz \cite{lutz2013python} wird Python wie folgt beschrieben:
 
 Python ist eine beliebte, quelloffene Programmiersprache sowohl für eigenständige Programme als auch für Anwendungs-Skripte in vielen verschiedenen Bereichen. Es ist kostenlos, portabel sowie relativ einfach und wird  mit bemerkenswertem Enthusiasmus verwendet.
 
@@ -267,7 +248,7 @@ Pythonskripte können leicht mit anderen Teilen einer Anwendung kommunizieren, i
 
 \section{CUDA}
 \label{sec:cuda}
-Cuda ist eine NVIDIA-proprietäre Hardware- und Software-Architektur. Auch zu CUDA existiert ein Buch. Es heißt ``CUDA by Example: An Introduction to General-Purpose GPU Programming'' \cite{sanders2010cuda} und enthält die folgende Beschreibung.
+Cuda ist eine NVIDIA-proprietäre Hardware- und Software-Architektur. Auch zu CUDA existiert ein Buch. Es heißt ``CUDA by Example: An Introduction to General-Purpose GPU Programming'' \cite{sanders2010cuda} und enthält die folgende Beschreibung:
 
 Die CUDA-Architektur ist das Schema, nach dem NVIDIA-Grafikkarten gebaut wurden, die sowohl traditionelle Grafik-Rendering-Aufgaben als auch allgemeine Aufgaben durchführen können. Zum Programmieren der CUDA GPUs wird die Sprache CUDA C verwendet. CUDA C ist im Wesentlichen die Programmiersprache C mit einer Handvoll Erweiterungen, welche die Programmierung hoch parallelisierter Maschinen wie NVIDIA GPUs ermöglichen.
 
@@ -275,11 +256,13 @@ Anders als frühere GPU-Generationen, die Rechenressourcen in Vertex- und Pixels
 
 Zusätzlich zu der Sprache für das Schreiben von Code für die GPU stellt NVIDIA einen spezialisierten Hardwaretreiber zur Verfügung, der die hohe Rechenleistung der CUDA-Architektur ausschöpft. Kenntnis der OpenGL- oder DirectX-Programmierschnittstellen ist nicht länger erforderlich. \cite{sanders2010cuda}
 
-\section{Image-To-Image-Translation}
+\section{Image-To-Image-Translation in Python}
 \label{sec:pix2pix}
 Der Image-To-Image-Translation-Algorithmus oder kurz Pix2Pix-Algorithmus verwendet ein GAN, um Bilder in Bilder zu übersetzen. Dafür kommen zwei CNNs zum Einsatz, nämlich eins für den Generator und eins für den Discriminator. \cite{isola2018imagetoimage}
 
-Die Datei \hyperref[pix2pixpy]{main.py} befindet sich im Anhang. Es ist eine Beispielimplementierung zum Artikel ``Image-to-Image Translation with Conditional Adversarial Networks'' \cite{isola2018imagetoimage} und ist im Github-Repository tensorflow/docs\footnote{\href{https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb}{https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb}} zu finden. Für meine Experimente habe ich hauptsächlich diese Implementation verwendet. Sie wurde für die erste Hauptversion von Tensorflow geschrieben und war zunächst mit meinem Setup nicht ausführbar. Deshalb folgen den Import-Anweisungen am Anfang des Python-Skripts weitere Imports und Konfigurationen, um die Kompatibilität herzustellen. Im Verlauf des Programmes wird dann die erste Tensorflow-Version genutzt.
+Die Datei \hyperref[pix2pixpy]{main.py befindet sich im Anhang 1}. Es ist eine Beispielimplementierung zum Artikel ``Image-to-Image Translation with Conditional Adversarial Networks'' \cite{isola2018imagetoimage} und ist im Github-Repository tensorflow/docs\footnote{\href{https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb}{https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb}} zu finden. Für meine Experimente habe ich hauptsächlich diese Implementierung verwendet. Sie wurde für die erste Hauptversion von Tensorflow geschrieben und war zunächst mit meinem Setup nicht ausführbar. Deshalb folgen den Import-Anweisungen am Anfang des Python-Skripts weitere Imports und Konfigurationen, um die Kompatibilität herzustellen. Im Verlauf des Programmes wird dann die erste Tensorflow-Version genutzt.
+
+Eine weitere Änderung ist das selbst erstellte Dataset, das statt der im Beispiel verwendeten Gebäudefassaden geladen wird. Es wurden auch Ausgaben entfernt, wegen derer die Ausführung des Skriptes unterbrochen wurde. Dabei wurden Bildinformationen und Beispielbilder nach dem Laden des Datasets, dem Aufteilen in Eingabebild und Ground Truth, der Erzeugung von Bildrauschen, Down- und Upsampling sowie den ersten Trainingsdurchläufen ausgegeben, die während des Trainings der Skizzen- und Renderbilder nicht betrachtet werden mussten. Außerdem wurden in der Original-Implementierung bei jedem Training Diagramme des Generators und des Discriminators erzeugt.
 
 Die erste Funktion namens \lstinline|load| öffnet eine Datei und liest diese als JPEG-Bilddatei. Sie wird verwendet, um die Trainingsdaten zu laden. Weil die Trainingsdaten aus zwei Bildern pro Datei bestehen, nämlich jeweils einem Eingabebild und dem erwarteten Ergebnis (Ground Truth), extrahiert die Funktion zusätzlich die beiden Bilder und gibt jede in einer eigenen Variablen zurück.
 
@@ -291,21 +274,17 @@ In der Funktion \lstinline|normalize| werden die RGB-Werte der beiden Eingabebil
 
 In \lstinline|random_jitter| wird zunächst \lstinline|resize| aufgerufen, um die Eingabebilder auf 286x286 Pixel zu skalieren. Anschließend wird \lstinline|random_crop| auf die skalierten Bilder angewendet. Schließlich werden aufgrund einer Zufallszahl beide Eingabebilder mit einer Wahrscheinlichkeit von 50 Prozent gespiegelt.
 
-Die beiden Funktionen \lstinline|load_image_train| und \lstinline|load_image_test| laden die Eingabe- und Referenzbilder (Ground Truth), skalieren diese auf 256x256 Pixel und normalisieren die Eingabedaten durch Aufrufe der Funktionen \lstinline|load|, \lstinline|resize| und \lstinline|normalize|. Nur die Funktion zum Laden der Trainingsbilder ruft für die geladenen Bilder \lstinline|random_jitter| auf.
+Die beiden Funktionen \lstinline|load_image_train| und \lstinline|load_image_test| laden die Eingabe- und Zielbilder, skalieren diese auf 256x256 Pixel und normalisieren die Eingabedaten durch Aufrufe der Funktionen \lstinline|load|, \lstinline|resize| und \lstinline|normalize|. Nur die Funktion zum Laden der Trainingsbilder ruft für die geladenen Bilder \lstinline|random_jitter| auf.
 
 Die Funktion \lstinline|downsample| erzeugt eine Schicht eines CNNs mit optionaler Batch Normalization und der Leaky-ReLU-Aktivierungsfunktion. Diese Schichten werden im Encoder des Generators sowie im Discriminator verwendet. Batch Normalization kommt nur in der jeweils ersten Schicht des Generators und des Discriminators nicht zum Einsatz.
 
 In der Funktion \lstinline|upsample| entstehen die übrigen CNN-Schichten des Generators. Der Entfaltung, bei der die Faltung der Funktion \lstinline|downsample| umgekehrt wird (engl. Transposed Convolution \cite{zaccone2018tensorflow}), folgt hier immer die Batch Normalization sowie optional Dropout mit einem Wahrscheinlichkeitswert von $0.5$. Das ist in den ersten drei Schichten des Decoders im Generator der Fall und bedeutet, dass statistisch die Hälfte der Aktivierungen „fallengelassen“ werden, also nicht in das Trainingsergebnis eingehen. Als Aktivierungsfunktion kommt ReLU zum Einsatz.
 
-In \lstinline|build_generator| werden die Schichten des Generators zusammengefügt. Im Encoder wird acht Mal \lstinline|downsample| aufgerufen, bis die Dimensionen des Eingabetensors, die am Anfang der Bildgröße entsprechen (Breite und Höhe, also $256x256$ Pixel), durch die Konvolution auf $1$ reduziert sind. Die Dimension, welche die Anzahl Farbkanäle der Eingabebilder repräsentiert, erhöht sich im Encoder auf den Wert $512$. Die Werte dieser Achse werden als Features \cite{zhang2020dive} \cite{chollet2021deep} \cite{zaccone2018tensorflow} bezeichnet.
+In \lstinline|build_generator| werden die Schichten des Generators zusammengefügt. Im Encoder wird achtmal \lstinline|downsample| aufgerufen, bis die Dimensionen des Eingabetensors, die am Anfang der Bildgröße entsprechen (Breite und Höhe, also $256x256$ Pixel), durch die Konvolution auf $1$ reduziert sind. Die Dimension, welche die Anzahl Farbkanäle der Eingabebilder repräsentiert, erhöht sich im Encoder auf den Wert $512$. Die Werte dieser Achse werden als Features \cite{zhang2020dive} \cite{chollet2021deep} \cite{zaccone2018tensorflow} bezeichnet.
 
-Der Decoder ruft seinerseits sieben Mal \lstinline|upsample| auf und führt eine weitere Entfaltung durch, wodurch die Dimensionen des bearbeiteten Tensors wieder jeweils dieselbe Form wie in den Eingabebildern annehmen. Schließlich werden die Skip-Connections zwischen den Schichten 1 bis 8 des Encoders und des Decoders hergestellt.
+Der Decoder ruft seinerseits siebenmal \lstinline|upsample| auf und führt eine weitere Entfaltung durch, wodurch die Dimensionen des bearbeiteten Tensors wieder jeweils dieselbe Form wie in den Eingabebildern annehmen. Schließlich werden die Skip-Connections zwischen den Schichten 1 bis 8 des Encoders und des Decoders hergestellt.
 
-In der Funktion \lstinline|generator_loss| ist die Backpropagation des Generators implementiert. Zuerst wird dafür die Kreuzentropie des Ergebnisses des Discriminators und eines gleich großen Tensors, der mit Einsen initialisiert wird, gebildet. Das Ergebnis ist das GAN-Loss. Anschließend kommt die L1 Loss Function, auch Mean Absolute Error genannt, zum Einsatz:
-\begin{align}
-  \mathcal{L} _{L1}(G) = \mathbb{E}_{x,y,z}[\|y - G(x,z)\|_1]
-\end{align}
-wobei $x$ für die Eingabebilder, $y$ für die Ground Truth und $z$ für das Ergebnis des des Generators, also das generierte Bild, steht \cite{isola2018imagetoimage}. Dieses L1-Loss wird aus dem Durchschnitt der absoluten Differenz der Ground Truth und des Generatorergebnisses berechnet. Der Gesamtverlust des Generators ist das GAN-Loss plus das Produkt aus dem Regularisierungsparameter Lambda, der konstant $100$ beträgt, und dem L1-Loss. Die Funktion \lstinline|generator_loss| gibt den Gesamtverlust, das GAN-Loss und das L1-Loss zurück.
+In der Funktion \lstinline|generator_loss| ist die Backpropagation des Generators implementiert. Zuerst wird dafür die Kreuzentropie des Ergebnisses des Discriminators und eines gleich großen Tensors, der mit Einsen initialisiert wird, gebildet. Das Ergebnis ist das GAN-Loss. Anschließend kommt die L1 Loss Function, auch Mean Absolute Error genannt, zum Einsatz. Dieses L1-Loss wird aus dem Durchschnitt der absoluten Differenz der Ground Truth und des Generatorergebnisses berechnet. Der Gesamtverlust des Generators ist das GAN-Loss plus das Produkt aus dem Regularisierungsparameter Lambda, der konstant $100$ beträgt, und dem L1-Loss. Die Funktion \lstinline|generator_loss| gibt den Gesamtverlust, das GAN-Loss und das L1-Loss zurück.
 
 In \lstinline|build_discriminator| wird der Discriminator aus verschiedenen neuronalen Schichten zusammengesetzt. Zwei Tensoren \lstinline|input_image| und \lstinline|target_image| mit denselben Anzahlen Achsen und denselben Dimensionen wie die Eingabebilder werden zu einem einzelnen Tensor konkateniert. Anschließend wird für diesen Tensor dreimal \lstinline|downsample| aufgerufen, bis der Tensor die Dimensionen $(32x32x256)$ hat. Es folgt ein Padding mit Nullen, eine weitere Konvolution sowie Batch Normalization und die Leaky ReLU Aktivierungsfunktion. Nach einem weiteren Null-Padding und einer weiteren Konvolution hat der Tensor die Dimensionen $(30x30x1)$.
 
@@ -313,7 +292,7 @@ In der Funktion \lstinline|discriminator_loss| ist die Backpropagation des Discr
 
 Die Funktion \lstinline|generate_images| verwendet das Model des Generators, um aus Eingabebildern eigene Bilder zu generieren. Sie erstellt anschließend eine Ausgabedatei mit einem Beispiel bestehend aus einem Eingabebild, der zugehörigen Ground Truth und dem daraus generierten Bild.
 
-In der Funktion \lstinline|train_step| werden die wichtigsten Möglichkeiten genutzt, die durch Verwendung des Keras-Frameworks zur Verfügung stehen. Es wird ein Generator mit dem übergebenen Input-Bild und dem ebenfalls übergebenen Target-Bild initialisiert. Außerdem werden zwei Discriminator initialisiert, nämlich einmal mit dem Input- und dem Target-Bild und einmal mit dem Input-Bild und dem durch den Generator erstellten Bild.
+In der Funktion \lstinline|train_step| wird ein Generator mit dem übergebenen Input-Bild und dem ebenfalls übergebenen Target-Bild initialisiert. Außerdem werden zwei Discriminator initialisiert, nämlich einmal mit dem Input- und dem Target-Bild und einmal mit dem Input-Bild und dem durch den Generator erstellten Bild.
 
 Die Initialisierung des Generators und der Discriminator anhand der vorliegenden Bilder werden durch das Framework aufgezeichnet. Dadurch ist es anschließend möglich, die Gradienten mittels der in \lstinline|generator_loss| und \lstinline|discriminator_loss| berechneten Fehler des Generators und des Discriminators zu berechnen, um diese Werte an die jeweiligen Optimizer zu übergeben.
 
@@ -323,7 +302,7 @@ Schließlich wird in \lstinline|train_step| eine maschinenlesbare Zusammenfassun
 	\centering
 	\includegraphics[width=1.0\textwidth]{bilder/tensorboard.png}
 	\caption[TensorBoard]{Im TensorBoard können die Fehlerraten des aktuellen Trainingsdurchlaufs abgelesen oder frühere Trainingsdurchläufe miteinander verglichen werden.}
-	\label{fig:unsupervisedexamples}
+	\label{fig:tensorboard}
 \end{figure}
 
 In der Funktion \lstinline|fit| wird zuerst ein Bild des Testsets geladen. Das Beispielbild wird verwendet, um durch Aufrufen von \lstinline|generate_images| den aktuellen Trainingserfolg in Form einer Bilddatei im Ausgabeverzeichnis zu speichern. Dieser Vorgang erfolgt nach je 1000 Trainingsschritten.
@@ -332,17 +311,9 @@ In der Funktion \lstinline|fit| wird zuerst ein Bild des Testsets geladen. Das B
 
 Nach je 5000 Trainingsschritten speichert \lstinline|fit| außerdem einen Checkpoint. Dadurch kann einerseits das Training unterbrochen und zu einem späteren Zeitpunkt fortgesetzt werden. Andererseits wird das Modell auf diese Weise persistiert, und es ist später möglich, das künstliche neuronale Netz für seinen eigentlichen Einsatzzweck zu nutzen, ohne es erneut zu trainieren.
 
-Im Ausführungsstrang wird zunächst eine Option des GPU-Speichermanagements gewählt, um die Größe des reservierten Speichers dynamisch anwachsen zu lassen. \cite{zaccone2018tensorflow} Zu Beginn der Experimente hat sich diese Einstellung als vorteilhaft herausgestellt.
+Im Ausführungsstrang wird zunächst eine Option des GPU-Speichermanagements gewählt, um die Größe des reservierten Speichers dynamisch anwachsen zu lassen \cite{zaccone2018tensorflow}. Zu Beginn der Experimente hat sich diese Einstellung in Bezug auf die Performance als vorteilhaft herausgestellt.
 
 Es werden auch einige Parameter wie die Bildgröße und die Größe des Trainingssets und Hyperparameter wie die Batchgröße gesetzt. Das Trainings- und das Testset werden eingelesen, der Generator und die Discriminator erstellt und der Adam-Optimizer initialisiert. Nachdem anschließend das Schreiben der Checkpoints und der Zusammenfassung vorbereitet wurde, erfolgt das Training durch Aufruf von \lstinline|fit|. Im letzten Schritt wird das Modell mit 5 Beispielbildern aus dem Testset aufgerufen.
-
-\section{Image-To-Image-Translation in Python}
-\label{sec:pix2pixpy}
-Es besteht eine Auswahl an Beispielimplementierungen für Image-To-Image-Translation. Das Original-Paper verweist auf ein GitHub-Repository, das eine Lua-Implementierung zur Verfügung stellt. Wegen der besseren Eignung für Experimente auf einem lokalen Rechner durch CUDA-Unterstützung mit Tensorflow wird in dieser Arbeit Python verwendet.
-
-Die verwendete Beispielimplementierung ist zum Zeitpunkt der Erstellung dieses Dokumentes unter https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb zu finden. Eine an die aktuelle Version von Tensorflow und die Anforderungen dieser Arbeit angepasste Version befindet sich im Anhang.
-
-Die wichtigste Änderung ist das selbst erstellte Dataset, das statt der im Beispiel verwendeten Gebäudefassaden geladen wird. Es wurden Ausgaben entfernt, wegen derer die Ausführung des Skriptes unterbrochen wurde. Dabei wurden Bildinformationen und Beispielbilder nach dem Laden des Datasets, dem Aufteilen in Eingabebild und Ground Truth, der Erzeugung von Bildrauschen, Down- und Upsampling sowie den ersten Trainingsdurchläufen ausgegeben, die während des Trainings der Skizzen- und Renderbilder nicht betrachtet werden mussten. Außerdem wurden bei jedem Training Diagramme des Generators und des Discriminators erzeugt.
 
 \chapter{Experimente und Resultate}
 \label{ch:conduct}
@@ -354,11 +325,11 @@ Wavefront OBJ-Dateien vor. Die effizienteste Möglichkeit, die Skizzen und 3D-Mo
 
 Das ``Quick, Draw!''-Dataset steht unter der Creative-Commons-Lizenz CC BY 4.0. Eine Zusammenfassung der Lizenz ist auf creativecommons.org\footnote{\href{https://creativecommons.org/licenses/by/4.0/}{https://creativecommons.org/licenses/by/4.0/}} nachzulesen. Der Urheber ist Google, Inc. und das Material kann dem Github-Repository googlecreativelab/quickdraw-dataset\footnote{\href{https://github.com/googlecreativelab/quickdraw-dataset}{https://github.com/googlecreativelab/quickdraw-dataset}} entnommen werden. An dem Material in dem Dataset wurden durch mich keine Änderungen durchgeführt. Die Lizenz erfordert, dass diese Informationen genannt werden, was somit geschehen ist.
 
-NDJSON steht für Newline Delimited JavaScript Object Notation. In einer solchen Datei sind also zeilenweise JSON-Objekte gespeichert. Für jede Zeichnung sind Angaben zu Motiv, Ort und Zeit enthalten. Außerdem ist angegeben, ob die künstliche Intelligenz des Minispiels das Motiv in der Zeichnung korrekt klassifiziert, also erkannt hat. Jede Zeichnung hat weiterhin eine eindeutige ID.
+NDJSON steht für Newline Delimited JavaScript Object Notation. Die Spezifikation ist im Github-Repository ndjson/ndjson-spec\footnote{{https://github.com/ndjson/ndjson-spec}{https://github.com/ndjson/ndjson-spec}} zu finden. In einer solchen Datei sind also zeilenweise JSON-Objekte gespeichert. Für jede Zeichnung sind Angaben zu Motiv, Ort und Zeit enthalten. Außerdem ist angegeben, ob die künstliche Intelligenz des Minispiels das Motiv in der Zeichnung korrekt klassifiziert, also erkannt hat. Jede Zeichnung hat weiterhin eine eindeutige ID.
 
 Der relevanteste Teil ist die ``Drawings''-Eigenschaft der JSON-Objekte, ein mehrdimensionales Array mit Bildkoordinaten. Es enthält mindestens X-Koordinaten und Y-Koordinaten in jeweils einem Array im ``Drawings''-Array. Indem Linien zwischen den Bildkoordinaten in der Reihenfolge der Arrayelemente in ein Bild gezeichnet und in einer Bilddatei gespeichert werden, können die Zeichnungen in beliebigen Bilddateiformaten gespeichert werden. Für diese Arbeit wurde die Konvertierung ebenfalls in Python implementiert.
 
-Die Implementierung im \hyperref[ndjsonpy]{Skript im Anhang} beginnt mit den erforderlichen Importen, unter anderem um JSON zu dekodieren und Dateien im JPEG-Format erstellen zu können. Anschließend wird die Anzahl der zu konvertierenden Dateien festgelegt und die NDJSON-Datei als Tensorflow-Dataset vorbereitet.
+Die Implementierung im \hyperref[ndjsonpy]{Skript im Anhang 2} beginnt mit den erforderlichen Importen, unter anderem um JSON zu dekodieren und Dateien im JPEG-Format erstellen zu können. Anschließend wird die Anzahl der zu konvertierenden Dateien festgelegt und die NDJSON-Datei als Tensorflow-Dataset vorbereitet.
 
 In einer Schleife wird nun über die Zeilen der NDJSON-Datei iteriert. Zuerst wird der Fortschritt des Skripts auf der Konsole ausgegeben. Die nächste Zeile des Datasets wird in ein Python-Objekt dekodiert, und die ``Drawing''-Eigenschaft, in der die gezogenen Linien enthalten sind, in einer Variablen abgelegt.
 
@@ -371,7 +342,7 @@ Da eine Zeichnung fast nie die gesamte verfügbare Breite und Höhe der in dem M
 Das Skript endet, nachdem alle Zeilen der NDJSON-Eingabedatei verarbeitet oder 5000 Bilddateien erstellt wurden.
 
 Bei der Verarbeitung in einem Convolutional Neural Network spielt die Bildgröße
-in Bezug auf die Verarbeitungszeit eine wichtige Rolle. Bildformate der Größe 256x256 oder kleiner sind üblich und gut geeignet. Für ein GAN ist es zwar nicht erforderlich, aber sinnvoll, für Ein- und Ausgabedaten dieselben Dimensionen festzulegen. Bei der Bildgenerierung aus Skizzen unterscheiden sich Ein- und Ausgabdedaten natürlich bei die Farbtiefe. Während die Skizzen Graustufenbilder sind, besitzen die generierten Bilder drei Farbkanäle (RGB).
+in Bezug auf die Verarbeitungszeit eine wichtige Rolle. Bildformate der Größe 256x256 oder kleiner sind üblich und gut geeignet. Für ein GAN ist es zwar nicht erforderlich, aber sinnvoll, für Ein- und Ausgabedaten dieselben Dimensionen festzulegen. Bei der Bildgenerierung aus Skizzen unterscheiden sich Ein- und Ausgabdedaten natürlich in der Farbtiefe. Während die Skizzen Graustufenbilder sind, besitzen die generierten Bilder drei Farbkanäle (RGB).
 
 Sowohl während der Entwicklung als auch zur Laufzeit kann es vorteilhaft sein, Farbwerte statt auf der oft verwendeten Skala von $0$ bis $255$ als Fließkommazahlen im Bereich $0,0$ bis $1,0$ darzustellen. Auch für die Ausgaben der einzelnen Schichten eines künstlichen neuronalen Netzes kann diese Normalisierung durchgeführt werden.
 
@@ -389,7 +360,7 @@ Die Vorteile, die selbst erstellte Eingabedaten bieten, rechtfertigen in dieser 
   \includegraphics[width=0.325\textwidth]{bilder/limo2_m.png}
   \includegraphics[width=0.325\textwidth]{bilder/limo3_m.png}
 
-	\caption[Verschiedene Perspektiven]{3D-Modelle von Fahrzeugen können unterschiedlich in der Szene ausgerichtet werden. Dadurch entstehen verschiedene, aber gleichartige Eingabebilder.}
+	\caption[Verschiedene Perspektiven]{3D-Modelle von Fahrzeugen können unterschiedlich in der Szene ausgerichtet werden. Dadurch entstehen verschiedene, aber homogene Eingabebilder.}
 	\label{fig:limo}
 \end{figure}
 
@@ -421,64 +392,57 @@ Für das Modellieren ist aber exaktes Arbeiten nötig. Ein 3D-Modellierungsprogr
 	\label{fig:blender}
 \end{figure}
 
-Blender bietet neben 3D-Navigations-Schaltflächen eine große Zahl an Werkzeugen, mit denen Modelle erstellt und bearbeitete werden können, sowie vorgefertigte Formen. Objekte können unter anderem verschoben, verzerrt, geteilt und zusammengefügt werden.
+Blender bietet neben 3D-Navigations-Schaltflächen eine große Zahl an Werkzeugen, mit denen Modelle erstellt und bearbeitet werden können, sowie vorgefertigte Formen. Objekte können unter anderem verschoben, verzerrt, geteilt und zusammengefügt werden.
 
 Zudem gibt es Szenen-Objekte, die besondere Funktionen besitzen. Neben der Kamera, deren Position und Ausrichtung für das Ergebnisbild entscheidend ist, können auch verschiedenartige Lichtquellen und Spiegel in der Szene platziert werden, die in die Berechnung des Endergebnisses einbezogen werden. Zudem können Animationseffekte wie Feuer, Wasser und Wind erzeugt werden.
 \pagebreak
 
-Um Bilder automatisiert erstellen zu lassen wurde ein Blender-Python-Script entwickelt (s. \hyperref[blenderpy]{Anhang}). Das Skript export das Ergebnis als Waveform-OBJ und als JPEG-Bilddatei.
+Es wurde ein Blender-Python-Script entwickelt (s.~\hyperref[blenderpy]{Anhang 3}), um Bilder automatisiert erstellen zu lassen. Das Skript exportiert das Ergebnis als Waveform-OBJ und als JPEG-Bilddatei.
 
 Zunächst werden drei Zufallswerte für die Breite, Höhe und Tiefe jeweils der Tischplatte sowie der Tischbeine ermittelt. Für den Abstand der Tischbeine von der Tischkante wird ein weiterer Zufallswert berechnet. Anschließend werden Blender-Standard-Würfel so in der Szene platziert und anhand der Zufallswerte verformt, dass die Form eines Tisches entsteht.
 
 Die Tischform wird mit einer Textur versehen, damit eine Holzoptik entsteht.
 
-Die Objekte werden anschließend ausgewählt, um fünfmal um den entsprechenden Anteil einer Umdrehung (Pi / 5) gedreht zu werden. Dies geschieht in einer Schleife. Nach jeder Drehung wird eine Bilddatei gespeichert.
+Die Objekte werden anschließend ausgewählt, um fünfmal um den entsprechenden Anteil einer Umdrehung ($\pi/5$) gedreht zu werden. Dies geschieht in einer Schleife. Nach jeder Drehung wird eine Bilddatei gespeichert.
 
 Der gesamte Vorgang wird selbst in einer Schleife durchgeführt, sodass nach einer Ausführung 50 verschiedene Tische generiert und zu jedem Tisch fünf Bilddateien, also insgesamt 250 Bilddateien, gespeichert wurden.
 
 
 \section{Anwendung herkömmlicher Shader}
 \label{sec:shader}
-Shader definieren die Interaktion des Lichts mit der Oberfläche des Objekts. Dabei können Shader aus einem oder mehreren BSDFs (Bidirectional Scattering Distribution Function) bestehen, die wiederum von Mix-und Add-Shadern in der Zusammensetzung gemischt werden. \cite{wartmann2014blender}
+In der Computergrafik wird die Darstellung der Oberfläche eines Objekts durch die drei Faktoren Material, Textur und Ausleuchtung bestimmt. Material ist die Grundfarbe der Oberfläche. Es legt fest, wie das sichtbare Spektrum des Lichts von der Oberfläche des Objekts reflektiert wird. Ein Material legt außerdem fest, ob die Oberfläche matt oder metallisch erscheint. Es kann entsprechend der drei Farbschemas RGB, HSV oder Hex dargestellt werden. Wie die Farbe in jedem Schema erscheint ist auch von einem Alpha-Wert, welcher für die Menge der Transparenz steht, abhängig. Textur sind die physischen Charakteristiken der Oberfläche, und Ausleuchtung ist die Hintergrundbeleuchtung oder Licht, welches von Lichtern (Lampen) emittiert wird. \cite{blain2020blender}
 
-In der Computergrafik wird die Darstellung der Oberfläche eines Objekts durch die drei Faktoren Material, Textur und Ausleuchtung bestimmt. Material ist die Grundfarbe der Oberfläche. Textur sind die physischen Charakteristiken der Oberfläche, und Ausleuchtung ist die Hintergrundbeleuchtung oder Licht, welches von Lichtern (Lampen) emittiert wird. \cite{blain2020blender}
+Texturen definieren das physische Erscheinungsbild einer Oberfläche, also etwa wie glatt oder uneben diese erscheint, oder ihre Struktur, welche die visuelle Wahrnehumg der physischen Beschaffenheit des Objekts definiert. Diese Definition bestimmt, woraus die Oberfläche besteht, wie Holz, Ziegelsteine, Wasser und so weiter. Texturen werden durch Algorithmen generiert, wie sie in Blender integriert sind (prozedurale Texturen) oder aus Bilddateien (Bildtexturen). \cite{blain2020blender}
 
-In der Computergrafik ist ein Material die Farbe eines Objektes. Es legt fest, wie das sichtbare Spektrum des Lichts von der Oberfläche des Objekts reflektiert wird. Ein Material legt außerdem fest, ob die Oberfläche matt oder metallisch erscheint. \cite{blain2020blender}
+Shader definieren die Interaktion des Lichts mit der Oberfläche des Objekts. Dabei können Shader aus einem oder mehreren BSDFs (Bidirectional Scattering Distribution Function) bestehen, die wiederum von Mix-und Add-Shadern in der Zusammensetzung gemischt werden. Polygonobjekte sind anfangs immer ungeglättet, das heißt, dass beim Rendern oder in der schattierten Ansicht zunächst immer die einzelnen Flächen zu sehen sind, aus denen sich das Objekt zusammensetzt. Eine mögliche, wenn auch in Sachen Renderzeit und Speicherverbrauch ungünstige Methode wäre, einfach das Objekt so weit in kleinere Flächen zu unterteilen, dass beim Rendern eine Fläche pro Pixel gerendert wird. In der praktischen Arbeit verwendet man deshalb einen Trick, bei dem die Übergänge zwischen den einzelnen Flächen ``glattgerechnet'' werden. Übliche Verfahren hier sind das Gouraud oder Phong Shading. \cite{wartmann2014blender}
 
-Material (Farbe) kann entsprechend der drei Farbschemas RGB, HSV oder Hex dargestellt werden. Wie die Farbe in jedem Schema erscheint ist auch von einem Alpha-Wert, welcher für die Menge der Transparenz steht, abhängig. \cite{blain2020blender}
+Die Qualität eines Bildes hängt direkt von der Effektivität des Shading-Algorithmus ab, der wiederum von der Modellierungsmethode des Objektes abhängt. Zwei wesentliche Methoden der Objektbeschreibung werden häufig verwendet, nämlich Oberflächendefinition mittels mathematischer Gleichungen und Oberflächenapproximation durch Mosaike aus polygonalen Flächen. \cite{phong1975shading}
 
-Texturen definieren das physische Erscheinungsbild einer Oberfläche, also etwa wie glatt oder uneben diese erscheint, oder ihre Struktur, welche die visuelle Wahrnehumg der physischen Beschaffenheit des Objekts definiert. Diese Definition bestimmt, woraus die Oberfläche besteht, wie Holz, Ziegelsteine, Wasser und so weiter. \cite{blain2020blender}
-
-Texturen werden durch Algorithmen generiert, wie sie in Blender integriert sind (prozedurale Texturen) oder aus Bilddateien (Bildtexturen). \cite{blain2020blender}
-
-Die Qualität eines Bildes hängts direkt von der Effektivität des Shading-Algorithmus ab, der wiederum von der Modellierungsmethode des Objektes abhängt. Zwei wesentliche Methoden der Objektbeschreibung werden häufig verwendet, nämlich Oberflächendefinition mittels mathematischer Gleichungen und Oberflächenapproximation durch Mosaike aus polygonalen Flächen. \cite{phong1975shading}
-
-Polygonobjekte sind anfangs immer ungeglättet, das heißt, dass beim Rendern oder in der schattierten Ansicht zunächst immer die einzelnen Flächen zu sehen sind, aus denen sich das Objekt zusammensetzt. Eine mögliche, wenn auch in Sachen Renderzeit und Speicherverbrauch ungünstige Methode wäre, einfach das Objekt so weit in kleinere Flächen zu unterteilen, dass beim Rendern eine Fläche pro Pixel gerendert wird. In der praktischen Arbeit verwendet man deshalb einen Trick, bei dem die Übergänge zwischen den einzelnen Flächen ``glattgerechnet'' werden. Übliche Verfahren hier sind das Gouraud oder Phong Shading. \cite{wartmann2014blender}
 
 \section{Hyperparameter}
 \label{sec:hyperparams}
 Die Pix2Pix-Referenzimplementierung ist bereits für die Übersetzung von Skizzen in Fotos eingestellt. Für das Training waren anfangs $40000$ Trainingsschritte vorgesehen. Je nach Größe des Trainingssets werden also mehrere Wiederholungen mit demselben Trainingsset durchgeführt, um zufriedenstellende Ergebnisse zu erzielen. Nach Abschluss der Experimente könnte die Anzahl der Trainingsschritte auf $30000$ reduziert werden, um die Dauer des Trainings und die Ergebnisse zu optimieren. Dies ist aber wiederum abhängig von der Größe des Trainingssets. Es war auch im Sinne des Experiments, das Modell einige Tausend Schritte mehr durchführen zu lassen als für das optimale Resultat erforderlich gewesen wären.
 
-Die Eingabebilder sind 256x256 Pixel groß und besitzen einen Farbkanal für Graustufen. Sie werden am Anfang des Trainingsprozesses durch sogenanntes Jittering augmentiert. Dabei werden die Bilder zuerst auf 286x268 Pixel vergrößert und anschließend auf einen zufälligen 256x256 Pixel großer Ausschnitt wieder verkleinert. Änderungen an diesen Pixelgrößen haben im Experiment keine nennenswerte Verbesserung bewirkt.
+Die Eingabebilder sind 256x256 Pixel groß und besitzen einen Farbkanal für Graustufen. Sie werden am Anfang des Trainingsprozesses durch sogenanntes Jittering augmentiert. Dabei werden die Bilder zuerst auf 286x286 Pixel vergrößert und anschließend auf einen zufälligen 256x256 Pixel großer Ausschnitt wieder verkleinert. Änderungen an diesen Pixelgrößen haben im Experiment keine nennenswerte Verbesserung bewirkt.
 
 Der Adam Optimierer \cite{kingma2017adam} erhält für die Learning-Rate den Wert $0,0002$. Das Momentum ist auf $0,9$ voreingestellt. Diese beiden Werte beinflussen die Lerngeschwindigkeit und sind in begrenztem Maße anpassbar, sind aber bereits für meinen Zwecke optimal eingestellt.
 
 \section{Performancebeobachtungen}
 \label{sec:performance}
-Das Training umfasst sinnvollerweise 15000 bis 40000 Iterationen. Die Implementierung sieht vor, dass alle 1000 Iterationen ein Zwichenergebnis in Form dreier Bilder gespeichert wird. Das zu speichernde Beispiel kann dabei zufällig gewählt werden, oder es kann der Fortschritt eines einzelnen Input-Target-Paars über die Iterationen hinweg gezeichnet werden.
+Das Training umfasst sinnvollerweise 15000 bis 40000 Iterationen. Die Implementierung sieht vor, dass alle 1000 Iterationen ein Zwischenergebnis in Form dreier Bilder gespeichert wird. Das zu speichernde Beispiel kann dabei zufällig gewählt werden, oder es kann der Fortschritt eines einzelnen Input-Target-Paars über die Iterationen hinweg gezeichnet werden.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bilder/pix2pix_progress/progress_tables.png}
+	\caption[Lernfortschritt am Beispiel von Tischen 1]{Generierte Bilder von Tischen vor dem Training, nach 1000 Iterationen und nach 2000 Iterationen}
+	\label{fig:pix2pixprogress1}
+\end{figure}
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=0.8\textwidth]{bilder/pix2pix_progress/394_input.png}
   \caption[Quadratischer Tisch]{Ein Beispiel eines Tisches, dessen Textur und Form gelernt werden soll}
   \label{fig:trainingexample}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{bilder/pix2pix_progress/progress_tables.png}
-	\caption[Lernfortschritt am Beispiel von Tischen]{Generierte Bilder von Tischen vor dem Training, nach 1000 Iterationen und nach 2000 Iterationen}
-	\label{fig:pix2pixprogress1}
 \end{figure}
 
 Abbildung \ref{fig:trainingexample} zeigt beispielhaft eine handgezeichnete Skizze eines Tisches und das erwartete Ergebnis. In diesem Beispiel wird versucht, aus einem vermutlich quadratischen, gänzlich von der Seite gezeichneten Tisch einen quadratischen, von leicht schräg oben betrachteten texturierten Tisch zu generieren.
@@ -490,7 +454,7 @@ Nicht korrekt werden in dieser Phase des Trainings die geraden Linien der Zielbi
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{bilder/pix2pix_progress/progress_tables2.png}
-	\caption[Lernerfolg am Beispiel von Tischen]{Generierte Bilder von Tischen nach 10000, 15000 und 20000 Iterationen}
+	\caption[Lernfortschritt am Beispiel von Tischen 2]{Generierte Bilder von Tischen nach 10000, 15000 und 20000 Iterationen}
 	\label{fig:pix2pixprogress2}
 \end{figure}
 
@@ -501,11 +465,11 @@ Das Modell hat Form und Farbe verschiedener Tische gelernt. Auch die Unregelmä�
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.875\textwidth]{bilder/pix2pix_progress/table_result_orientation1.png}
-  \caption[Tisch ausgerichtet]{Korrekt ausgerichteter Tisch mit unregelmäßigen Kanten}
+  \caption[Tisch korrekt ausgerichtet]{Korrekt ausgerichteter Tisch mit unregelmäßigen Kanten}
   \label{fig:pix2pixorientation1}
 
 	\includegraphics[width=0.875\textwidth]{bilder/pix2pix_progress/table_result_orientation2.png}
-	\caption[Qualitativ unterschiedliche generierte Tische]{Tisch mit geraden Kanten, aber falscher Ausrichtung}
+	\caption[Tisch mit geraden Kanten]{Tisch mit geraden Kanten, aber falscher Ausrichtung}
 	\label{fig:pix2pixorientation2}
 \end{figure}
 
@@ -524,15 +488,15 @@ Der Vergleich zeigt, wieviel Bedeutung der Datenqualität des Trainingssets zuko
 	\label{fig:pix2pixcars}
 \end{figure}
 
-Fahrzeuge, wie in Abbildung \ref{fig:pix2pixcars}, sind eine vergleichbar schwierige Aufgabe für ein künstliches neuronales Netz. Aufgrund der Vielfalt an möglichen Fahrzeugen, für die der Begriff ``Auto'' (englisch ``Car'') stehen kann, sind die Unterschiede im Quick!Draw-Dataset nur schwer formal zu beschreiben.
+Fahrzeuge, wie in Abbildung \ref{fig:pix2pixcars}, sind eine vergleichbar schwierige Aufgabe für ein künstliches neuronales Netz. Aufgrund der Vielfalt an möglichen Fahrzeugen, für die der Begriff ``Auto'' (englisch ``Car'') stehen kann, unterscheiden sich die Zeichnungen im Quick!Draw-Dataset sehr stark und sind nur schwer zu sortieren und Zielbildern zuzuordnen.
 
-Genauso aufwendig ist es, verschiedene Fahrzeuge zu modellieren, um sie als Zielbilder zu verwenden. Anders als bei vielen Eigenschaften von Tischen, wie die Stärke der Tischplatte und der Tischbeine, lassen sich die Unterschiede von PKWs nicht genauso gut durch Zufallszahlen beschreiben. Auch sind die Autos fast ausschließlich in der Seitenansicht gezeichnet, sodass die meisten der automatisch in verschiedenen Perspektiven gerenderten Blendermodelle der Fahrzeuge nicht nutzbar sind.
+Genauso aufwendig ist es, verschiedene Fahrzeuge zu modellieren, um sie als Zielbilder zu verwenden. Anders als bei vielen Eigenschaften von Tischen, wie die Stärke der Tischplatte und der Tischbeine, lassen sich die Unterschiede von PKWs nicht genauso gut durch Zufallszahlen beschreiben. Auch sind die Autos fast ausschließlich in der Seitenansicht gezeichnet, sodass automatisch in verschiedenen Perspektiven gerenderte Blendermodelle der Fahrzeuge fast nicht nutzbar sind.
 
 Die Handskizzen stellen hauptsächlich PKWs dar und wurden deshalb nur in die drei Kategorien Limousine, Kleinwagen und Kombi unterteilt und entsprechenden Zielbildern zugewiesen.
 
 In den Abbildungen sind unterschiedlich gute Resultate zu sehen. Für einen praktischen Einsatzzweck, wie zum Beispiel ein Lehrmittel in einer Fahrschule, wäre dieses Modell bestenfalls als Grundlage für weiterführende Trainings geeignet.
 
-In Tensorflow wird der Trainingsfortschritt in Zahlen als Diagramm dargestellt. Der Generator und der Discriminator werden gleichzeitig trainiert. Der Verlust des Discriminators nimmt im Verlauf des Trainings ab. Nach $20000$ bis $30000$ Iterationen ist die Abnahme weniger stark.
+Die Trainingsergebnisse habe ich hauptsächlich durch Ansicht beurteilt. In Tensorflow wird der Trainingsfortschritt in Zahlen als Diagramm dargestellt. Das verwendete Skript erstellt drei Diagramme für den Generator und ein Diagramm für den Discriminator. Generator und Discriminator werden gleichzeitig trainiert. Der Verlust des Discriminators nimmt im Verlauf des Trainings ab. Nach $20000$ bis $30000$ Iterationen ist die Abnahme weniger stark.
 
 Der Discriminator wird auf das vom Generator erstellte Bild und auf das Zielbild angewendet. Der Gesamtverlust des Discriminators wird aus diesen beiden Ergebnissen gebildet und bezeichnet den Erfolg beziehungsweise Misserfolg des Discriminators, das durch den Generator erstellte Bild als solches von einem Zielbild zu unterscheiden.
 
@@ -546,10 +510,11 @@ Das GAN-Loss berücksichtigt das Ergebnis des Discriminators, also wie gut diese
 	\centering
 	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_total_loss.png}
 	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/disc_loss.png}
-	\caption[Lernerfolgsdiagramm 1]{Die Tensorboard-Diagramme des Gesamtverlusts jeweils für Generator (gen\_total\_loss) und für Discriminator (disc\_loss) }
+	\caption[Verlustdiagramm 1]{Die Tensorboard-Diagramme des Gesamtverlusts jeweils für Generator (gen\_total\_loss) und für Discriminator (disc\_loss) }
+	\label{fig:pix2pixprogress3}
 	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_l1_loss.png}
 	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_gan_loss.png}
-	\caption[Lernerfolgsdiagramm 2]{Die Tensorboard-Diagramme der Discriminator-Verluste}
+	\caption[Verlustdiagramm 2]{Die Tensorboard-Diagramme der Generator-Verluste}
 	\label{fig:pix2pixprogress4}
 \end{figure}
 
@@ -559,21 +524,25 @@ In den Diagrammen ist der Verlauf eines Trainings über $40000$ Iterationen abge
 
 \chapter{Diskussion}
 \label{sec:conclusion}
-Bildgenerierung mittels künstlichen neuronalen Netzen wurde bereits in verschiedenen Experimenten und mit teilweise sehr guten Ergebnissen durchgeführt und dokumentiert. Es können Bildteile aus den umliegenden Bildinformationen neu generiert werden, wie es mit Fotobearbeitungssoftware möglich ist. Seit einiger Zeit sind Handschrifterkennungs-Algorithmen verbreitet. Eine Variante der Bildgenerierung ist deren Umkehr, indem zum Beispiel aus einstelligen Zahlen handschriftlich aussehende Ziffern generiert werden. Außerdem kann der Gesamteindruck eines vorhandenen Bildes, auch durch Verwendung eines weiteren Bildes, verändert und auf diese Art ein neues Bild generiert werden.
+Bildgenerierung mittels künstlichen neuronalen Netzen wurde bereits in verschiedenen Experimenten und mit teilweise sehr guten Ergebnissen durchgeführt und dokumentiert. Es können Bildteile aus den umliegenden Bildinformationen neu generiert werden, wie es mit Fotobearbeitungssoftware möglich ist.
 
-Die Arbeit mit künstlichen neuronalen Netzen hat gezeigt, dass ein Großteil des Aufwands aus der Erhebung und vorbereitung der Daten besteht. Geeignete Eingabebilder mussten entweder gesammelt oder selbst erstellt werden. Durch Automatisierung konnte der Erstellungsprozess verkürzt werden, machte aber immer noch einen erheblichen Anteil der Arbeit aus. Sowohl gesammelte als auch selbst erstellte Bilder eignen sich nicht ausnahmslos für den gewählten Zweck. Es war deshalb weiterhin erforderlich, die Bilder händisch zu sortieren. Anschließend war noch jeweils die Zuweisung einer Handskizze zu einem Ergebnisbild erforderlich, die ebenfalls manuell erfolgen musste.
+Seit einiger Zeit sind Handschrifterkennungs-Algorithmen verbreitet. Eine Variante der Bildgenerierung ist deren Umkehr, indem zum Beispiel aus einstelligen Zahlen handschriftlich aussehende Ziffern generiert werden. Außerdem kann der Gesamteindruck eines vorhandenen Bildes, auch durch Verwendung eines weiteren Bildes, verändert und auf diese Art ein neues Bild generiert werden.
+
+Die Arbeit mit künstlichen neuronalen Netzen hat gezeigt, dass ein Großteil des Aufwands aus der Erhebung und Vorbereitung der Daten besteht. Geeignete Eingabebilder mussten entweder gesammelt oder selbst erstellt werden. Durch Automatisierung konnte der Erstellungsprozess verkürzt werden, machte aber immer noch einen erheblichen Anteil der Arbeit aus. Sowohl gesammelte als auch selbst erstellte Bilder eignen sich nicht ausnahmslos für den gewählten Zweck. Es war deshalb weiterhin erforderlich, die Bilder händisch zu sortieren. Anschließend war noch jeweils die Zuweisung einer Handskizze zu einem Ergebnisbild erforderlich, die ebenfalls manuell erfolgen musste.
 
 Das Training des Modells ist ein weiterer aufwendiger Prozess. Im Laufe eines Trainingdurchlaufes eines künstlichen neuronalen Netzes zeichnet sich bereits ein Endergebnis ab. Es ist daher möglich, anhand weniger Zwischenergebnisse schwerwiegende Fehler zu bemerken und den Durchlauf von vorn zu beginnen. Das Endergebnis ist selbstverständlich erst nach Abschluss des Trainings sichtbar. Wenn es darum geht herauszufinden, wieviele Durchläufe für ein perfektes Ergebnis erforderlich sind, kann es erforderlich sein das Modell mehrere Male hintereinander auf dasselbe Ergebnis zu trainieren.
 
-Künstliche neuronale Netze sind mathematische Konstrukte. Zunächst ist es deshalb erforderlich, die Fachbegriffe der entsprechenden Literatur zu kennen. Die wissenschaftlichen Texte liegen hauptsächlichich auf Englisch vor, sodass man die Begriffe sinnvollerweise auf Deutsch und auf Englisch lernt. Das künstliche neuronale Netz selbst wird als eine Struktur aus Tensoren dargestellt. Abhängig von der Dimensionalität der Ein- und Ausgaben besitzen die Tensoren in der ersten und der letzten Schicht eines künstlichen neuronalen Netzes entsprechend viele Dimensionen. Die Ausgabe eines Modells, dessen letzte Schicht eine Anzahl Tensoren mit drei Dimensionen besitzt, kann also als RGB-Werte interpretiert werden.
+Künstliche neuronale Netze sind mathematische Konstrukte. Zunächst ist es deshalb erforderlich, die Fachbegriffe der entsprechenden Literatur zu kennen. Die wissenschaftlichen Texte liegen hauptsächlichich auf Englisch vor, sodass man die Begriffe sinnvollerweise auf Deutsch und auf Englisch lernt. Das künstliche neuronale Netz selbst wird als eine Struktur aus Tensoren dargestellt.
 
-Die Algorithmen des maschinellen Lernens berechnen üblicherweise aus der Eingabe mehrere weitere Schichten aus Tensoren. Die Dimensionalität der Tensoren ändert sich auf jeder weiteren Schicht. Einige Algorithmenklassen, wie zum Beispiel die U-Net-Architektur, sind benannt nach der Art, auf die sich die Dimensionalität der Tensoren ändert. Für diese Arbeit sind die Generative Adversarial Networks besonders interssant. Mit ihnen werden zwei lernende Komponenten gegeneinander angesetzt. Eine von ihnen lernt die eigentliche Aufgabe zu erfüllen. Die zweite Komponente wird darauf trainiert, die Ergebnisse der ersten zu bewerten und Feedback zu den erzielten Ergebnissen zu geben. Sobald die Bewertungen den Erwartungen entsprechen ist das Trainingsziel der ersten Komponente erreicht.
+Die Algorithmen des maschinellen Lernens berechnen üblicherweise aus der Eingabe mehrere weitere Schichten aus Tensoren. Die Dimensionalität der Tensoren ändert sich auf jeder weiteren Schicht. Einige Algorithmenklassen, wie zum Beispiel die U-Net-Architektur, sind benannt nach der Art, auf die sich die Dimensionalität der Tensoren ändert.
+
+Für diese Arbeit waren die Generative Adversarial Networks besonders interssant. Mit ihnen werden zwei lernende Komponenten gegeneinander angesetzt. Eine von ihnen lernt die eigentliche Aufgabe zu erfüllen. Die zweite Komponente wird darauf trainiert, die Ergebnisse der ersten zu bewerten und Feedback zu den Ergebnissen zu geben.
 
 Die für maschinelles Lernen erforderlichen Berechnungen können auf handelsüblichen PCs ausgeführt werden. Sie sind aber sehr umfangreich, sodass sich unterstützende Hardware günstig auswirkt. Bei Cloud-Angeboten wie Google Colab und Amazon SageMaker, die auf Implementierungen dieser Art spezialisiert sind, können Algorithmen auf Enterprise-Grade-Hardware ausgeführt werden.
 
 Aber auch Grafikkarten für Spiele-PCs sind durch parallele Tensoroperationen für maschinelles Lernen um ein Vielfaches besser geeignet als die CPU. Für diesen Zweck existiert speziell hergestellte Treibersoftware. Die Parallelisierungssoftware für NVIDIA-Grafikkarten heißt CUDA. Auf die Treiber aufbauend wurden und werden Programmierschnittstellen für verschiedene Programmiersprachen entwickelt.
 
-Eine der weit verbreitetsten Machine-Learning-Programmierschnittstellen ist Tensorflow für Python, die auch für diese Arbeit verwendet wurde. Die Einrichtung auf einem Desktopcomputer ist teilweise umständlich, aber für Tensorflow und CUDA gut dokumentiert. Es gibt Anleitungen für Ubuntu Linux, zum Beispiel auch im Windows Subsystem for Linux (WSL). Die Verwendung der Programmierschnittstelle ist ebenfalls gut dokumentiert. Den in dieser Arbeit verwendeten Machine-Learning-Algorithmus Image-To-Image-Translation ist in der Beispielsektion auf tensorflow.org\footnote{\href{https://tensorflow.org}{https://tensorflow.org}} zu finden.
+Eine der weit verbreitetsten Machine-Learning-Programmierschnittstellen ist Tensorflow für Python, die auch für diese Arbeit verwendet wurde. Die Einrichtung auf einem Desktopcomputer ist teilweise umständlich, aber für Tensorflow und CUDA gut dokumentiert. Es gibt Anleitungen für Ubuntu Linux. Die Verwendung der Programmierschnittstelle ist ebenfalls gut dokumentiert. Den in dieser Arbeit verwendeten Machine-Learning-Algorithmus Image-To-Image-Translation ist in der Beispielsektion auf tensorflow.org\footnote{\href{https://tensorflow.org}{https://tensorflow.org}} zu finden.
 
 Das Modell muss immer wieder von vorn trainiert werden, bevor erste brauchbare Ergebnisse erzielt werden. Grundsätzlich gilt, dass die Menge der Eingabedaten so groß wie möglich sein sollte, damit ein Lernprozess erfolgreich sein kann. Trotzdem sind weitere Eigenschaften des Datasets wichtig. An dem Beispiel der Tische wurde deutlich, dass die Perspektive, also die Ausrichtung der Tische im Raum, nur bei einem ausreichenden Anteil an schräg ausgerichteten Beispielen erlernt wird. Dafür kann es sogar sinnvoll sein, die Gesamtgröße des Datasets zu reduzieren, damit alle Varianten in genügend großen Anteilen im Dataset vorhanden sind.
 
@@ -581,9 +550,9 @@ Die Anzahl der Trainingsdurchläufe ist eine der wichtigsten Größen beim masch
 
 Während der Versuchreihen wurde erkennbar, welche Bildinformationen durch ein künstliches neuronales Netz erlernt werden können, um eigenständig Bilder zu generieren. Die Möglichkeit Bilder überhaupt mittels künstlichen neuronalen Netzen generieren zu können war die erste und wichtigste Frage, die mit dieser Arbeit beantwortet werden sollte. Die Frage wurde recherchiert, und es standen mehrere Methoden zur Auswahl.
 
-Die konkreten Einsatzmöglichkeiten für Deep Learning sind, abgesehen von einigen nicht praxisorientierten Anwendungsbeispielen, ausschließlich in wissenschaftlichen Artikeln zu finden. Diese Artikel setzen beim Leser üblicherweise ein Verständnis der Grundlagen voraus und verweisen bestenfalls auf vorherige Arbeiten. Für die grundlegenden Prinzipien des maschinellen Lernens und verschiedene Arten von künstlichen neuronalen Netzen wie CNNs und RNNs gibt es auch Literatur in Form von Büchern. Die Bücher liegen größtenteils in englischer Sprache vor. Es gibt nur wenig deutsche Literatur. Wissenschaftliche Artikel zu dem Thema gibt es ausschließlich auf Englisch.
+Die konkreten Einsatzmöglichkeiten für Deep Learning sind, abgesehen von einigen nicht praxisorientierten Anwendungsbeispielen, ausschließlich in wissenschaftlichen Artikeln zu finden. Diese Artikel setzen beim Leser üblicherweise ein Verständnis der Grundlagen voraus und verweisen bestenfalls auf vorherige Arbeiten. Für die grundlegenden Prinzipien des maschinellen Lernens und verschiedene Arten von künstlichen neuronalen Netzen wie CNNs und RNNs gibt es Literatur in Form von Büchern. Die Bücher liegen größtenteils in englischer Sprache vor. Es gibt nur wenig deutsche Literatur. Die wissenschaftlichen Artikel zu dem Thema gibt es ausschließlich auf Englisch.
 
-Die besonders vielseitig einsetzbare Methode namens Image-To-Image-Translation ist in der Lage fehlende Bildinformationen zu generieren, neu zu generieren oder den umgekehrten Vorgang durchzuführen. Zum Beispiel können Schwarz-Weiß-Bilder koloriert, Luftaufnahmen in Karten übersetzt oder Straßenbilder nur aus Informationen zu Verkehrsteilnehmern und Straßenverläufen generiert werden, beziehungsweise jeweils auch umgekehrt. Mit dieser Bildübersetzung ist es auch möglich, aus handgezeichneten Gesichtern Portraitfotos oder Portraits, die wie von einem Künstler gemalt aussehen, zu generieren. Das kommt dem Generieren von Bildern aus handgezeichneten Skizzen am nächsten, anhand dessen in dieser Arbeit diese Fähigkeit künstlicher neuronaler Netze gezeigt werden sollte.
+Die besonders vielseitig einsetzbare Methode namens Image-To-Image-Translation ist in der Lage fehlende Bildinformationen zu generieren, neu zu generieren oder jeweils den umgekehrten Vorgang durchzuführen. Zum Beispiel können Schwarz-Weiß-Bilder koloriert, Luftaufnahmen in Karten übersetzt oder Straßenbilder nur aus Informationen zu Verkehrsteilnehmern und Straßenverläufen generiert werden, beziehungsweise jeweils auch umgekehrt. Mit dieser Bildübersetzung ist es auch möglich, aus handgezeichneten Gesichtern Portraitfotos oder Portraits, die wie von einem Künstler gemalt aussehen, zu generieren. Das kommt dem Generieren von Bildern aus handgezeichneten Skizzen am nächsten, anhand dessen in dieser Arbeit diese Fähigkeit künstlicher neuronaler Netze gezeigt werden sollte.
 
 In dem Artikel zu Image-To-Image-Translation wird die zugrundliegende Situation beschrieben, in der von einem Eingabebild zum Ausgabebild Pixel für Pixel übersetzt wird. Dies trifft etwa auf die Übersetzung eines Umrisses auf ein Foto desselben Objekts zu. Der Algorithmus lernt dann dem Objekt eine Textur zu geben. Die Frage, ob ein künstiches neuronales Netz lernen kann Texturen zu generieren, war die zweite Frage, die in dieser Arbeit zu beantworten war. Die Ergebnisse zu den entsprechenden Versuchen waren größtenteils sehr gut. Die Holztextur für die Tische und auch der Helligkeitsverlauf der brennenden Kerzen wurden sehr gut gelernt.
 

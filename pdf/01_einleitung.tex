@@ -32,7 +32,7 @@ Im Verlauf der Experimente habe ich den Trainingsfortschritt und -erfolg verschi
 	\includegraphics[width=0.3\textwidth]{bilder/1.jpg}
 	\includegraphics[width=0.3\textwidth]{bilder/15.jpg}
 	\caption[Verschiedene Trainingsschritte]{Das Modell generiert das Ergebnis in mehreren Tausend Schritten aus zufälligem Rauschen.}
-	\label{fig:trichter}
+	\label{fig:trainingsteps}
 \end{figure}
 
 % Die Arbeit verfolgt das Ziel, verschiedene bewährte Architekturen künstlicher
@@ -62,45 +62,7 @@ In ``Unsupervised Representation Learning with Deep Convolutional Generative Adv
 realitätsnahe Ergebnisse erzielt. Anders als bei den bisher erwähnten Arbeiten
 wird Unsupervised Learning verwendet, um das künstliche neuronale Netz zu trainieren.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{bilder/image_arithmetic.png}
-	\caption[Bildarithmetik]{Bildquelle: ``Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks'' \cite{radford2016unsupervised} \newline Unter anderem werden dort Bilder in einer Art Arithmetik miteinander kombiniert, um ein neues Ergebnis zu erzeugen.}
-	\label{fig:unsupervisedexamples}
-\end{figure}
-
 Die vielseitigste Generierung von Bildern bietet Image-To-Image-Translation with Conditional Adversarial Networks \cite{isola2018imagetoimage}. In der Arbeit werden Labels in Fotos zurückübersetzt, Schwarzweißbilder koloriert und weitere Anwendungsbeispiele gezeigt. Vor allem die Übersetzung ``Kanten nach Foto'' (``Edges to Photo'') ist für mein Vorhaben relevant. Das Dokument enthält dafür mehrere Beispiele. Der Algorithmus setzt auf Generative Adversarial Networks \cite{goodfellow2014generative} und Conditional Generative Adversarial Networks \cite{mirza2014conditional} auf.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{bilder/mnist_faces.png}
-	\caption[GAN Beispielbilder]{Bildquelle: ``Generative Adversarial Nets'' \cite{goodfellow2014generative} \\
-	In den Beispielen generierter Bilder ist deutlich zu erkennen, wie gut der Algorithmus geeignet ist Bilder zu generieren. Die gelb gerahmten Bilder sind die Ground Truth aus dem jeweiligen Trainingsset.}
-	\label{fig:ganexamples}
-\end{figure}
-
-\pagebreak
-
-\begin{figure}[h]
-	\centering
-	\imagetranslation{bilder/edges2cats_a}{bilder/edges2cats_b}
-	\hspace{.5cm}
-	\imagetranslation{bilder/fotogenerator_a}{bilder/fotogenerator_b}
-	\hspace{.5cm}
-	\imagetranslation{bilder/sketch2portrait_a}{bilder/sketch2portrait_b}
-	\label{fig:pix2pixexamples_1}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\imagetranslation{bilder/pokemon_a}{bilder/pokemon_b}
-	\hspace{.5cm}
-	\imagetranslation{bilder/shoe_a}{bilder/shoe_b}
-	\hspace{.5cm}
-	\imagetranslation{bilder/handbag_a}{bilder/handbag_b}
-	\caption[Bildarithmetik]{Bildquelle: ``Image-To-Image-Translation with Conditional Adversarial Networks'' \cite{isola2018imagetoimage} \newline In dem Paper zu Pix2Pix sind viele Beispiele für die Generierung von Bildern aus Handzeichnungen oder Ergebnissen einer Kantenerkennung (zum Beispiel Canny Edge Detection) enthalten.}
-	\label{fig:pix2pixexamples_2}
-\end{figure}
 
 \begin{figure}[h]
 	\centering
@@ -115,6 +77,4 @@ Die vielseitigste Generierung von Bildern bietet Image-To-Image-Translation with
 	\label{fig:myexamples}
 \end{figure}
 
-Eine für die Vorbereitung meiner Experimente erforderliche Software ist Blender. Die Software ist kostenlos verfügbar und ermöglicht die Modellierung von 3D-Szenen. Objekte können aus vorgegebenen Würfeln, Zylindern und vielen weiteren Körpern und auch Flächen erstellt, skaliert und mit verschiedenen Werkzeugen verformt werden. Es stehen Lichtquellen zur Verfügung, und eine Szene kann als Bilddatei gespeichert werden. Zur Verwendung der Software gibt es eine große Auswahl an Literatur. In ``The Complete Guide to Blender Graphics Computer Modeling \&  Animation'' \cite{blain2020blender} ist Blender wie folgt beschrieben.
-
-Blender ist ein 3D-Computergrafikprogramm mit Werkzeugen für die Modellierung und Animation von Objekten und Charakteren und zur Erstellung von Hintergrundszenen. Szenen können als Standbilder hergestellt werden. Animierte Sequenzen können für Videoproduktionen genutzt werden. Modelle und Szenen werden durch Farben und Texturen noch aufgewertet, wodurch brillante realistische Effekte produziert werden. Die Standbilder und Videos können als Kunstwerke oder als architektonisch oder wissenschaftliche Präsentationen Anwendung finden. \cite{blain2020blender}
+Eine für die Vorbereitung meiner Experimente erforderliche Software ist Blender. Die Software ist kostenlos verfügbar und ermöglicht die Modellierung von 3D-Szenen. Objekte können aus vorgegebenen Würfeln, Zylindern und vielen weiteren Körpern und auch Flächen erstellt, skaliert und mit verschiedenen Werkzeugen verformt werden. Es stehen Lichtquellen zur Verfügung, und eine Szene kann als Bilddatei gespeichert werden. Zur Verwendung der Software gibt es eine große Auswahl an Literatur. 

@@ -40,10 +40,10 @@ def load(image_file):
 
 
 def resize(input_image, real_image, height, width):
-    input_image = tf.image.resize(input_image, [height, width],
-                                  method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
-    real_image = tf.image.resize(real_image, [height, width],
-                                 method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
+    input_image = tf.image.resize(
+      input_image, [height, width], method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
+    real_image = tf.image.resize(
+      real_image, [height, width], method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
 
     return input_image, real_image
 
@@ -51,11 +51,13 @@ def resize(input_image, real_image, height, width):
 def random_crop(input_image, real_image):
     stacked_image = tf.stack([input_image, real_image], axis=0)
     cropped_image = tf.image.random_crop(
-        stacked_image, size=[2, IMG_HEIGHT, IMG_WIDTH, 3])
+      stacked_image, size=[2, IMG_HEIGHT, IMG_WIDTH, 3]
+    )
 
     return cropped_image[0], cropped_image[1]
-
-
+\end{lstlisting}
+\pagebreak
+\begin{lstlisting}
 # Normalizing the images to [-1, 1]
 def normalize(input_image, real_image):
     input_image = (input_image / 127.5) - 1
@@ -90,8 +92,9 @@ def load_image_train(image_file):
 
 def load_image_test(image_file):
     input_image, real_image = load(image_file)
-    input_image, real_image = resize(input_image, real_image,
-                                     IMG_HEIGHT, IMG_WIDTH)
+    input_image, real_image = resize(
+      input_image, real_image, IMG_HEIGHT, IMG_WIDTH
+    )
     input_image, real_image = normalize(input_image, real_image)
 
     return input_image, real_image
@@ -102,8 +105,15 @@ def downsample(filters, size, apply_batchnorm=True):
 
     result = tf.keras.Sequential()
     result.add(
-        tf.keras.layers.Conv2D(filters, size, strides=2, padding='same',
-                               kernel_initializer=initializer, use_bias=False))
+      tf.keras.layers.Conv2D(
+        filters,
+        size,
+        strides=2,
+        padding='same',
+        kernel_initializer=initializer,
+        use_bias=False
+      )
+    )
 
     if apply_batchnorm:
         result.add(tf.keras.layers.BatchNormalization())
@@ -112,16 +122,21 @@ def downsample(filters, size, apply_batchnorm=True):
 
     return result
 
-
+\end{lstlisting}
+\pagebreak
+\begin{lstlisting}
 def upsample(filters, size, apply_dropout=False):
     initializer = tf.random_normal_initializer(0., 0.02)
 
     result = tf.keras.Sequential()
     result.add(
-        tf.keras.layers.Conv2DTranspose(filters, size, strides=2,
-                                        padding='same',
-                                        kernel_initializer=initializer,
-                                        use_bias=False))
+        tf.keras.layers.Conv2DTranspose(
+            filters, size, strides=2,
+            padding='same',
+            kernel_initializer=initializer,
+            use_bias=False
+        )
+    )
 
     result.add(tf.keras.layers.BatchNormalization())
 
@@ -158,11 +173,14 @@ def build_generator():
     ]
 
     initializer = tf.random_normal_initializer(0., 0.02)
-    last = tf.keras.layers.Conv2DTranspose(OUTPUT_CHANNELS, 4,
-                                           strides=2,
-                                           padding='same',
-                                           kernel_initializer=initializer,
-                                           activation='tanh')  # (batch_size, 256, 256, 3)
+    last = tf.keras.layers.Conv2DTranspose(
+        OUTPUT_CHANNELS,
+        4,
+        strides=2,
+        padding='same',
+        kernel_initializer=initializer,
+        activation='tanh'
+    )  # (batch_size, 256, 256, 3)
 
     x = inputs
 
@@ -174,13 +192,15 @@ def build_generator():
 
     skips = reversed(skips[:-1])
 
+\end{lstlisting}
+\pagebreak
+\begin{lstlisting}
     # Upsampling and establishing the skip connections
     for up, skip in zip(up_stack, skips):
         x = up(x)
         x = tf.keras.layers.Concatenate()([x, skip])
 
     x = last(x)
-
     return tf.keras.Model(inputs=inputs, outputs=x)
 
 
@@ -208,9 +228,13 @@ def build_discriminator():
     down3 = downsample(256, 4)(down2)  # (batch_size, 32, 32, 256)
 
     zero_pad1 = tf.keras.layers.ZeroPadding2D()(down3)  # (batch_size, 34, 34, 256)
-    conv = tf.keras.layers.Conv2D(512, 4, strides=1,
-                                  kernel_initializer=initializer,
-                                  use_bias=False)(zero_pad1)  # (batch_size, 31, 31, 512)
+    conv = tf.keras.layers.Conv2D(
+        512,
+        4,
+        strides=1,
+        kernel_initializer=initializer,
+        use_bias=False
+    )(zero_pad1)  # (batch_size, 31, 31, 512)
 
     batchnorm1 = tf.keras.layers.BatchNormalization()(conv)
 
@@ -218,8 +242,9 @@ def build_discriminator():
 
     zero_pad2 = tf.keras.layers.ZeroPadding2D()(leaky_relu)  # (batch_size, 33, 33, 512)
 
-    last = tf.keras.layers.Conv2D(1, 4, strides=1,
-                                  kernel_initializer=initializer)(zero_pad2)  # (batch_size, 30, 30, 1)
+    last = tf.keras.layers.Conv2D(
+        1, 4, strides=1, kernel_initializer=initializer
+    )(zero_pad2)  # (batch_size, 30, 30, 1)
 
     return tf.keras.Model(inputs=[inp, tar], outputs=last)
 
@@ -247,6 +272,7 @@ def generate_images(model, test_input, tar, image_index):
         # Getting the pixel values in the [0, 1] range to plot.
         plt.imshow(display_list[i] * 0.5 + 0.5)
         plt.axis('off')
+
     plt.savefig('results/' + str(image_index) + '.jpg')
 
 
@@ -258,18 +284,23 @@ def train_step(input_image, target, step):
         disc_real_output = discriminator([input_image, target], training=True)
         disc_generated_output = discriminator([input_image, gen_output], training=True)
 
-        gen_total_loss, gen_gan_loss, gen_l1_loss = generator_loss(disc_generated_output, gen_output, target)
+        gen_total_loss, gen_gan_loss, gen_l1_loss =
+            generator_loss(disc_generated_output, gen_output, target)
         disc_loss = discriminator_loss(disc_real_output, disc_generated_output)
 
-    generator_gradients = gen_tape.gradient(gen_total_loss,
-                                            generator.trainable_variables)
-    discriminator_gradients = disc_tape.gradient(disc_loss,
-                                                 discriminator.trainable_variables)
+    generator_gradients = gen_tape.gradient(
+        gen_total_loss, generator.trainable_variables
+    )
+    discriminator_gradients = disc_tape.gradient(
+        disc_loss, discriminator.trainable_variables
+    )
 
-    generator_optimizer.apply_gradients(zip(generator_gradients,
-                                            generator.trainable_variables))
-    discriminator_optimizer.apply_gradients(zip(discriminator_gradients,
-                                                discriminator.trainable_variables))
+    generator_optimizer.apply_gradients(
+        zip(generator_gradients, generator.trainable_variables)
+    )
+    discriminator_optimizer.apply_gradients(
+        zip(discriminator_gradients, discriminator.trainable_variables)
+    )
 
     with summary_writer.as_default():
         tf.summary.scalar('gen_total_loss', gen_total_loss, step=step // 1000)
@@ -312,16 +343,20 @@ if __name__ == '__main__':
 
     # Adjust this value to the number of training images
     BUFFER_SIZE = 400
-    # The batch size of 1 produced better results for the U-Net in the original pix2pix experiment
+
+    # The batch size of 1 produced better results
+    # for the U-Net in the original pix2pix experiment
     BATCH_SIZE = 1
+
     # Each image is 256x256 in size
     IMG_WIDTH = 256
     IMG_HEIGHT = 256
 
     PATH = '../PIX2PIX/images/combined/candles/'
     train_dataset = tf.data.Dataset.list_files(PATH + 'train/*.png')
-    train_dataset = train_dataset.map(load_image_train,
-                                      num_parallel_calls=tf.data.AUTOTUNE)
+    train_dataset = train_dataset.map(
+      load_image_train, num_parallel_calls=tf.data.AUTOTUNE
+    )
     train_dataset = train_dataset.shuffle(BUFFER_SIZE)
     train_dataset = train_dataset.batch(BATCH_SIZE)
 
@@ -347,18 +382,24 @@ if __name__ == '__main__':
 
     checkpoint_dir = './training_checkpoints'
     checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
-    checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
-                                     discriminator_optimizer=discriminator_optimizer,
-                                     generator=generator,
-                                     discriminator=discriminator)
+    checkpoint = tf.train.Checkpoint(
+        generator_optimizer=generator_optimizer,
+        discriminator_optimizer=discriminator_optimizer,
+        generator=generator,
+        discriminator=discriminator
+    )
 
     log_dir = "logs/"
 
     summary_writer = tf.summary.create_file_writer(
-        log_dir + "fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+        log_dir + "fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    )
 
     fit(train_dataset, test_dataset, steps=40000)
 
+\end{lstlisting}
+\pagebreak
+\begin{lstlisting}
     # Restoring the latest checkpoint in checkpoint_dir
     checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
@@ -369,65 +410,8 @@ if __name__ == '__main__':
         index = index + 1
 
 \end{lstlisting}
-
-\pagebreak
-
-\section{Blender-Python-Script zur Generierung von Tischen}
-\label{blenderpy}
-
-\begin{lstlisting}
-import bpy
-import math
-import random
-
-obj_filepath = '/home/stefan/PycharmProjects/ba/blender/tables/obj/random_table{}.obj'
-render_filepath = '/home/stefan/PycharmProjects/ba/blender/tables/rendered/random_table{}_render{}.jpg'
-
-for tableIndex in range(0, 50):
-    # add table top
-    tableWidth = random.random() * 8 + 6
-    tableHeight = random.random() * .5 + .1
-    tableDepth = random.random() * 4 + 4
-    legLength = random.random() * 4 + 1
-    bpy.ops.mesh.primitive_cube_add(size=1, enter_editmode=False, location=(0, tableHeight / 2 + legLength, 0))
-    bpy.context.object.name = 'Table'
-    bpy.ops.transform.resize(value=(tableWidth, tableHeight, tableDepth), orient_type='GLOBAL', orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)), orient_matrix_type='GLOBAL', constraint_axis=(False, True, False), mirror=True, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=1, use_proportional_connected=False, use_proportional_projected=False)
-    bpy.context.active_object.data.materials.append(bpy.data.materials.get("Wood"))
-
-    # add table legs
-    legWidth = random.random() * .5 + .1
-    legDisplacement = random.random() * 1 + legWidth / 2
-    legDisplacementX = tableWidth / 2 - legDisplacement
-    legDisplacementZ = tableDepth / 2 - legDisplacement
-
-    for legIndex, coords in enumerate([[legDisplacementX, legDisplacementZ], [-legDisplacementX, legDisplacementZ], [legDisplacementX, -legDisplacementZ], [-legDisplacementX, -legDisplacementZ]]):
-        bpy.ops.mesh.primitive_cube_add(size=1, enter_editmode=False, location=(coords[0], legLength / 2, coords[1]))
-        bpy.context.object.name = 'TableLeg' + str(legIndex)
-        bpy.ops.transform.resize(value=(legWidth, legLength, legWidth), orient_type='GLOBAL', orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)), orient_matrix_type='GLOBAL', constraint_axis=(False, True, False), mirror=True, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=1, use_proportional_connected=False, use_proportional_projected=False)
-        bpy.context.active_object.data.materials.append(bpy.data.materials.get("Wood"))
-
-    # export to wavefront obj format
-    bpy.ops.export_scene.obj(filepath = obj_filepath.format(tableIndex))
-
-    # rotate and render
-    bpy.ops.object.select_all(action='DESELECT')
-    bpy.data.objects['Table'].select_set(True)
-    for legIndex in range(0, 4):
-        bpy.data.objects['TableLeg' + str(legIndex)].select_set(True)
-    bpy.ops.object.transform_apply(location=False, rotation=True, scale=False)
-    for renderIndex in range(0, 5):
-        # rotate table
-        bpy.ops.transform.rotate(value=math.pi / 5, orient_axis='Y', orient_type='GLOBAL', orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)), orient_matrix_type='GLOBAL', constraint_axis=(False, True, False), mirror=True, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=1, use_proportional_connected=False, use_proportional_projected=False)
-
-        # render
-        bpy.context.scene.render.filepath = render_filepath.format(tableIndex, renderIndex)
-        bpy.ops.render.render(write_still = True)
-
-    #delete objects
-    bpy.ops.object.delete(use_global=False)
-\end{lstlisting}
-
 \vfill
+
 \pagebreak
 
 \section{Python-Script zur Generierung von JPEG-Bilddateien aus NDJSON-Informationen}
@@ -472,4 +456,107 @@ for index, line in enumerate(dataset):
 
     if index == MAX_JPGS:
         break
+\end{lstlisting}
+\vfill
+
+\pagebreak
+
+\section{Blender-Python-Script zur Generierung von Tischen}
+\label{blenderpy}
+
+\begin{lstlisting}
+import bpy
+import math
+import random
+
+obj_filepath = '/home/sberger/blender/tables/obj/random_table{}.obj'
+render_filepath = '/home/sberger/blender/tables/rendered/random_table{}_render{}.jpg'
+
+for tableIndex in range(0, 50):
+    # add table top
+    tableWidth = random.random() * 8 + 6
+    tableHeight = random.random() * .5 + .1
+    tableDepth = random.random() * 4 + 4
+    legLength = random.random() * 4 + 1
+    bpy.ops.mesh.primitive_cube_add(
+      size=1, enter_editmode=False, location=(0, tableHeight / 2 + legLength, 0)
+    )
+    bpy.context.object.name = 'Table'
+    bpy.ops.transform.resize(
+      value=(tableWidth, tableHeight, tableDepth),
+      orient_type='GLOBAL',
+      orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)),
+      orient_matrix_type='GLOBAL',
+      constraint_axis=(False, True, False),
+      mirror=True, use_proportional_edit=False,
+      proportional_edit_falloff='SMOOTH',
+      proportional_size=1,
+      use_proportional_connected=False,
+      use_proportional_projected=False
+    )
+    bpy.context.active_object.data.materials.append(bpy.data.materials.get("Wood"))
+
+    # add table legs
+    legWidth = random.random() * .5 + .1
+    legDisplacement = random.random() * 1 + legWidth / 2
+    legDisplacementX = tableWidth / 2 - legDisplacement
+    legDisplacementZ = tableDepth / 2 - legDisplacement
+
+    for legIndex, coords in enumerate([
+      [legDisplacementX, legDisplacementZ],
+      [-legDisplacementX, legDisplacementZ],
+      [legDisplacementX, -legDisplacementZ],
+      [-legDisplacementX, -legDisplacementZ]
+    ]):
+        bpy.ops.mesh.primitive_cube_add(
+          size=1, enter_editmode=False, location=(coords[0], legLength / 2, coords[1])
+        )
+        bpy.context.object.name = 'TableLeg' + str(legIndex)
+        bpy.ops.transform.resize(
+          value=(legWidth, legLength, legWidth),
+          orient_type='GLOBAL',
+          orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)),
+          orient_matrix_type='GLOBAL',
+          constraint_axis=(False, True, False),
+          mirror=True,
+          use_proportional_edit=False,
+          proportional_edit_falloff='SMOOTH',
+          proportional_size=1,
+          use_proportional_connected=False,
+          use_proportional_projected=False
+        )
+        bpy.context.active_object.data.materials.append(bpy.data.materials.get("Wood"))
+
+    # export to wavefront obj format
+    bpy.ops.export_scene.obj(filepath = obj_filepath.format(tableIndex))
+
+    # rotate and render
+    bpy.ops.object.select_all(action='DESELECT')
+    bpy.data.objects['Table'].select_set(True)
+    for legIndex in range(0, 4):
+        bpy.data.objects['TableLeg' + str(legIndex)].select_set(True)
+    bpy.ops.object.transform_apply(location=False, rotation=True, scale=False)
+    for renderIndex in range(0, 5):
+        # rotate table
+        bpy.ops.transform.rotate(
+          value=math.pi / 5,
+          orient_axis='Y',
+          orient_type='GLOBAL',
+          orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)),
+          orient_matrix_type='GLOBAL',
+          constraint_axis=(False, True, False),
+          mirror=True,
+          use_proportional_edit=False,
+          proportional_edit_falloff='SMOOTH',
+          proportional_size=1,
+          use_proportional_connected=False,
+          use_proportional_projected=False
+        )
+
+        # render
+        bpy.context.scene.render.filepath = render_filepath.format(tableIndex, renderIndex)
+        bpy.ops.render.render(write_still = True)
+
+    #delete objects
+    bpy.ops.object.delete(use_global=False)
 \end{lstlisting}
