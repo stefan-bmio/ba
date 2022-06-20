@@ -177,7 +177,25 @@ Im Discriminator werden paarweise $x$ und $y$ sowie $x$ und $G(z|y)$ als Eingabe
 \cite{mirza2014conditional}
 
 \chapter{Implementierung}
-\label{ch:imple}
+\label{ch:impl}
+
+\section{Github}
+\label{sec:github}
+Die in dieser Arbeit erstellten und verwendeten Implementierungen und Dateien sind im Github-Repository stefan-bmio/ba\footnote{\href{https://github.com/stefan-bmio/ba}{https://github.com/stefan-bmio/ba}} abgelegt.
+
+Das wichtigste Verzeichnis heißt \lstinline|PIX2PIX_keras|. Es enthält die Implementierung der Image-To-Image-Translation, die ich für meine Experimente genutzt habe. Sie wird im Abschnitt~\ref{ch:impl}.\ref{sec:pix2pix} beschrieben. Das Verzeichnis \lstinline|PIX2PIX_keras/results| enthält weitere Unterverzeichnisse mit den Zwischen- und Endergebnissen der Trainings.
+
+In den Unterverzeichnissen von \lstinline|training-images| befinden sich die Trainingsdaten aller durchgeführten Experimente. Meistens handelt es sich dabei um Paare einer Skizze und eines gerenderten Blender-Modells. Es befinden sich darunter aber auch Ergebnisse einer Kantenerkennung, mit denen anfangs ebenfalls experimentiert wurde. Die Handskizzen waren am Ende jedoch die praxisnäheren und deshalb sinnvolleren Trainingseingaben.
+
+Im Verzeichnis \lstinline|PIX2PIX| befindet sich eine weitere Implementierung der Image-To-Image-Translation. Sie ist dem Github-Repository affinelayer/pix2pix-tensorflow\footnote{\href{https://github.com/affinelayer/pix2pix-tensorflow/blob/master/pix2pix.py}{https://github.com/affinelayer/pix2pix-tensorflow/blob/master/pix2pix.py}} entnommen. Die Ergebnisse dieser Implementierung, zu finden unter \lstinline|PIX2PIX/result/images|, waren zu Beginn der Arbeit überzeugend. Deshalb wurde der Ansatz auch weiter verfolgt. Aufgrund schwacher Performance in Bezug auf den Arbeitsspeicher war es aber vorteilhafter, die andere Implementierung zu verwenden.
+
+Das Repository enthält weiterhin drei NDJSON-Dateien des Google Quick-Draw-Datasets. In Abschnitt \ref{ch:conduct}.\ref{sec:preparation} wird auf dieses Dataset genauer eingegangen. Aus diesen Dateien wie auch aus denen des Verzeichnisses \lstinline|blender| wurden die Trainingsdaten für das künstliche neuronale Netz erstellt. Blender wird in Abschnitt \ref{ch:conduct}.\ref{sec:inputdata} vorgestellt.
+
+Die zwei Verzeichnisse \lstinline|HED| und \lstinline|NST| enthalten Implementierungen der Holistically-Nested Edge Detection\cite{xie2015hed} beziehungsweise Neural Style Transfer \cite{gatys2015nst}. Beide generieren auf ihre eigene Weise Bilder mittels künstlicher neuronaler Netze, konnten in Bezug auf die Zielsetzung dieser Arbeit aber schließlich nicht überzeugen. Das Verzeichnis \lstinline|canny| beinhaltet die Implementierung der Canny Edge Detection \cite{canny1986edge}.
+
+In dem Verzeichnis \lstinline|video| befindet sich ein Arbeitsbereich zur Erstellung zweier Videos, in denen ein Teil meiner Arbeit veranschaulichend dokumentiert werden sollte. Nur das eine der beiden Videos mit dem Dateinamen \lstinline|video2_720p.mp4| ist fertiggestellt. Der Fokus der Arbeit lag natürlich auf den praktischen Ergebnissen und dem schriftlichen Teil.
+
+Im Verzeichnis \lstinline|bib| befinden sich einige Downloads von wissenschaftlichen Artikeln und Büchern im PDF-Format. Das Verzeichnis \lstinline|pdf| beinhaltet die Dateien, mit denen der schriftliche Teil, also dieses Dokument, erstellt wurde.
 
 \section{Ubuntu Linux}
 \label{sec:ubuntu}
@@ -225,7 +243,7 @@ Zusätzlich zu der Sprache für das Schreiben von Code für die GPU stellt NVIDI
 \label{sec:pix2pix}
 Der Image-To-Image-Translation-Algorithmus oder kurz Pix2Pix-Algorithmus verwendet ein GAN, um Bilder in Bilder zu übersetzen. Dafür kommen zwei CNNs zum Einsatz, nämlich eins für den Generator und eins für den Discriminator. \cite{isola2018imagetoimage}
 
-Die Datei \hyperref[pix2pixpy]{main.py befindet sich im Anhang 1}. Es ist eine Beispielimplementierung zum Artikel ``Image-to-Image Translation with Conditional Adversarial Networks'' \cite{isola2018imagetoimage} und ist im Github-Repository tensorflow/docs\footnote{\href{https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb}{https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb}} zu finden. Für meine Experimente habe ich hauptsächlich diese Implementierung verwendet. Sie wurde für die erste Hauptversion von Tensorflow geschrieben und war zunächst mit meinem Setup nicht ausführbar. Deshalb folgen den Import-Anweisungen am Anfang des Python-Skripts weitere Imports und Konfigurationen, um die Kompatibilität herzustellen. Im Verlauf des Programmes wird dann die erste Tensorflow-Version genutzt.
+Die Datei \hyperref[pix2pixpy]{main.py befindet sich im Anhang \ref{pix2pixpy}}. Es ist eine Beispielimplementierung zum Artikel ``Image-to-Image Translation with Conditional Adversarial Networks'' \cite{isola2018imagetoimage} und ist im Github-Repository tensorflow/docs\footnote{\href{https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb}{https://github.com/tensorflow/docs/blob/master/site/en/tutorials/generative/pix2pix.ipynb}} zu finden. Für meine Experimente habe ich hauptsächlich diese Implementierung verwendet. Sie wurde für die erste Hauptversion von Tensorflow geschrieben und war zunächst mit meinem Setup nicht ausführbar. Deshalb folgen den Import-Anweisungen am Anfang des Python-Skripts weitere Imports und Konfigurationen, um die Kompatibilität herzustellen. Im Verlauf des Programmes wird dann die erste Tensorflow-Version genutzt.
 
 Eine weitere Änderung ist das selbst erstellte Dataset, das statt der im Beispiel verwendeten Gebäudefassaden geladen wird. Es wurden auch Ausgaben entfernt, wegen derer die Ausführung des Skriptes unterbrochen wurde. Dabei wurden Bildinformationen und Beispielbilder nach dem Laden des Datasets, dem Aufteilen in Eingabebild und Ground Truth, der Erzeugung von Bildrauschen, Down- und Upsampling sowie den ersten Trainingsdurchläufen ausgegeben, die während des Trainings der Skizzen- und Renderbilder nicht betrachtet werden mussten. Außerdem wurden in der Original-Implementierung bei jedem Training Diagramme des Generators und des Discriminators erzeugt.
 
@@ -285,8 +303,7 @@ Es werden auch einige Parameter wie die Bildgröße und die Größe des Training
 
 \section{Vorbereitung der vorhandenen Eingabedaten}
 \label{sec:preparation}
-Die Trainingsdaten liegen für das ``Quick, Draw!''-Dataset im NDJSON-Format und als Blender-Dateien beziehungsweise
-Wavefront OBJ-Dateien vor. Die effizienteste Möglichkeit, die Skizzen und 3D-Modelle für die Verarbeitung in einem CNN vorzubereiten, ist das Rendern und  Speichern als Bilddateien. Als Dateiformat kommen JPEG oder PNG infrage. Beide Formate können leicht als Trainingsset mit Tensorflow geladen werden.
+Die Trainingsdaten liegen für das ``Quick, Draw!''-Dataset im NDJSON-Format und als Blender-Dateien vor. Die effizienteste Möglichkeit, die Skizzen und 3D-Modelle für die Verarbeitung in einem CNN vorzubereiten, ist das Rendern und  Speichern als Bilddateien. Als Dateiformat kommen JPEG oder PNG infrage. Beide Formate können leicht als Trainingsset mit Tensorflow geladen werden.
 
 Das ``Quick, Draw!''-Dataset steht unter der Creative-Commons-Lizenz CC BY 4.0. Eine Zusammenfassung der Lizenz ist auf creativecommons.org\footnote{\href{https://creativecommons.org/licenses/by/4.0/}{https://creativecommons.org/licenses/by/4.0/}} nachzulesen. Der Urheber ist Google, Inc. und das Material kann dem Github-Repository googlecreativelab/quickdraw-dataset\footnote{\href{https://github.com/googlecreativelab/quickdraw-dataset}{https://github.com/googlecreativelab/quickdraw-dataset}} entnommen werden. An dem Material in dem Dataset wurden durch mich keine Änderungen durchgeführt. Die Lizenz erfordert, dass diese Informationen genannt werden, was somit geschehen ist.
 
@@ -294,7 +311,7 @@ NDJSON steht für Newline Delimited JavaScript Object Notation. Die Spezifikatio
 
 Der relevanteste Teil ist die ``Drawings''-Eigenschaft der JSON-Objekte, ein mehrdimensionales Array mit Bildkoordinaten. Es enthält mindestens X-Koordinaten und Y-Koordinaten in jeweils einem Array im ``Drawings''-Array. Indem Linien zwischen den Bildkoordinaten in der Reihenfolge der Arrayelemente in ein Bild gezeichnet und in einer Bilddatei gespeichert werden, können die Zeichnungen in beliebigen Bilddateiformaten gespeichert werden. Für diese Arbeit wurde die Konvertierung ebenfalls in Python implementiert.
 
-Die Implementierung im \hyperref[ndjsonpy]{Skript im Anhang 2} beginnt mit den erforderlichen Importen, unter anderem um JSON zu dekodieren und Dateien im JPEG-Format erstellen zu können. Anschließend wird die Anzahl der zu konvertierenden Dateien festgelegt und die NDJSON-Datei als Tensorflow-Dataset vorbereitet.
+Die Implementierung im \hyperref[ndjsonpy]{Skript im Anhang \ref{ndjsonpy}} beginnt mit den erforderlichen Importen, unter anderem um JSON zu dekodieren und Dateien im JPEG-Format erstellen zu können. Anschließend wird die Anzahl der zu konvertierenden Dateien festgelegt und die NDJSON-Datei als Tensorflow-Dataset vorbereitet.
 
 In einer Schleife wird nun über die Zeilen der NDJSON-Datei iteriert. Zuerst wird der Fortschritt des Skripts auf der Konsole ausgegeben. Die nächste Zeile des Datasets wird in ein Python-Objekt dekodiert, und die ``Drawing''-Eigenschaft, in der die gezogenen Linien enthalten sind, in einer Variablen abgelegt.
 
@@ -317,7 +334,7 @@ Ein ebenso wichtiger wie aufwendiger Vorgang ist die Klassifizierung der Trainin
 \section{Erstellung eigener Eingabedaten}
 \label{sec:inputdata}
 
-Die Vorteile, die selbst erstellte Eingabedaten bieten, rechtfertigen in dieser Arbeit das Erstellen vieler eigener Eingabebilder. Dafür ist es nicht erforderlich, jedes Bild einzeln von Hand zu erzeugen. Blender verfügt über eine Python-Schnittstelle. Mit ihr ist es möglich, etwa die Ausrichtung eines dreidimensionalen Objekts automatisiert mehrmals zu ändern und jeweils ein Bild zu erstellen, sodass aus einem einzigen Modell mehrere Eingabebilder entstehen. Bei einigen Modellen wie zum Beispiel Tischen konnte sogar die Form aus zufälligen Werten für Höhe, Breite und Tiefe generiert werden.
+Die Vorteile, die selbst erstellte Eingabedaten bieten, rechtfertigen in dieser Arbeit das Erstellen vieler eigener Bilder. Dafür ist es nicht erforderlich, jedes Bild einzeln von Hand zu erzeugen. Blender verfügt über eine Python-Schnittstelle. Mit ihr ist es möglich, etwa die Ausrichtung eines dreidimensionalen Objekts automatisiert mehrmals zu ändern und jeweils ein Bild zu erstellen, sodass aus einem einzigen Modell mehrere Eingabebilder entstehen. Bei einigen Modellen wie zum Beispiel Tischen konnte sogar die Form aus zufälligen Werten für Höhe, Breite und Tiefe generiert werden.
 
 \begin{figure}[h]
 	\centering
@@ -362,7 +379,7 @@ Blender bietet neben 3D-Navigations-Schaltflächen eine große Zahl an Werkzeuge
 Zudem gibt es Szenen-Objekte, die besondere Funktionen besitzen. Neben der Kamera, deren Position und Ausrichtung für das Ergebnisbild entscheidend ist, können auch verschiedenartige Lichtquellen und Spiegel in der Szene platziert werden, die in die Berechnung des Endergebnisses einbezogen werden. Zudem können Animationseffekte wie Feuer, Wasser und Wind erzeugt werden.
 \pagebreak
 
-Es wurde ein Blender-Python-Script entwickelt (s.~\hyperref[blenderpy]{Anhang 3}), um Bilder automatisiert erstellen zu lassen. Das Skript exportiert das Ergebnis als Waveform-OBJ und als JPEG-Bilddatei.
+Es wurde ein Blender-Python-Script entwickelt (s.~\hyperref[blenderpy]{Anhang \ref{blenderpy}}), um Bilder automatisiert erstellen zu lassen. Das Skript exportiert das Ergebnis als Waveform-OBJ und als JPEG-Bilddatei.
 
 Zunächst werden drei Zufallswerte für die Breite, Höhe und Tiefe jeweils der Tischplatte sowie der Tischbeine ermittelt. Für den Abstand der Tischbeine von der Tischkante wird ein weiterer Zufallswert berechnet. Anschließend werden Blender-Standard-Würfel so in der Szene platziert und anhand der Zufallswerte verformt, dass die Form eines Tisches entsteht.
 

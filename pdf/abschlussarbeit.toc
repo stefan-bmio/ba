@@ -1,30 +1,31 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \babel@toc {ngerman}{}
 \contentsline {chapter}{\numberline {1}Einleitung}{1}{chapter.1}%
-\contentsline {section}{\numberline {1)}Ziel der Arbeit}{2}{section.1.1}%
-\contentsline {section}{\numberline {2)}Bisherige Arbeiten}{3}{section.1.2}%
+\contentsline {section}{\numberline {1}Ziel der Arbeit}{2}{section.1.1}%
+\contentsline {section}{\numberline {2}Bisherige Arbeiten}{3}{section.1.2}%
 \contentsline {chapter}{\numberline {2}Modell}{7}{chapter.2}%
-\contentsline {section}{\numberline {1)}Tensoren}{7}{section.2.1}%
-\contentsline {section}{\numberline {2)}Kreuzentropie}{8}{section.2.2}%
-\contentsline {section}{\numberline {3)}Deep Neural Networks}{11}{section.2.3}%
-\contentsline {section}{\numberline {4)}Convolutional Neural Networks}{12}{section.2.4}%
-\contentsline {section}{\numberline {5)}Batch Normalization}{13}{section.2.5}%
-\contentsline {section}{\numberline {6)}U-Net-Architektur}{14}{section.2.6}%
-\contentsline {section}{\numberline {7)}Generative Adversarial Networks}{14}{section.2.7}%
-\contentsline {section}{\numberline {8)}Conditional Generative Adversarial Nets}{15}{section.2.8}%
+\contentsline {section}{\numberline {1}Tensoren}{7}{section.2.1}%
+\contentsline {section}{\numberline {2}Kreuzentropie}{8}{section.2.2}%
+\contentsline {section}{\numberline {3}Deep Neural Networks}{11}{section.2.3}%
+\contentsline {section}{\numberline {4}Convolutional Neural Networks}{12}{section.2.4}%
+\contentsline {section}{\numberline {5}Batch Normalization}{13}{section.2.5}%
+\contentsline {section}{\numberline {6}U-Net-Architektur}{14}{section.2.6}%
+\contentsline {section}{\numberline {7}Generative Adversarial Networks}{14}{section.2.7}%
+\contentsline {section}{\numberline {8}Conditional Generative Adversarial Nets}{15}{section.2.8}%
 \contentsline {chapter}{\numberline {3}Implementierung}{16}{chapter.3}%
-\contentsline {section}{\numberline {1)}Ubuntu Linux}{16}{section.3.1}%
-\contentsline {section}{\numberline {2)}Python}{17}{section.3.2}%
-\contentsline {section}{\numberline {3)}CUDA}{18}{section.3.3}%
-\contentsline {section}{\numberline {4)}Image-To-Image-Translation in Python}{19}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Experimente und Resultate}{23}{chapter.4}%
-\contentsline {section}{\numberline {1)}Vorbereitung der vorhandenen Eingabedaten}{23}{section.4.1}%
-\contentsline {section}{\numberline {2)}Erstellung eigener Eingabedaten}{25}{section.4.2}%
-\contentsline {section}{\numberline {3)}Anwendung herkömmlicher Shader}{27}{section.4.3}%
-\contentsline {section}{\numberline {4)}Hyperparameter}{28}{section.4.4}%
-\contentsline {section}{\numberline {5)}Performancebeobachtungen}{28}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Diskussion}{35}{chapter.5}%
-\contentsline {chapter}{\nonumberline Literatur}{39}{chapter*.18}%
+\contentsline {section}{\numberline {1}Github}{16}{section.3.1}%
+\contentsline {section}{\numberline {2}Ubuntu Linux}{17}{section.3.2}%
+\contentsline {section}{\numberline {3}Python}{18}{section.3.3}%
+\contentsline {section}{\numberline {4}CUDA}{19}{section.3.4}%
+\contentsline {section}{\numberline {5}Image-To-Image-Translation in Python}{20}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Experimente und Resultate}{24}{chapter.4}%
+\contentsline {section}{\numberline {1}Vorbereitung der vorhandenen Eingabedaten}{24}{section.4.1}%
+\contentsline {section}{\numberline {2}Erstellung eigener Eingabedaten}{26}{section.4.2}%
+\contentsline {section}{\numberline {3}Anwendung herkömmlicher Shader}{28}{section.4.3}%
+\contentsline {section}{\numberline {4}Hyperparameter}{29}{section.4.4}%
+\contentsline {section}{\numberline {5}Performancebeobachtungen}{29}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Diskussion}{36}{chapter.5}%
+\contentsline {chapter}{\nonumberline Literatur}{41}{chapter*.18}%
 \babel@toc {ngerman}{}
 \babel@toc {ngerman}{}
 \babel@toc {ngerman}{}
@@ -77,11 +78,14 @@
 \babel@toc {ngerman}{}
 \babel@toc {ngerman}{}
 \babel@toc {ngerman}{}
-\contentsline {chapter}{Bildnachweis}{41}{chapter*.19}%
-\contentsline {chapter}{Abbildungsverzeichnis}{43}{chapter*.19}%
-\contentsline {chapter}{Anhang}{46}{part*.22}%
-\contentsline {chapter}{\numberline {A}Quelltexte}{46}{appendix.A}%
-\contentsline {section}{\numberline {1)}Image-To-Image-Translation main.py}{46}{section.A.1}%
-\contentsline {section}{\numberline {2)}Python-Script zur Generierung von JPEG-Bilddateien aus NDJSON-Informationen}{53}{section.A.2}%
-\contentsline {section}{\numberline {3)}Blender-Python-Script zur Generierung von Tischen}{54}{section.A.3}%
+\babel@toc {ngerman}{}
+\babel@toc {ngerman}{}
+\contentsline {chapter}{Bildnachweis}{43}{chapter*.19}%
+\contentsline {chapter}{Abbildungsverzeichnis}{45}{chapter*.19}%
+\newpage 
+\contentsline {chapter}{Anhang}{48}{part*.22}%
+\contentsline {chapter}{\numberline {A}Quelltexte}{48}{appendix.A}%
+\contentsline {section}{\numberline {1}Image-To-Image-Translation main.py}{48}{section.A.1}%
+\contentsline {section}{\numberline {2}Python-Script zur Generierung von JPEG-Bilddateien aus NDJSON-Informationen}{55}{section.A.2}%
+\contentsline {section}{\numberline {3}Blender-Python-Script zur Generierung von Tischen}{56}{section.A.3}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

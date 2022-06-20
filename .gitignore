@@ -23,6 +23,4 @@ training_checkpoints/
 /video/animations
 video2.mp4
 model*data*
-table.ndjson
-candle.ndjson
 .DS_Store
