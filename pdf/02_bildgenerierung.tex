@@ -96,41 +96,6 @@ Daher wäre die Log-Likelihood-Funktion
 Die Log-Likelihood-Funktion zu maximieren ist identisch mit dem Minimieren von $-l(\theta)$, und daher kann hiermit der beste Wert für $\theta$ gefunden werden.
 \cite{zhang2020dive}
 
-\section{Logistische Regression}
-\label{sec:logreg}
-Ein vergleichsweise einfacher Algorithmus des Maschinellen Lernens ist Logistic Regression oder Softmax Regression. Es lassen sich damit Klassifizierungen durchführen. Bei binären Klassifizierungen werden die Eingaben in zwei Kategorien unterteilt. Häufige Beispiele sind fehlerfreie oder fehlerhafte Produktionsergebnisse, ärztliche Befunde einer bestimmten Krankheit oder Gesundheit und ob in einem Bild ein bestimmtes Objekt vorhanden ist oder nicht.
-
-Bei der Multiclass Logistic Regression werden die Eingaben in mehr als zwei Klassen unterteilt. Es lassen sich damit beispielsweise in einem Bild  verschiedene Arten von Fahrzeugen, Gegenständen oder Tieren unterteilen.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.75\textwidth]{bilder/singlelayernn.png}
-	\caption[Ein-Schicht-NN]{Ein-Schicht-NN (Die Ausgabeschicht wird nicht mitgezählt)}
-	\label{fig:singlelayernn}
-\end{figure}
-
-Logistic Regression kann mit einer einzelnen oder mehreren neuronalen Schichten imlementiert sein. Das künstliche neuronale Netz in \ref{fig:singlelayernn} besitzt eine einzelne aus drei Einheiten bestehende Schicht. Eine Einheit besteht zunächst aus einer differenzierbaren Funktion. Oft ist das eine Multiplikation der Eingaben $X$ mit einer Anzahl lernbaren Parametern $W$ und eine anschließende Addition mit Bias-Werten $b$. Die Ausgabe einer Schicht wird oft mit $\hat{y}$ bezeichnet:
-\begin{align}
-\hat{y} = WX+b
-\end{align}
-
-Dieser folgt eine Aktivierungsfunktion, die dem errechneten Wert einen anderen Wert zuordnet, der entweder nahe $0$ oder nahe $1$ liegt (gelegentlich nahe $-1$ oder nahe $1$). Beispiele für Aktivierungsfunktionen sind Sigmoid:
-\begin{align}
-sig(t) = \frac{1}{1+e^{-t}}
-\end{align}
-
-und Rectified Linear Unit, kurz ReLU:
-\begin{align}
-f(x) = max(0, x)
-\end{align}
-
-oder auch Leaky ReLU:
-\begin{align}
-f(x) = max(0.01x, x)
-\end{align}
-
-In einigen künstlichen neuronalen Netzen werden zusätzlich die Eingaben für jede Schicht normalisiert, wodurch die Minimierung der Verlustfunktion (Gradient Descent) optimiert werden kann.
-
 \section{Deep Neural Networks}
 \label{sec:dnn}
 
