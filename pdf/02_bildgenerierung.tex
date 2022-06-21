@@ -116,7 +116,7 @@ Ein Deep-Learning-Netzwerk ist wie ein mehrstufiger Informations-Destilliations-
 \label{sec:cnn}
 Für Bilddaten verarbeitet ein Convolutional Neural Network, kurz CNN, typischerweise Paare von Tensoren dritter Stufe, nämlich einerseits auf die Eingabedaten und andererseits auf einen sogenannten Filter oder auch Kernel. Die Eingabedaten sind in der ersten Schicht des Netzes die RGB-Pixelinformationen und in allen weiteren konvolutionalen Schichten die Ausgabe der vorherigen Schicht. Ein Filter ist eine Anzahl von trainierbaren Parametern, enthalten in einem Tensor.
 
-Die Form der Tensoren variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs ( \cite{isola2018imagetoimage}, \cite{goodfellow2016deeplearning}, \cite{Lecun99objectrecognition}, \cite{RFB15a}) nimmt die Dimensionalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten.
+Die Form der Tensoren variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs ( \cite{isola2018imagetoimage}, \cite{goodfellow2016deeplearning}, \cite{Lecun99objectrecognition}, \cite{ronneberger2015unet}) nimmt die Dimensionalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten.
 
 Beim Pooling werden aus benachbarten Matrixkoeffizienten meist das Maximum, seltener der Durchschnitt oder andere Aggregierungen gebildet. Auf diese Weise wird das neuronale Netz darauf trainiert die relevanten Informationen zu extrahieren. \cite{goodfellow2016deeplearning}
 
@@ -284,7 +284,7 @@ Schließlich wird in \lstinline|train_step| eine maschinenlesbare Zusammenfassun
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{bilder/tensorboard.png}
-	\caption[TensorBoard]{Im TensorBoard können die Fehlerraten des aktuellen Trainingsdurchlaufs abgelesen oder frühere Trainingsdurchläufe miteinander verglichen werden.}
+	\caption[TensorBoard]{Bildquelle: Tensorflow \cite{tensorflow2015-whitepaper} \\ Im TensorBoard können die Fehlerraten des aktuellen Trainingsdurchlaufs abgelesen oder frühere Trainingsdurchläufe miteinander verglichen werden.}
 	\label{fig:tensorboard}
 \end{figure}
 
@@ -369,7 +369,7 @@ Für das Modellieren ist aber exaktes Arbeiten nötig. Ein 3D-Modellierungsprogr
 	\centering
 	\includegraphics[width=1\textwidth]{bilder/blender.png}
 
-	\caption[Blender-Arbeitsbereich]{Blender bietet verschiedene Perspektiven und Werkzeuge, um komplexe Gebilde präzise zu modellieren. }
+	\caption[Blender-Arbeitsbereich]{Bildquelle: Blender Foundation \\ Blender bietet verschiedene Perspektiven und Werkzeuge, um komplexe Gebilde präzise zu modellieren. }
 
 	\label{fig:blender}
 \end{figure}
@@ -492,11 +492,11 @@ Das GAN-Loss berücksichtigt das Ergebnis des Discriminators, also wie gut diese
 	\centering
 	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_total_loss.png}
 	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/disc_loss.png}
-	\caption[Verlustdiagramm 1]{Die Tensorboard-Diagramme des Gesamtverlusts jeweils für Generator (gen\_total\_loss) und für Discriminator (disc\_loss) }
+	\caption[Verlustdiagramm 1]{Bildquelle: Tensorflow \cite{tensorflow2015-whitepaper} \\ Die Tensorboard-Diagramme des Gesamtverlusts jeweils für Generator (gen\_total\_loss) und für Discriminator (disc\_loss) }
 	\label{fig:pix2pixprogress3}
 	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_l1_loss.png}
 	\includegraphics[width=0.925\textwidth]{bilder/pix2pix_progress/gen_gan_loss.png}
-	\caption[Verlustdiagramm 2]{Die Tensorboard-Diagramme der Generator-Verluste}
+	\caption[Verlustdiagramm 2]{Bildquelle: Tensorflow \cite{tensorflow2015-whitepaper} \\ Die Tensorboard-Diagramme der Generator-Verluste für L1-Loss (gen\_l1\_loss) und Kreuzentropie (gen\_gan\_loss)}
 	\label{fig:pix2pixprogress4}
 \end{figure}
 

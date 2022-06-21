@@ -80,6 +80,8 @@
 \babel@toc {ngerman}{}
 \babel@toc {ngerman}{}
 \babel@toc {ngerman}{}
+\babel@toc {ngerman}{}
+\babel@toc {ngerman}{}
 \contentsline {chapter}{Bildnachweis}{43}{chapter*.19}%
 \contentsline {chapter}{Abbildungsverzeichnis}{45}{chapter*.19}%
 \newpage 
