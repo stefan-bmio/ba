@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.13)  21 JUN 2022 13:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.3.13)  21 JUN 2022 13:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2463,22 +2463,22 @@ Package cleveref Info: loaded `ngerman' language definitions on input line 381.
 Package cleveref Info: loaded `ngerman' language definitions on input line 400.
 
  [28]
-<bilder/pix2pix_progress/progress_tables.png, id=425, 741.4902pt x 247.1634pt>
-File: bilder/pix2pix_progress/progress_tables.png Graphic file (type png)
-<use bilder/pix2pix_progress/progress_tables.png>
-Package pdftex.def Info: bilder/pix2pix_progress/progress_tables.png  used on i
-nput line 418.
-(pdftex.def)             Requested size: 450.69174pt x 150.2339pt.
+<bilder/pix2pix_progress/394_input.png, id=425, 513.92pt x 256.96pt>
+File: bilder/pix2pix_progress/394_input.png Graphic file (type png)
+<use bilder/pix2pix_progress/394_input.png>
+Package pdftex.def Info: bilder/pix2pix_progress/394_input.png  used on input l
+ine 418.
+(pdftex.def)             Requested size: 360.55476pt x 180.27853pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<bilder/pix2pix_progress/394_input.png, id=426, 513.92pt x 256.96pt>
-File: bilder/pix2pix_progress/394_input.png Graphic file (type png)
-<use bilder/pix2pix_progress/394_input.png>
-Package pdftex.def Info: bilder/pix2pix_progress/394_input.png  used on input l
-ine 425.
-(pdftex.def)             Requested size: 360.55476pt x 180.27853pt.
+<bilder/pix2pix_progress/progress_tables.png, id=426, 741.4902pt x 247.1634pt>
+File: bilder/pix2pix_progress/progress_tables.png Graphic file (type png)
+<use bilder/pix2pix_progress/progress_tables.png>
+Package pdftex.def Info: bilder/pix2pix_progress/progress_tables.png  used on i
+nput line 425.
+(pdftex.def)             Requested size: 450.69174pt x 150.2339pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -2501,8 +2501,8 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 Package cleveref Info: loaded `ngerman' language definitions on input line 444.
 
-[30 <./bilder/pix2pix_progress/progress_tables.png> <./bilder/pix2pix_progress/
-394_input.png (PNG copy)>]
+[30 <./bilder/pix2pix_progress/394_input.png (PNG copy)> <./bilder/pix2pix_prog
+ress/progress_tables.png>]
 <bilder/pix2pix_progress/table_result_orientation1.png, id=445, 1084.05pt x 361
 .35pt>
 File: bilder/pix2pix_progress/table_result_orientation1.png Graphic file (type 
@@ -2994,7 +2994,7 @@ blic/libertine/LinLibertineMTO.pfb></usr/local/texlive/2021/texmf-dist/fonts/ty
 pe1/public/libertine/LinLibertineT.pfb></usr/local/texlive/2021/texmf-dist/font
 s/type1/public/libertine/LinLibertineTB.pfb></usr/local/texlive/2021/texmf-dist
 /fonts/type1/public/libertine/LinLibertineTI.pfb>
-Output written on abschlussarbeit.pdf (63 pages, 4354233 bytes).
+Output written on abschlussarbeit.pdf (63 pages, 4354215 bytes).
 PDF statistics:
  1462 PDF objects out of 1728 (max. 8388607)
  1305 compressed objects within 14 object streams

@@ -116,7 +116,7 @@ Ein Deep-Learning-Netzwerk ist wie ein mehrstufiger Informations-Destilliations-
 \label{sec:cnn}
 Für Bilddaten verarbeitet ein Convolutional Neural Network, kurz CNN, typischerweise Paare von Tensoren dritter Stufe, nämlich einerseits auf die Eingabedaten und andererseits auf einen sogenannten Filter oder auch Kernel. Die Eingabedaten sind in der ersten Schicht des Netzes die RGB-Pixelinformationen und in allen weiteren konvolutionalen Schichten die Ausgabe der vorherigen Schicht. Ein Filter ist eine Anzahl von trainierbaren Parametern, enthalten in einem Tensor.
 
-Die Form der Tensoren variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs ( \cite{isola2018imagetoimage}, \cite{goodfellow2016deeplearning}, \cite{Lecun99objectrecognition}, \cite{ronneberger2015unet}) nimmt die Dimensionalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten.
+Die Form der Tensoren variiert üblicherweise zwischen den verschiedenen Schichten des Netzes. In fast allen CNNs (\cite{isola2018imagetoimage}, \cite{goodfellow2016deeplearning}, \cite{Lecun99objectrecognition}, \cite{ronneberger2015unet}) nimmt die Dimensionalität zunächst ab. Die Reduktion kann durch die Konvolution selbst entstehen oder durch Pooling-Schichten.
 
 Beim Pooling werden aus benachbarten Matrixkoeffizienten meist das Maximum, seltener der Durchschnitt oder andere Aggregierungen gebildet. Auf diese Weise wird das neuronale Netz darauf trainiert die relevanten Informationen zu extrahieren. \cite{goodfellow2016deeplearning}
 
@@ -414,17 +414,17 @@ Der Adam Optimierer \cite{kingma2017adam} erhält für die Learning-Rate den Wer
 Das Training umfasst sinnvollerweise 15000 bis 40000 Iterationen. Die Implementierung sieht vor, dass alle 1000 Iterationen ein Zwischenergebnis in Form dreier Bilder gespeichert wird. Das zu speichernde Beispiel kann dabei zufällig gewählt werden, oder es kann der Fortschritt eines einzelnen Input-Target-Paars über die Iterationen hinweg gezeichnet werden.
 
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{bilder/pix2pix_progress/progress_tables.png}
-	\caption[Lernfortschritt am Beispiel von Tischen 1]{Generierte Bilder von Tischen vor dem Training, nach 1000 Iterationen und nach 2000 Iterationen}
-	\label{fig:pix2pixprogress1}
-\end{figure}
-
-\begin{figure}[h]
   \centering
 	\includegraphics[width=0.8\textwidth]{bilder/pix2pix_progress/394_input.png}
   \caption[Quadratischer Tisch]{Ein Beispiel eines Tisches, dessen Textur und Form gelernt werden soll}
   \label{fig:trainingexample}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bilder/pix2pix_progress/progress_tables.png}
+	\caption[Lernfortschritt am Beispiel von Tischen 1]{Generierte Bilder von Tischen vor dem Training, nach 1000 Iterationen und nach 2000 Iterationen}
+	\label{fig:pix2pixprogress1}
 \end{figure}
 
 Abbildung \ref{fig:trainingexample} zeigt beispielhaft eine handgezeichnete Skizze eines Tisches und das erwartete Ergebnis. In diesem Beispiel wird versucht, aus einem vermutlich quadratischen, gänzlich von der Seite gezeichneten Tisch einen quadratischen, von leicht schräg oben betrachteten texturierten Tisch zu generieren.
