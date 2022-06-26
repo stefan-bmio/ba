@@ -13,8 +13,8 @@ Die Verzeichnisse enthalten Literatur, Eingabedaten, ausführbaren Code und Erge
 | PIX2PIX_keras | Beispielimplementierung 2 der Image-To-Image-Translation |
 | bib | PDF-Dokumente verwendeter Literatur |
 | blender | Dateien, die bei der Erstellung der Blender-Modelle entstanden sind
-| canny | Kommandozeilenprogramm zur Anwendung der Canny-Edge-Detection auf Bilder |
-| pdf | Latex- und andere Quelldateien der schriftlichen Arbeit |
+| canny | Canny Edge Detection Kommandozeilenprogramm |
+| pdf | LaTeX- und andere Quelldateien der schriftlichen Arbeit |
 | training-images | Eingabedaten für die Image-To-Image-Translation |
 | video | Animation und Videodokumentation der Experimente |
 
