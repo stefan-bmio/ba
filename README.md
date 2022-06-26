@@ -7,14 +7,14 @@ Die Verzeichnisse enthalten Literatur, Eingabedaten, ausführbaren Code und Erge
 
 | Verzeichnis | Beschreibung |
 | - | - |
+| HED | Implementierung der Holistically-Nested Edge Detection |
+| NST | Implementierung des Neural Style Transfer | 
+| PIX2PIX | Beispielimplementierung 1 der Image-To-Image-Translation | 
+| PIX2PIX_keras | Beispielimplementierung 2 der Image-To-Image-Translation |
 | bib | PDF-Dokumente verwendeter Literatur |
 | blender | Dateien, die bei der Erstellung der Blender-Modelle entstanden sind
 | canny | Kommandozeilenprogramm zur Anwendung der Canny-Edge-Detection auf Bilder |
-| HED | Implementierung der Holistically-Nested Edge Detection |
-| NST | Implementierung des Neural Style Transfer | 
 | pdf | Latex- und andere Quelldateien der schriftlichen Arbeit |
-| PIX2PIX | Beispielimplementierung 1 der Image-To-Image-Translation | 
-| PIX2PIX_keras | Beispielimplementierung 2 der Image-To-Image-Translation |
 | training-images | Eingabedaten für die Image-To-Image-Translation |
 | video | Animation und Videodokumentation der Experimente |
 
